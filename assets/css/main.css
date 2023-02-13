@@ -19,8 +19,9 @@
 /* Colors */
 :root {
   --color-default: #212529;
-  --color-primary: #12ce9c;
+  --color-primary: #5AA64E;
   --color-secondary: #37373f;
+  --color-hover: #4e9044;
 }
 
 /* Smooth scroll behavior */
@@ -42,7 +43,7 @@ a {
 }
 
 a:hover {
-  color: #ec2727;
+  color: var(--color-hover);
   text-decoration: none;
 }
 
@@ -177,7 +178,7 @@ section {
 }
 
 .scroll-top:hover {
-  background: #ec2727;
+  background: var(--color-hover);
   color: #fff;
 }
 
@@ -313,7 +314,7 @@ section {
 .header .btn-book-a-table:hover,
 .header .btn-book-a-table:focus:hover {
   color: #fff;
-  background: rgba(206, 18, 18, 0.8);
+  background: var(--color-hover);
 }
 
 section {
@@ -645,7 +646,7 @@ section {
 .about .play-btn {
   width: 94px;
   height: 94px;
-  background: radial-gradient(var(--color-primary) 50%, rgba(206, 18, 18, 0.4) 52%);
+  background: radial-gradient(var(--color-primary) 50%, rgba(78, 144, 68, 0.4) 52%);
   border-radius: 50%;
   display: block;
   position: absolute;
@@ -671,7 +672,7 @@ section {
   animation-timing-function: steps;
   opacity: 1;
   border-radius: 50%;
-  border: 5px solid rgba(206, 18, 18, 0.7);
+  border: 5px solid var(--color-hover);
   top: -15%;
   left: -15%;
   background: rgba(198, 16, 0, 0);
@@ -822,7 +823,7 @@ section {
 # Stats Counter Section
 --------------------------------------------------------------*/
 .stats-counter {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/stats-bg.jpg") center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/perropopo.jpg") center center;
   background-size: cover;
   padding: 100px 0;
 }
@@ -1311,7 +1312,7 @@ section {
   padding: 12px 15px;
 }
 
-.book-a-table .php-email-form button[type=submit] {
+.book-a-table .php-email-form  button[type=submit] {
   background: var(--color-primary);
   border: 0;
   padding: 14px 60px;
@@ -1321,7 +1322,7 @@ section {
 }
 
 .book-a-table .php-email-form button[type=submit]:hover {
-  background: #ec2727;
+  background: var(--color-hover);
 }
 
 @-webkit-keyframes animate-loading {
@@ -1518,7 +1519,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background: #ec2727;
+  background: var(--color-hover);
 }
 
 @keyframes animate-loading {
@@ -1574,8 +1575,8 @@ section {
 }
 
 .hero .btn-book-a-table:hover {
-  background: rgba(206, 18, 18, 0.8);
-  box-shadow: 0 8px 28px rgba(206, 18, 18, 0.45);
+  background: var(--color-hover);
+  box-shadow: 0 8px 28px var(--color-hover);
 }
 
 .hero .btn-watch-video {
@@ -1599,7 +1600,7 @@ section {
 }
 
 .hero .btn-watch-video:hover i {
-  color: rgba(206, 18, 18, 0.8);
+  color: var(--color-hover);
 }
 
 @media (max-width: 640px) {
@@ -1701,4 +1702,120 @@ section {
 
 .footer .credits a {
   color: #fff;
+}
+
+#modal-login{
+  background: var(--color-primary);
+  border: 0;
+  padding: 14px 60px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+#modal-login :hover {
+  background: var(--color-hover);
+}
+
+/*--------------------------------------------------------------
+# Profie Page
+--------------------------------------------------------------*/
+.header-nav .nav-profile {
+  color: #012970;
+}
+
+.header-nav .nav-profile img {
+  max-height: 36px;
+}
+
+.header-nav .nav-profile span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile .profile-card img {
+  max-width: 120px;
+}
+
+.profile .profile-card h2 {
+  color: var(--color-secondary);
+  font-family: var(--font-primary);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 10px 0 0 0;
+}
+
+.profile .profile-card h3 {
+  font-size: 18px;
+}
+
+.profile .profile-card .social-links a {
+  font-size: 20px;
+  display: inline-block;
+  color: var(--color-secondary);
+  line-height: 0;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.profile .profile-card .social-links a:hover {
+  color: #04ff0c;
+}
+
+.profile .profile-overview .row {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.profile .profile-overview .card-title {
+  color: var(--color-primary);
+}
+
+.profile .profile-overview .label {
+  font-weight: 600;
+  color: var(--color-secondary);
+  font-family: var(--font-secondary);
+}
+
+.profile .profile-edit label {
+  font-weight: 600;
+  color: rgba(1, 41, 112, 0.6);
+}
+
+.profile .profile-edit img {
+  max-width: 120px;
+}
+
+.nav-link{
+  font-family: var(--font-secondary);
+  color: var(--color-secondary);
+}
+
+.nav-link.active{
+  font-family: var(--font-secondary);
+  color: var(--color-primary)!important;
+}
+
+.col-form-label{
+  font-family: var(--font-secondary);
+  color: var(--color-secondary)!important;
+}
+
+.testimonials .profile-form  button[type=submit] {
+  background: var(--color-primary);
+  border: 0;
+  padding: 14px 60px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.testimonials .profile-form button[type=submit]:hover {
+  background: var(--color-hover);
+}
+
+.form-check-input:checked {
+  
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }

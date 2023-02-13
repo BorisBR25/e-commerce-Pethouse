@@ -223,6 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  
+
   /**
    * Animation on scroll function and init
    */
@@ -238,4 +240,22 @@ document.addEventListener('DOMContentLoaded', () => {
     aos_init();
   });
 
+  /**
+   * Buy tickets select the ticket type on click
+   */
+  on('show.bs.modal', '#buy-ticket-modal', function(event) {
+    select('#buy-ticket-modal #ticket-type').value = event.relatedTarget.getAttribute('data-ticket-type')
+  })
+
+  /**
+   * Animation on scroll
+   */
+  window.addEventListener('load', () => {
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    })
+  });
 });
