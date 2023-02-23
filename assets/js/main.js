@@ -242,10 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Buy tickets select the ticket type on click
-   */
+   
   on('show.bs.modal', '#buy-ticket-modal', function(event) {
     select('#buy-ticket-modal #ticket-type').value = event.relatedTarget.getAttribute('data-ticket-type')
-  })
+  })*/
 
   /**
    * Animation on scroll
@@ -259,3 +259,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   });
 });
+
+
+
+// Boton Cargar imagen
+function ing() {
+  console.log('submit');
+  document.querySelector('#input-imagen').click();
+}
