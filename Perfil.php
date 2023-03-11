@@ -1,3 +1,31 @@
+<?php
+session_start();
+$ID=$_SESSION['id'];
+
+include("assets/config/bd.php");
+
+$sentenciaSQL=$conexion->prepare("SELECT * FROM usuario WHERE cedula=$ID");
+$sentenciaSQL->execute();
+$datosUsuario=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+$SQL01=$conexion->prepare("SELECT * FROM mascota WHERE id_usuario=$ID");
+$SQL01->execute();
+$Mascota=$SQL01->fetchAll(PDO::FETCH_ASSOC);
+  // print_r($datosUsuario);
+  // $divi=8/0;
+
+$txtID=$datosUsuario[0]['cedula'];
+$txtNombre=$datosUsuario[0]['nombre'];
+$txtApellido=$datosUsuario[0]['apellido'];
+$txtCorreo=$datosUsuario[0]['correo'];
+$txtTelefono=$datosUsuario[0]['telefono'];
+$txtCiudad=$datosUsuario[0]['ciudad'];
+$txtDireccion=$datosUsuario[0]['direccion'];
+$txtBarrio=$datosUsuario[0]['barrio'];
+$txtImagen=$datosUsuario[0]['imagen'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +70,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="assets/img/logo.png" alt="">
         <h1>PetHouse<span>.</span></h1>
@@ -50,9 +78,9 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="index.html#about">¿Quienes somos?</a></li>
-          <li><a href="index.html#menu">Productos</a></li>
+          <li><a href="index.php">Inicio</a></li>
+          <li><a href="index.php#about">¿Quienes somos?</a></li>
+          <li><a href="index.php#menu">Productos</a></li>
           <!-- <li><a href="#events">Events</a></li> -->
           <!-- <li><a href="#chefs">Chefs</a></li> -->
           <!-- <li><a href="#gallery">Gallery</a></li> -->
@@ -73,28 +101,19 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li> -->
-          <li><a href="index.html#contact">Contactenos</a></li>
+          <li><a href="index.php#contact">Contactenos</a></li>
         </ul>
       </nav><!-- .navbar -->
 
       <nav id="navbar" class="navbar">
         <ul>
           
-          <li class="dropdown"><a href="#"><span>Usuario1</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li class="dropdown"><a href="#"><span>Menú</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
+              <li><a href="#">Historial compras</a></li>
               <li><a href="#">Drop Down 2</a></li>
               <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
+              <li><a href="cerrar.php">Cerrar Sesión</a></li>
             </ul>
           </li>
         </ul>
@@ -122,8 +141,8 @@
               <div class="row">
                 <div class="col-xl-4">
         
-                  <div class="col-lg-9">
-                    <img src="assets/img/icono.avif" class="img-fluid testimonial-img" alt="">
+                  <div class="col-lg-9"> <!-- imagen de perfil -->
+                    <img src="assets/img/perfiles/<?php echo $txtImagen; ?>" class="img-fluid testimonial-img" alt="">
                   </div>
         
                 </div>
@@ -143,12 +162,16 @@
                           <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Editar Perfil</button>
                         </li>
         
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                           <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Configuración</button>
-                        </li>
+                        </li> -->
         
                         <li class="nav-item">
                           <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar Contraseña</button>
+                        </li>
+
+                        <li class="nav-item">
+                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-mascotas">Registrar Mascota</button>
                         </li>
         
                       </ul>
@@ -159,8 +182,8 @@
                           <!-- <h5 class="card-title">Datos Generales</h5> --><br>
         
                           <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">Nombre completo</div>
-                            <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                            <div class="col-lg-3 col-md-4 label ">Nombre completo:</div>
+                            <div class="col-lg-9 col-md-8"><?php echo $txtNombre." ".$txtApellido; ?> </div>
                           </div>
         
                           <!-- <div class="row">
@@ -169,52 +192,70 @@
                           </div> -->
         
                           <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Ciudad</div>
-                            <div class="col-lg-9 col-md-8">Web Designer</div>
+                            <div class="col-lg-3 col-md-4 label">Ciudad:</div>
+                            <div class="col-lg-9 col-md-8"><?php echo $txtCiudad; ?></div>
                           </div>
         
                           <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Barrio</div>
-                            <div class="col-lg-9 col-md-8">USA</div>
+                            <div class="col-lg-3 col-md-4 label">Barrio:</div>
+                            <div class="col-lg-9 col-md-8"><?php echo $txtBarrio; ?></div>
                           </div>
         
                           <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Dirección</div>
-                            <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                            <div class="col-lg-3 col-md-4 label">Dirección:</div>
+                            <div class="col-lg-9 col-md-8"><?php echo $txtDireccion; ?></div>
                           </div>
         
                           <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Telefono</div>
-                            <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                            <div class="col-lg-3 col-md-4 label">Teléfono:</div>
+                            <div class="col-lg-9 col-md-8"><?php echo $txtTelefono; ?></div>
                           </div>
         
                           <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Correo</div>
-                            <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                            <div class="col-lg-3 col-md-4 label">Correo:</div>
+                            <div class="col-lg-9 col-md-8"><?php echo $txtCorreo; ?></div>
                           </div>
         
                         </div>
-        
+
                         <!-- Editar perfil -->
+                        
                         <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-        
+
+                        
                           <!-- Profile Edit Form -->
-                          <form class="profile-form">
+                          <?php  foreach($datosUsuario as $usuario){   ?>
+                          <form class="profile-form" enctype="multipart/form-data">
+
                             <div class="row mb-3">
-                              <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
+                              <label for="foto" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
                               <div class="col-md-8 col-lg-9">
-                                <img src="assets/img/Toph.png" alt="Profile">
+                                <img src="assets/img/perfiles/<?php echo $usuario['imagen']; ?>" alt="Profile">
                                 <div class="pt-2">
                                   <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                                   <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                                 </div>
                               </div>
-                            </div>
-        
+                            </div>                           
+
                             <div class="row mb-3">
-                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre Completo</label>
+                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Documento:</label>
                               <div class="col-md-8 col-lg-9">
-                                <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                                <input name="idE" type="text" readonly class="form-control" id="fullName" value="<?php echo $usuario['cedula']; ?>">
+                              </div>
+                            </div>
+
+                            <div class="row mb-3">
+                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre:</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="nombreE" type="text" class="form-control" id="fullName" value="<?php echo $usuario['nombre']; ?>">
+                              </div>
+                            </div>
+
+                            <div class="row mb-3">
+                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Apellido:</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="nombreE" type="text" class="form-control" id="fullName" value="<?php echo $usuario['apellido']; ?>">
                               </div>
                             </div>
         
@@ -226,73 +267,52 @@
                             </div> -->
         
                             <div class="row mb-3">
-                              <label for="Job" class="col-md-4 col-lg-3 col-form-label">Ciudad</label>
+                              <label for="Job" class="col-md-4 col-lg-3 col-form-label">Ciudad:</label>
                               <div class="col-md-8 col-lg-9">
-                                <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                                <input name="job" type="text" class="form-control" id="Job" value="<?php echo $usuario['ciudad']; ?>">
                               </div>
                             </div>
         
                             <div class="row mb-3">
-                              <label for="Country" class="col-md-4 col-lg-3 col-form-label">Barrio</label>
+                              <label for="Country" class="col-md-4 col-lg-3 col-form-label">Barrio:</label>
                               <div class="col-md-8 col-lg-9">
-                                <input name="country" type="text" class="form-control" id="Country" value="USA">
+                                <input name="country" type="text" class="form-control" id="Country" value="<?php echo $usuario['barrio']; ?>">
                               </div>
                             </div>
         
                             <div class="row mb-3">
-                              <label for="Address" class="col-md-4 col-lg-3 col-form-label">Dirección</label>
+                              <label for="Address" class="col-md-4 col-lg-3 col-form-label">Dirección:</label>
                               <div class="col-md-8 col-lg-9">
-                                <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                                <input name="address" type="text" class="form-control" id="Address" value="<?php echo $usuario['direccion']; ?>">
                               </div>
                             </div>
         
                             <div class="row mb-3">
-                              <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Telefono</label>
+                              <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Teléfono:</label>
                               <div class="col-md-8 col-lg-9">
-                                <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                                <input name="phone" type="text" class="form-control" id="Phone" value="<?php echo $usuario['telefono']; ?>">
                               </div>
                             </div>
         
                             <div class="row mb-3">
-                              <label for="Email" class="col-md-4 col-lg-3 col-form-label">Correo</label>
+                              <label for="Email" class="col-md-4 col-lg-3 col-form-label">Correo:</label>
                               <div class="col-md-8 col-lg-9">
-                                <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                                <input name="email" type="email" readonly class="form-control" id="Email" value="<?php echo $usuario['correo']; ?>">
                               </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
-                              </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
-                              </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                              </div>
-                            </div>
-        
+                            </div>      
+                                    
                             <div class="text-center">
                               <button type="submit" >Guardar Cambios</button>
                             </div>
                           </form><!-- End Profile Edit Form -->
-        
+                          <?php } ?>
                         </div>
         
-                        <!-- Configuracion -->
+                       <!--  Configuracion  -->
                         <div class="tab-pane fade pt-3" id="profile-settings">
         
                           <!-- Settings Form -->
-                          <form class="profile-form">
+                          <!-- <form class="profile-form">
         
                             <div class="row mb-3">
                               <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
@@ -327,7 +347,7 @@
                             <div class="text-center">
                               <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
-                          </form><!-- End settings Form -->
+                          </form>End settings Form -->
         
                         </div>
         
@@ -361,7 +381,120 @@
                               <button type="submit" class="btn btn-primary">Change Password</button>
                             </div>
                           </form><!-- End Change Password Form -->
+                          </div>
+
+                            <!-- insert mascosta -->
+                      <?php
+                        if($_POST){
+
+                        $txtFoto=(isset($_FILES['foto']['name']))?$_FILES['foto']['name']:"";
+                        $txtIDM=(isset($_POST['idM']))?$_POST['idM']:"";
+                        $txtNombreM=(isset($_POST['nombreM']))?$_POST['nombreM']:"";
+                        $txtRaza=(isset($_POST['raza']))?$_POST['raza']:"";
+                        $txtColor=(isset($_POST['colorM']))?$_POST['colorM']:"";
+                        $txtSexo=(isset($_POST['sexoM']))?$_POST['sexoM']:"";
+                        $txtDescripcion=(isset($_POST['descripcion']))?$_POST['descripcion']:"";
+                                                
+                        include("assets/config/bd.php");
+
+                            //validación si existe en base de datos
+
+                            $sentenciaSQL=$conexion->prepare("SELECT * FROM sitio.mascota where id=$txtIDM and id_usuario=$ID;");
+                            $sentenciaSQL->execute();
+                            $mascotaR=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
+
+                            //si ya esta registrado se ejecuta una alerta
+                            if ($mascotaR!="")
+                            {                
+                                echo '<script> alert("Macota ya registrada ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php#"</script>';
+                            }
+
+                            else{
+
+                                $sentenciaSQL= $conexion->prepare("INSERT INTO `sitio`.`mascota` (`nombre`, `raza`, `sexo`, `color`, `descripcion`,`foto`, `id_usuario`) VALUES (:nombre, :raza, :sexo, :color, :descripcion, :foto, $ID);");
+                                $sentenciaSQL->bindParam(':nombre',$txtNombreM);
+                                $sentenciaSQL->bindParam(':raza',$txtRaza);  
+                                $sentenciaSQL->bindParam(':sexo',$txtSexo);    
+                                $sentenciaSQL->bindParam(':color',$txtColor);
+                                $sentenciaSQL->bindParam(':descripcion',$txtDescripcion);
+             
+                                $fecha= new DateTime();
+                                $nombreFoto=($txtFoto!=="")?$fecha->getTimestamp()."_".$_FILES["foto"]["name"]:"imagen.jpg";
+                                $tmpImagen=$_FILES["foto"]["tmp_name"];
+
+                                if($tmpImagen!=""){
+                                    move_uploaded_file($tmpImagen,"assets/img/mascotas/".$nombreFoto);
+                                }
+
+                                $sentenciaSQL->bindParam(':foto',$nombreFoto);
+                                $sentenciaSQL->execute();
+                               
+                                //header("Location:Perfil.php");
+                            }
+                        }
+
+                      ?>
+
+                        <!-- gestion mascotas -->
+                        <div class="tab-pane fade pt-3" id="profile-mascotas">
+                          
+                          <form class="profile-form" method="POST" enctype="multipart/form-data">
         
+                            <div class="row mb-3">
+                              <label for="nombreM" class="col-md-4 col-lg-3 col-form-label">Nombre</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="nombreM" type="text" class="form-control" id="nombreM">
+                              </div>
+                            </div>
+
+                            <div class="row mb-3">
+                              <label for="idM" class="col-md-4 col-lg-3 col-form-label">N° Documento</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="idM" type="text" class="form-control" id="idM">
+                              </div>
+                            </div>
+        
+                            <div class="row mb-3">
+                              <label for="raza" class="col-md-4 col-lg-3 col-form-label">Raza</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="raza" type="text" class="form-control" id="raza">
+                              </div>
+                            </div>
+        
+                            <div class="row mb-3">
+                              <label for="colorM" class="col-md-4 col-lg-3 col-form-label">Color</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="colorM" type="text" class="form-control" id="colorM">
+                              </div>
+                            </div>
+
+                            <div class="row mb-3">
+                              <label for="sexoM" class="col-md-4 col-lg-3 col-form-label">Sexo</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="sexoM" type="text" class="form-control" id="sexoM">
+                              </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                              <label for="descripcion" class="col-md-4 col-lg-3 col-form-label">Descripción</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="descripcion" type="textarea" class="form-control" id="descripcion">
+                              </div>
+                            </div>
+        
+                            <div class="row mb-3">
+                              <label for="foto" class="col-md-4 col-lg-3 col-form-label">Foto</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input name="foto" type="file" class="form-control" id="foto">
+                              </div>
+                            </div>
+
+                            <div class="text-center">
+                              <button type="submit" class="btn btn-primary">Registrar</button>
+                            </div>
+                          </form><!-- End Mascotas -->
+
+
                         </div>
         
                       </div><!-- End Bordered Tabs -->
@@ -396,66 +529,29 @@
           <h2>Mascotas</h2>
           <p>Tus <span>Mascotas</span> Registradas</p>
         </div>
-
+        
         <div class="row gy-4">
-
+        <?php foreach($Mascota as $pets){?>
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="chef-member">
               <div class="member-img">
-                <img src="assets/img/perrodayan.jpg" class="img-fluid" alt="">
+                <img src="assets/img/mascotas/<?php echo $pets['foto']; ?>" class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href=""><i class="bi-hand-thumbs-up-fill"></i></a>
+                  <a href=""><i class="bi-heart-fill"></i></a>
+                  <a href=""><i class="bi-trash-fill"></i></a>
                 </div>
               </div>
               <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Raza 5</span>
-                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+                <h4><?php echo $pets['nombre'];?></h4>
+                <p>Color: <?php echo $pets['color'];?></p>
+                <span><?php echo $pets['sexo'];?></span>
+                <span><?php echo $pets['raza'];?></span>                
+                <p><?php echo $pets['descripcion'];?></p>
               </div>
-            </div>
+            </div>            
           </div><!-- End Chefs Member -->
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/perroCompleto1.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Raza 1</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
-              </div>
-            </div>
-          </div><!-- End Chefs Member -->
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/perroCompleto2.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>Raza 2</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div><!-- End Chefs Member -->
-
+          <?php }  ?>
         </div>
 
       </div>
@@ -463,73 +559,7 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
 
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div>
-            <h4>Dirección</h4>
-            <p>
-              Calle 104 #69-120<br>
-              Medellín - Colombia<br>
-            </p>
-          </div>
-
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Teléfono</h4>
-            <p>
-              <strong>Teléfono:</strong> +57 314 554 88 55<br>
-              <strong>Correo:</strong> contacto@pethouse.com<br>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Horarios de Atención</h4>
-            <p>
-              <strong>Lunes-Sabado: 11AM </strong> - 6PM<br>
-              Domingos y festivos: Cerrado
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Siguenos</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Pethouse</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-      </div>
-    </div>
-
-  </footer><!-- End Footer -->
-  <!-- End Footer -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -549,3 +579,6 @@
 </body>
 
 </html>
+<?php
+include("footer.php");
+?>

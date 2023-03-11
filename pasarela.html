@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasarela de pago</title>
+</head>
+<body>
+    <header>
+        <h1>PASARELA DE PAGO</h1> <!--clave paypal = Clavepaypal123-->
+    </header>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AZdeHoyF0kM1gaobCz9-45hmxs56i3o_cplYaeoAIAc_RQxZdESygZI1NNYZARti3uaOi9hmAJc9ay9N&currency=USD"> // Replace YOUR_CLIENT_ID with your sandbox client ID
+    </script>
+
+    <div id="paypal-button-container"></div>
+    <script>
+        paypal.Buttons({
+            style:{
+                shape: 'pill',
+                label: 'pay'
+            },
+            createOrder: function(data, actions){
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: 65000
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions){
+                actions.order.capture().then(function(detalles){
+                    console.log(detalles);
+                    
+                });
+            },
+            onCancel: function(data){
+                alert("Pago cancelado");
+            }
+        }).render('#paypal-button-container');
+        
+    </script>
+</body>
+</html>

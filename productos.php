@@ -75,7 +75,7 @@ include("assets/config/bd.php");
 switch($accion){
 
     case "Agregar":
-        $sentenciaSQL= $conexion->prepare("INSERT INTO `sitio`.`productos` (`nombre`, 'categoria', `imagen` ,`precio`,`descripcion`,`proveedor`) VALUES (:nombre,:categoria,:imagen,:precio,:descripcion,:proveedor);");
+        $sentenciaSQL= $conexion->prepare("INSERT INTO `sitio`.`productos` (`nombre`, `imagen` ,`precio`,`descripcion`,`proveedor`,`categoria`) VALUES (:nombre,:imagen,:precio,:descripcion,:proveedor,:categoria);");
         $sentenciaSQL->bindParam(':nombre',$txtNombre);
         $sentenciaSQL->bindParam(':categoria',$txtCategoria);
         $sentenciaSQL->bindParam(':precio',$txtPrecio);
@@ -437,6 +437,7 @@ $listaProveedor=$sentenciaSQL->fetch();
 
       <nav id="navbar" class="navbar">
         <ul>
+        <li><a href="admin.php">Inicio</a></li>
         <li><a href="productos.php">Productos</a></li>
           <li><a href="proveedores.php">Proveedores</a></li>
           <!-- <li><a href="#menu">Productos</a></li> -->
@@ -465,7 +466,7 @@ $listaProveedor=$sentenciaSQL->fetch();
       </nav><!-- .navbar -->
 
       <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#buy-ticket-modal" 
-      data-ticket-type="premium-access" href="">Cerrar Sesión</a>
+      data-ticket-type="premium-access" href="cerrar.php">Cerrar Sesión</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -577,11 +578,11 @@ $listaProveedor=$sentenciaSQL->fetch();
 
   </main><!-- End #main -->
 
-  <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#edit-product-modal" 
+  <!-- <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#edit-product-modal" 
       data-ticket-type="premium-access" href="">Cerrar Sesión</a>
       <button type="submit" value="modificar" name="accion" data-bs-toggle="modal" data-bs-target="#edit-product-modal"
       <?php echo ($accion == "Seleccionar")?"disabled":""; ?> style="color: aliceblue;">Agregar
-      </button>
+      </button> -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

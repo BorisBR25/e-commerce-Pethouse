@@ -324,6 +324,7 @@ $listaProductos=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
       <nav id="navbar" class="navbar">
         <ul>
+        <li><a href="admin.php">Inicio</a></li>
           <li><a href="productos.php">Productos</a></li>
           <li><a href="proveedores.php">Proveedores</a></li>
           <!-- <li><a href="#menu">Productos</a></li> -->
@@ -352,7 +353,7 @@ $listaProductos=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
       </nav><!-- .navbar -->
 
       <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#buy-ticket-modal" 
-      data-ticket-type="premium-access" href="">Cerrar Sesión</a>
+      data-ticket-type="premium-access" href="cerrar.php">Cerrar Sesión</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -440,11 +441,11 @@ $listaProductos=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
   </main><!-- End #main -->
 
-  <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#edit-product-modal" 
+  <!-- <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#edit-product-modal" 
       data-ticket-type="premium-access" href="">Cerrar Sesión</a>
       <button type="submit" value="modificar" name="accion" data-bs-toggle="modal" data-bs-target="#edit-product-modal"
       <?php echo ($accion == "Seleccionar")?"disabled":""; ?> style="color: aliceblue;">Agregar
-      </button>
+      </button> -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

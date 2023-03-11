@@ -28,10 +28,6 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- CSS Extra - Boris -->
-  <link rel="stylesheet" href="assets/css/carritoCSS.css">
-  
-
   <!-- =======================================================
   * Template Name: Yummy - v1.1.0
   * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
@@ -106,37 +102,17 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
           <li><a href="#contact">Contactenos</a></li>
         </ul>
       </nav><!-- .navbar -->
-
-      <!-- =========== ICONO CARRITO =========== -->
-      
-
-      <div class="car-container">
-        
+      <nav id="navbar" class="navbar">
+        <ul>
           
-          
-        <button id="carritoCompras" class="btn-carrito" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  
-          <div class="container" style="padding: 0px">
-            <div class="row">
-              <div class="col-6">
-                  
-                <i class="bi bi-cart2"></i>
-                  
-              </div>
-              <div class="col-3" style="padding: 0px">
-                <span class="counter-products">0</span>
-              </div>
-            </div>
-          </div> 
-        </button>    
-          
-      </div>
-      <!-- =========== FIN ICONO CARRITO =========== -->
-
-      <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#buy-ticket-modal" 
-      data-ticket-type="premium-access" href="">Iniciar Sesión</a>
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+          <li class="dropdown"><a><span>Perfil</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="Perfil.php">Ver Perfil</a></li>
+              <li><a href="cerrar.php">Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
 
     </div>
   </header><!-- End Header -->
@@ -162,90 +138,8 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
   <main id="main">
 
-    <!-- ======= MODAL CARRITO ======= -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu Carrito</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div   class="modal-body">
-            <!-----CART CONTENT-->
-            <div class="cart-content">
-              <!--CART PRODUCTS GO HERE-->
-              
 
-            </div>
-            
-            
-            <div class="total">
-              <div class="total-title">Total<span class="total-price">$0</span></div>
-              
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-second" data-bs-dismiss="modal">Seguir comprando</button>
-            <button type="button" class="btn btn-primary buybutton">Pagar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ======= FIN MODAL CARRITO ======= -->
-
-    <!-- ======= Modal login ======= -->
-    <div id="buy-ticket-modal" class="modal fade">
-      <div class="modal-dialog" role="document"><!--modal-lg-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          
-              <section id="book-a-table" class="book-a-table">
-                <div class="row g-0">
-                  <div class="modal-body">
-                    <div class="section-header">
-                      <h2>PetHouse</h2>
-                      <p>Inicio de Sesión<span>.</span></p>
-                    </div>
-                    <!-- formulario login -->
-                    <div class="row justify-content-center">        
-                      <div class="col-md-8">
-                        <form method="POST" action="login.php" class="">
-                          <div class="form-group">
-                            <input type="email" class="form-control" name="correo" placeholder="Correo">
-                          </div>
-                          <div class="form-group mt-3">
-                            <input type="password" class="form-control" name="contrasena" placeholder="Contraseña">
-                          </div>
-            
-                          <!-- Lista desplegable -->
-                          <!-- <div class="form-group mt-3">
-                            <select id="ticket-type" name="ticket-type" class="form-select">
-                              <option value="">-- Select Your Ticket Type --</option>
-                              <option value="standard-access">Standard Access</option>
-                              <option value="pro-access">Pro Access</option>
-                              <option value="premium-access">Premium Access</option>
-                            </select>
-                          </div> -->
-                          
-                          <div class="text-center mt-3 col align-self-center">
-                            
-                            <button id="botonL" type="submit" style="color: aliceblue;">Iniciar Sesión</button>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="row"></br></div>
-                        <div class="row">
-                            <div class="col s4"></div>
-                            <div class="col s2"><p id="enlaceregistro"><a href="registro.php">Registrarse</a></p></div>
-                            <div class="col s2"><p id="enlaceolvidocontraseña"><a href="#">¿Olvidó su contraseña?</a></p></div>
-                            <div class="col s4"></div>
-                             
-                        </div>                 
-                  </div>          
-                </div>
-              </section><!-- End Book A Table Section -->
+    <!-- End Book A Table Section -->
             </div>
         
           </div>
@@ -352,108 +246,111 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
         
           <div class="tab-pane fade active show" id="collares">
-            <div class="tab-header text-center">
-              <p>Productos</p>
-              <h3>Collares</h3>
-            </div>
-            
+            <?php foreach($listaCollares as $producto){  ?>
+              <div class="tab-header text-center">
+                <p>Productos</p>
+                <h3>Collares</h3>
+              </div>
 
-            <div class="row gy-5">
-              <?php foreach($listaCollares as $producto){  ?>
+              <div class="row gy-5">
+
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
+                  <h4><?php echo $producto['nombre'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
-                  <p class="price product-price">
+                  <p class="price">
                     $ <?php echo $producto['precio'] ?>
                   </p>
-                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
-              
+                
 
-              <?php } ?>
-            </div>
+              </div>
+            <?php } ?>
           </div><!-- End collares Menu Content -->
         
 
         
           <div class="tab-pane fade" id="juguetes">
+          <?php foreach($listaJuguetes as $producto){  ?>
             <div class="tab-header text-center">
               <p>Productos</p>
               <h3>Juguetes</h3>
             </div>
 
             <div class="row gy-5">
-              <?php foreach($listaJuguetes as $producto){  ?>
 
-                <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
-                  <p class="ingredients">
-                  <?php echo $producto['descripcion'] ?>
-                  </p>
-                  <p class="price">
-                    $ <?php echo $producto['precio'] ?>
-                  </p>
-                </div><!-- Menu Item -->
+              <div class="col-lg-4 menu-item">
+                <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
+                <h4><?php echo $producto['nombre'] ?></h4>
+                <p class="ingredients">
+                <?php echo $producto['descripcion'] ?>
+                </p>
+                <p class="price">
+                  $ <?php echo $producto['precio'] ?>
+                </p>
+              </div><!-- Menu Item -->
 
               
 
-              <?php } ?>
             </div>
+        <?php } ?>
           </div><!-- End Juguetes Menu Content -->
 
         
           <div class="tab-pane fade" id="comida">
+          <?php foreach($listaComida as $producto){  ?>
             <div class="tab-header text-center">
               <p>Productos</p>
               <h3>Comida</h3>
             </div>
 
             <div class="row gy-5">
-              <?php foreach($listaComida as $producto){  ?>
-                <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
-                  <p class="ingredients">
-                  <?php echo $producto['descripcion'] ?>
-                  </p>
-                  <p class="price">
-                    $ <?php echo $producto['precio'] ?>
-                  </p>
-                </div><!-- Menu Item -->
 
-              <?php } ?>
+              <div class="col-lg-4 menu-item">
+                <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
+                <h4><?php echo $producto['nombre'] ?></h4>
+                <p class="ingredients">
+                <?php echo $producto['descripcion'] ?>
+                </p>
+                <p class="price">
+                  $ <?php echo $producto['precio'] ?>
+                </p>
+              </div><!-- Menu Item -->
+
+              
+
             </div>
+        <?php } ?>
           </div><!-- End collares Menu Content -->
 
         
           <div class="tab-pane fade" id="accesorios">
+          <?php foreach($listaAccesorios as $producto){  ?>
             <div class="tab-header text-center">
               <p>Productos</p>
               <h3>Accesorios</h3>
             </div>
 
             <div class="row gy-5">
-              <?php foreach($listaAccesorios as $producto){  ?>
-                <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
-                  <p class="ingredients">
-                  <?php echo $producto['descripcion'] ?>
-                  </p>
-                  <p class="price">
-                    $ <?php echo $producto['precio'] ?>
-                  </p>
-                </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
+                <h4><?php echo $producto['nombre'] ?></h4>
+                <p class="ingredients">
+                <?php echo $producto['descripcion'] ?>
+                </p>
+                <p class="price">
+                  $ <?php echo $producto['precio'] ?>
+                </p>
+              </div><!-- Menu Item -->
 
               
 
-              <?php } ?>
             </div>
+        <?php } ?>
           </div><!-- End collares Menu Content -->
 
         </div>
@@ -470,28 +367,28 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Dueños</p>
+              <p>Clients</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Mascotas</p>
+              <p>Projects</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Otra cosa</p>
+              <p>Hours Of Support</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Mascotas Reportadas</p>
+              <p>Workers</p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -714,9 +611,6 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- Scripts Carrito -->
-  <script src="assets/js/productos.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   
   
 
