@@ -48,7 +48,9 @@
         
           <li><a href="productos.php">Productos</a></li>
           <li><a href="proveedores.php">Proveedores</a></li>
-          
+          <li><a href="#">Ver clientes</a></li>
+          <li><a href="#">Ver compras</a></li>
+          <li><a href="Perfil.php">Mi perfil</a></li>         
         
 
           <!-- <li><a href="#events">Events</a></li> -->
@@ -75,35 +77,33 @@
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#buy-ticket-modal" 
-      data-ticket-type="premium-access" href="cerrar.php">Cerrar Sesión</a>
+      <a class="btn-book-a-table"  href="cerrar.php">Cerrar Sesión</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
+      
     </div>
   </header><!-- End Header -->
 
+ 
   <main id="main">
 
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs">
-      
 
-      
-    </div><!-- End Breadcrumbs -->
-
-    <section class="sample-page">
-      <div class="container" data-aos="fade-up">
-
-        <p>
-          You can duplicate this sample page and create any number of inner pages you like!
-        </p>
-
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center section-bg">
+    <div class="container">
+      <div class="row justify-content-between gy-5">
+        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+          <h2 data-aos="fade-up">Bienvenido administrador de PetHouse.</h2>
+          <p data-aos="fade-up" data-aos-delay="100">Aquí podras gestionar los proveedores, productos, clientes compras y mas.</p>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+          <img src="assets/img/perro1.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+        </div>
       </div>
-    </section>
+    </div>
+  </section><!-- End Hero Section -->
 
-  </main><!-- End #main -->
-
+  <main id="main">
   
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -191,4 +191,3 @@ function cartBoxComponent(title,price,imgSrc){
 }
 
 
-

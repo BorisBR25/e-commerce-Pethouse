@@ -42,7 +42,7 @@ if($_POST){
 
                     elseif($txtRol != 1){
                         
-                        header("location:Perfil.php");
+                        header("location:indexCliente.php");
                     }
         }
     }

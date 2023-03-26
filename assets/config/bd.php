@@ -12,6 +12,9 @@ try {
     if($conexion){
        // echo "conectado ... al sistema ";
     }
+    //unset($conexion);
+    //$conexion->close();
+    //die();
 
 }catch(Exception $ex){
     echo $ex->getMessage();
