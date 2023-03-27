@@ -25,12 +25,18 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+  <!-- Hoja de estilos Toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <!-- JQuery Primero -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Toastr.js Después -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  
+
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-
   <!-- CSS Extra - Boris -->
   <link rel="stylesheet" href="assets/css/carritoCSS.css">
-  
 
   <!-- =======================================================
   * Template Name: Yummy - v1.1.0
@@ -42,27 +48,27 @@
 
 <body>
 <?php
-include("assets/config/bd.php");
+  include("assets/config/bd.php");
 
-// Collares
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'collares' ");
-$sentenciaSQL->execute();
-$listaCollares=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+  // Collares
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'collares' ");
+  $sentenciaSQL->execute();
+  $listaCollares=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-// Juguetes
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'juguetes' ");
-$sentenciaSQL->execute();
-$listaJuguetes=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+  // Juguetes
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'juguetes' ");
+  $sentenciaSQL->execute();
+  $listaJuguetes=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-// Comida
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'comida' ");
-$sentenciaSQL->execute();
-$listaComida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+  // Comida
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'comida' ");
+  $sentenciaSQL->execute();
+  $listaComida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-// Accesorios
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'accesorios' ");
-$sentenciaSQL->execute();
-$listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+  // Accesorios
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'accesorios' ");
+  $sentenciaSQL->execute();
+  $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -81,6 +87,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#hero">Inicio</a></li>
+          <li><a href="mapa.php">Mascotas Perdidas</a></li>
           <li><a href="#about">¿Quienes somos?</a></li>
           <li><a href="#menu">Productos</a></li>
           <!-- <li><a href="#events">Events</a></li> -->
@@ -107,30 +114,24 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
         </ul>
       </nav><!-- .navbar -->
 
-      <!-- =========== ICONO CARRITO =========== -->
-      
 
-      <div class="car-container">
-        
-          
-          
-        <button id="carritoCompras" class="btn-carrito" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  
+            <!-- =========== ICONO CARRITO =========== -->      
+
+      <div class="car-container"> 
+        <button id="carritoCompras" class="btn-carrito" data-bs-toggle="modal" data-bs-target="#staticBackdrop">                  
           <div class="container" style="padding: 0px">
             <div class="row">
-              <div class="col-6">
-                  
-                <i class="bi bi-cart2"></i>
-                  
+              <div class="col-6">                  
+                <i class="bi bi-cart2"></i>                  
               </div>
               <div class="col-3" style="padding: 0px">
                 <span class="counter-products">0</span>
               </div>
             </div>
           </div> 
-        </button>    
-          
+        </button> 
       </div>
+
       <!-- =========== FIN ICONO CARRITO =========== -->
 
       <a class="btn-book-a-table" data-bs-toggle="modal" data-bs-target="#buy-ticket-modal" 
@@ -208,6 +209,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                       <h2>PetHouse</h2>
                       <p>Inicio de Sesión<span>.</span></p>
                     </div>
+                    
                     <!-- formulario login -->
                     <div class="row justify-content-center">        
                       <div class="col-md-8">
@@ -227,11 +229,11 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                               <option value="pro-access">Pro Access</option>
                               <option value="premium-access">Premium Access</option>
                             </select>
-                          </div> -->
-                          
+                          </div> -->                        
+
+
                           <div class="text-center mt-3 col align-self-center">
-                            
-                            <button id="botonL" type="submit" style="color: aliceblue;">Iniciar Sesión</button>
+                              <button id="botonL" type="submit" style="color: aliceblue;">Iniciar Sesión</button>
                           </div>
                         </form>
                       </div>
@@ -239,7 +241,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                         <div class="row">
                             <div class="col s4"></div>
                             <div class="col s2"><p id="enlaceregistro"><a href="registro.php">Registrarse</a></p></div>
-                            <div class="col s2"><p id="enlaceolvidocontraseña"><a href="#">¿Olvidó su contraseña?</a></p></div>
+                            <div class="col s2"><p id="enlaceolvidocontraseña"><a href="recuperar.php">¿Olvidó su contraseña?</a></p></div>
                             <div class="col s4"></div>
                              
                         </div>                 
@@ -369,7 +371,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                   <p class="price product-price">
                     $ <?php echo $producto['precio'] ?>
                   </p>
-                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
               
@@ -388,16 +390,16 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="row gy-5">
               <?php foreach($listaJuguetes as $producto){  ?>
-
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
-                  <p class="price">
+                  <p class="price product-price">
                     $ <?php echo $producto['precio'] ?>
                   </p>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
               
@@ -416,14 +418,15 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
             <div class="row gy-5">
               <?php foreach($listaComida as $producto){  ?>
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
-                  <p class="price">
+                  <p class="price product-price">
                     $ <?php echo $producto['precio'] ?>
                   </p>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
               <?php } ?>
@@ -440,14 +443,15 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
             <div class="row gy-5">
               <?php foreach($listaAccesorios as $producto){  ?>
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
-                  <p class="price">
+                  <p class="price product-price">
                     $ <?php echo $producto['precio'] ?>
                   </p>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
               
@@ -470,28 +474,28 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Dueños</p>
+              <p>Clients</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Mascotas</p>
+              <p>Projects</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Otra cosa</p>
+              <p>Hours Of Support</p>
             </div>
           </div><!-- End Stats Item -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Mascotas Reportadas</p>
+              <p>Workers</p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -703,6 +707,40 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
   <div id="preloader"></div>
 
+
+  <!-- TOASTR -->
+  <script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      };
+  
+    function toast() {
+      toastr.success("Articulo agregado al carrito");
+      setTimeout(
+        //() => {location.href = "https://www.example.com";}, 
+        3000,
+      );
+    }
+      
+    
+
+    
+  </script>'
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -717,7 +755,6 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
   <!-- Scripts Carrito -->
   <script src="assets/js/productos.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  
   
 
 </body>

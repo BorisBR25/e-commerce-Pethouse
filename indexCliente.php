@@ -27,6 +27,8 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <!-- CSS Extra - Boris -->
+  <link rel="stylesheet" href="assets/css/carritoCSS.css">
 
   <!-- =======================================================
   * Template Name: Yummy - v1.1.0
@@ -68,7 +70,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="indexCliente.php" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="assets/img/logo.png" alt="">
         <h1>PetHouse<span>.</span></h1>
@@ -102,6 +104,27 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
           <li><a href="#contact">Contactenos</a></li>
         </ul>
       </nav><!-- .navbar -->
+
+<!-- =========== ICONO CARRITO =========== -->      
+
+      <div class="car-container"> 
+        <button id="carritoCompras" class="btn-carrito" data-bs-toggle="modal" data-bs-target="#staticBackdrop">                  
+          <div class="container" style="padding: 0px">
+            <div class="row">
+              <div class="col-6">                  
+                <i class="bi bi-cart2"></i>                  
+              </div>
+              <div class="col-3" style="padding: 0px">
+                <span class="counter-products">0</span>
+              </div>
+            </div>
+          </div> 
+        </button> 
+      </div>
+
+      <!-- =========== FIN ICONO CARRITO =========== -->
+
+
       <nav id="navbar" class="navbar">
         <ul>
           
@@ -138,6 +161,37 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
   <main id="main">
 
+<!-- ======= MODAL CARRITO ======= -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu Carrito</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div   class="modal-body">
+            <!-----CART CONTENT-->
+            <div class="cart-content">
+              <!--CART PRODUCTS GO HERE-->
+              
+
+            </div>
+            
+            
+            <div class="total">
+              <div class="total-title">Total<span class="total-price">$0</span></div>
+              
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-second" data-bs-dismiss="modal">Seguir comprando</button>
+            <button type="button" class="btn btn-primary buybutton">Pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======= FIN MODAL CARRITO ======= -->
 
     <!-- End Book A Table Section -->
             </div>
@@ -246,14 +300,64 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
         
           <div class="tab-pane fade active show" id="collares">
-            <?php foreach($listaCollares as $producto){  ?>
-              <div class="tab-header text-center">
-                <p>Productos</p>
-                <h3>Collares</h3>
-              </div>
+  <div class="tab-header text-center">
+    <p>Productos</p>
+    <h3>Collares</h3>
+  </div>
+  
+  <div class="row gy-5">
+    <?php foreach($listaCollares as $producto){  ?>
+      <div class="col-lg-4 menu-item">
+        <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+        <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
+        <p class="ingredients">
+        <?php echo $producto['descripcion'] ?>
+        </p>
+        <p class="price product-price">
+          $ <?php echo $producto['precio'] ?>
+        </p>
+        <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+      </div><!-- Menu Item -->
 
-              <div class="row gy-5">
+    
 
+    <?php } ?>
+  </div>
+</div><!-- End collares Menu Content -->
+
+<div class="tab-pane fade" id="juguetes">
+            <div class="tab-header text-center">
+              <p>Productos</p>
+              <h3>Juguetes</h3>
+            </div>
+            
+            <div class="row gy-5">
+              <?php foreach($listaJuguetes as $producto){  ?>
+                <div class="col-lg-4 menu-item">
+                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
+                  <p class="ingredients">
+                  <?php echo $producto['descripcion'] ?>
+                  </p>
+                  <p class="price product-price">
+                    $ <?php echo $producto['precio'] ?>
+                  </p>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+                </div><!-- Menu Item -->
+              
+
+              <?php } ?>
+            </div>
+          </div><!-- End Juguetes Menu Content -->
+
+<div class="tab-pane fade" id="comida">
+            <div class="tab-header text-center">
+              <p>Productos</p>
+              <h3>Comida</h3>
+            </div>
+
+            <div class="row gy-5">
+              <?php foreach($listaComida as $producto){  ?>
                 <div class="col-lg-4 menu-item">
                   <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
                   <h4><?php echo $producto['nombre'] ?></h4>
@@ -263,94 +367,38 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                   <p class="price">
                     $ <?php echo $producto['precio'] ?>
                   </p>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
-                
-
-              </div>
-            <?php } ?>
-          </div><!-- End collares Menu Content -->
-        
-
-        
-          <div class="tab-pane fade" id="juguetes">
-          <?php foreach($listaJuguetes as $producto){  ?>
-            <div class="tab-header text-center">
-              <p>Productos</p>
-              <h3>Juguetes</h3>
+              <?php } ?>
             </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                <h4><?php echo $producto['nombre'] ?></h4>
-                <p class="ingredients">
-                <?php echo $producto['descripcion'] ?>
-                </p>
-                <p class="price">
-                  $ <?php echo $producto['precio'] ?>
-                </p>
-              </div><!-- Menu Item -->
-
-              
-
-            </div>
-        <?php } ?>
-          </div><!-- End Juguetes Menu Content -->
-
-        
-          <div class="tab-pane fade" id="comida">
-          <?php foreach($listaComida as $producto){  ?>
-            <div class="tab-header text-center">
-              <p>Productos</p>
-              <h3>Comida</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                <h4><?php echo $producto['nombre'] ?></h4>
-                <p class="ingredients">
-                <?php echo $producto['descripcion'] ?>
-                </p>
-                <p class="price">
-                  $ <?php echo $producto['precio'] ?>
-                </p>
-              </div><!-- Menu Item -->
-
-              
-
-            </div>
-        <?php } ?>
           </div><!-- End collares Menu Content -->
 
         
           <div class="tab-pane fade" id="accesorios">
-          <?php foreach($listaAccesorios as $producto){  ?>
             <div class="tab-header text-center">
               <p>Productos</p>
               <h3>Accesorios</h3>
             </div>
 
             <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                <h4><?php echo $producto['nombre'] ?></h4>
-                <p class="ingredients">
-                <?php echo $producto['descripcion'] ?>
-                </p>
-                <p class="price">
-                  $ <?php echo $producto['precio'] ?>
-                </p>
-              </div><!-- Menu Item -->
+              <?php foreach($listaAccesorios as $producto){  ?>
+                <div class="col-lg-4 menu-item">
+                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
+                  <h4><?php echo $producto['nombre'] ?></h4>
+                  <p class="ingredients">
+                  <?php echo $producto['descripcion'] ?>
+                  </p>
+                  <p class="price">
+                    $ <?php echo $producto['precio'] ?>
+                  </p>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+                </div><!-- Menu Item -->
 
               
 
+              <?php } ?>
             </div>
-        <?php } ?>
           </div><!-- End collares Menu Content -->
 
         </div>
@@ -611,7 +659,9 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  
+   <!-- Scripts Carrito -->
+  <script src="assets/js/productos.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   
 
 </body>
