@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/carritoCSS.css">
+
     <title>Pasarela de pago</title>
 </head>
 <body>
@@ -14,8 +22,39 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AZdeHoyF0kM1gaobCz9-45hmxs56i3o_cplYaeoAIAc_RQxZdESygZI1NNYZARti3uaOi9hmAJc9ay9N&currency=USD"> // Replace YOUR_CLIENT_ID with your sandbox client ID
     </script>
 
-    <div id="paypal-button-container"></div>
+    <div class="row container-fluid">
+        <div class="col-6">
+            <form>
+                <div class="col-6">
+                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre">
+                    <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido">
+                    <input type="email" class="form-control" placeholder="Email" id="inputEmail4">
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Dirección">
+                    <input type="text" class="form-control" placeholder="Ciudad" id="inputCity">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+        <div class="container col-6 pagoContenidoCarrito">
+
+            <div class="total-titulo">Total:<span class="precio-total"></span></div>
+            
+        </div>
+        </div>
+    </div>
+    </div class="row">
+        <div>
+        <div class="col-6">
+        <div id="paypal-button-container"></div>
+        </div>
+    </div>
+</div>
+
     <script>
+        const cartItems = JSON.parse(localStorage.getItem('payInfo'));
+        const totalprice = parseInt(cartItems[0].total.replace("$",""))
+        
+        
         paypal.Buttons({
             style:{
                 shape: 'pill',
@@ -25,7 +64,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: 65000
+                            value: totalprice
                         }
                     }]
                 });
@@ -33,6 +72,20 @@
             onApprove: function(data, actions){
                 actions.order.capture().then(function(detalles){
                     console.log(detalles);
+                    alert('¡Pago completado con exito!')
+                    localStorage.clear();
+                    window.location.href = 'index.php';
+                    let url = 'assets/php/captura.php';
+
+                    return fetch(url,{
+                        method: 'post',
+                        headers:{
+                            'content-type' : 'aplication/jason'
+                        },
+                        body: JSON.stringify({
+                            detalles: detalles
+                        })
+                    })
                     
                 });
             },
@@ -42,5 +95,7 @@
         }).render('#paypal-button-container');
         
     </script>
+    <script src="assets/js/payContent.js"></script>
+    
 </body>
 </html>

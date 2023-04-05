@@ -3,7 +3,7 @@
 $host="localhost";
 $bd="sitio";
 $usuario="root";
-$contrasenia="admin123";
+$contrasenia="1234";
 
 $conexionn=mysqli_connect($host,$usuario,$contrasenia,$bd);
 

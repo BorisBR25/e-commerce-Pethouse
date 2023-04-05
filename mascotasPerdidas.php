@@ -8,18 +8,21 @@
     $txtDescripcionPerdida=(isset($_POST['txtDescripcionPerdida']))?$_POST['txtDescripcionPerdida']:"";
 
     $txtFechaHoraPerdida=(isset($_POST['fechaHoraPerdida']))?$_POST['fechaHoraPerdida']:"";
+    $txtFechaHoraPerdidaMySQL = date('Y-m-d H:i:s', strtotime($txtFechaHoraPerdida));
 
     $txtLatitud=(isset($_POST['txtLatitud']))?$_POST['txtLatitud']:"";
     $txtLongitud=(isset($_POST['txtLongitud']))?$_POST['txtLongitud']:"";
-    
-    $sentenciaSQL= $conexion->prepare("INSERT INTO sitio.mascotaPerdida (idMascota, descripcionPerdida, fechaHoraPerdida, latitud, longitud, estadoAlerta) VALUES (:idMascota, :descripcionPerdida, :fechaHoraPerdida, :latitud, :longitud, 1);");
-    $sentenciaSQL->bindParam(':idMascota',$txtIDMascota);
-    $sentenciaSQL->bindParam(':descripcionPerdida',$txtDescripcionPerdida);
-    $sentenciaSQL->bindParam(':fechaHoraPerdida',$txtFechaHoraPerdida);
-    $sentenciaSQL->bindParam(':latitud',$txtLatitud);
-    $sentenciaSQL->bindParam(':longitud',$txtLongitud);
 
-    $sentenciaSQL->execute();
+    // Prepara la consulta
+    $sentenciaSQL = mysqli_prepare($conexionn, "INSERT INTO sitio.mascotaPerdida (idMascota, descripcionPerdida, fechaHoraPerdida, latitud, longitud, estadoAlerta) VALUES (?, ?, ?, ?, ?, 1);");
+
+    // Vincula las variables a la consulta
+    mysqli_stmt_bind_param($sentenciaSQL, "issdd", $txtIDMascota, $txtDescripcionPerdida, $txtFechaHoraPerdidaMySQL, $txtLatitud, $txtLongitud);
+
+    // Ejecuta la consulta
+    mysqli_stmt_execute($sentenciaSQL);
+
+    header("Location:mapa.php");
   }
 
   
@@ -245,8 +248,8 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>¿Quienes somos?</h2>
-          <p>Conoce más <span>sobre nosotros</span></p>
+          <h2>Crear alerta</h2>
+          <p>Ultima ubicacion de <span>tu mascota</span></p>
         </div>
 
         <div class="row gy-4">
@@ -262,8 +265,8 @@
                 <div class="row g-0">
                   <div class="modal-body">
                     <div class="section-header">
-                      <h2>Administrador</h2>
-                      <p>Agregar Producto<span>.</span></p>
+                      <h2>Formulario</h2>
+                      <p>Info sobre tu mascota<span>.</span></p>
                     </div>
                     <!-- formulario Agregar -->
                     <div class="row justify-content-center">

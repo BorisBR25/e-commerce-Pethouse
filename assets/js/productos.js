@@ -121,7 +121,8 @@ function handle_buyOrder(){
         return;
     } else{
         const cartContent = modalBody.querySelector('.cart-content');
-        cartContent.innerHTML = '';
+        //cartContent.innerHTML = '';
+        payInfo();
         window.location.href="pasarela.html";
     }
 }
@@ -175,6 +176,35 @@ function saveLocal(){
     localStorage.setItem("productCart", JSON.stringify(itemsAdded))
 }
 
+
+//--PAY INFORMATION--
+
+let payContenido = JSON.parse(localStorage.getItem("payInfo")) || [];
+function payInfo() {
+    
+    let product = document.querySelectorAll('.cart-box');
+    let total = document.querySelector('.total-price').innerHTML;
+    
+    for (let i = 0; i < product.length; i++) {
+        let title = product[i].querySelector('.cart-product-title').innerHTML;
+        let price = product[i].querySelector('.cart-price').innerHTML;
+        let imgSrc = product[i].querySelector('.cart-img').src;
+        let quantity = product[i].querySelector('.cart-quantity').value;
+  
+        
+        let payInformation = {
+            title,
+            price,
+            imgSrc,
+            quantity,
+            total
+        }
+        payContenido.push(payInformation);
+    }
+    
+    localStorage.setItem("payInfo", JSON.stringify(payContenido))
+    
+}
 
 //----------------HTML COMPONENTS-----
 function cartBoxComponent(title,price,imgSrc){

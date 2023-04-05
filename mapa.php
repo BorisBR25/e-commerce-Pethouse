@@ -49,7 +49,7 @@
     include("assets/config/bd.php");
 
     // Traer coordenadas
-    $sentenciaSQL=$conexion->prepare("SELECT * FROM mascotaPerdida");
+    $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota INNER JOIN mascotaPerdida ON mascota.id=mascotaPerdida.idMascota;");
     $sentenciaSQL->execute();
     $mascotaPerdida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
     
@@ -247,7 +247,14 @@
 
     const marcadoresPHP = [
       <?php foreach($mascotaPerdida as $mascota){  ?>
-        ['<?php echo $mascota['idPerdida'] ?>', <?php echo $mascota['latitud'] ?>, <?php echo $mascota['longitud'] ?>],
+        [ 
+          '<?php echo $mascota['nombre'] ?>', //--------------- 0
+          <?php echo $mascota['latitud'] ?>, //---------------- 1
+          <?php echo $mascota['longitud'] ?>, //--------------- 2
+          '<?php echo $mascota['foto'] ?>',//------------------ 3
+          '<?php echo $mascota['descripcionPerdida'] ?>',//---- 4
+          '<?php echo $mascota['descripcion'] ?>',//----------- 5
+        ],
       <?php } ?>
     ];
 
@@ -304,10 +311,11 @@
         .addTo(map)
         .bindPopup(`
           <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="assets/img/mascotas/principe.jpg" alt="Card image cap">
+            <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p class="card-text">Descripcion: ${marcadoresPHP[i][5]}</p>
+              <p class="card-text">Detalles perdida: ${marcadoresPHP[i][4]}</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
