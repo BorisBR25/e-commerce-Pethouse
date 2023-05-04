@@ -79,6 +79,7 @@ $txtImagen=$datosUsuario[0]['imagen'];
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="indexCliente.php">Inicio</a></li>
+          <li><a href="mapa.php#mascotasPerdidas">Mascotas Perdidas</a></li>
           <li><a href="indexCliente.php#about">¿Quienes somos?</a></li>
           <li><a href="indexCliente.php#menu">Productos</a></li>
           <!-- <li><a href="#events">Events</a></li> -->
@@ -120,581 +121,582 @@ $txtImagen=$datosUsuario[0]['imagen'];
     </div>
   </header><!-- End Header -->
 
-<!-- ======= Perfil Usuario ======= -->
-<section id="testimonials" class="testimonials section-bg">
-  <div class="container" data-aos="fade-up">
+  <!-- ======= Perfil Usuario ======= -->
+  <section id="testimonials" class="testimonials section-bg">
+    <div class="container" data-aos="fade-up">
 
-    <div class="section-header">
-      <!-- <h2>Testimonials</h2>
-      <p>What Are They <span>Saying About Us</span></p> -->
-    </div>
+      <div class="section-header">
+        <!-- <h2>Testimonials</h2>
+        <p>What Are They <span>Saying About Us</span></p> -->
+      </div>
 
-    <div class="swiper-slide">
-      <div class="testimonial-item">
-        <div class="row gy-4 justify-content-center">
+      <div class="swiper-slide">
+        <div class="testimonial-item">
+          <div class="row gy-4 justify-content-center">
+            
+            <div class="col-lg-12">
+              <!-- ======================= -->
+              <div class="section profile">
+                <div class="row">
+                  <div class="col-xl-4">
           
-          <div class="col-lg-12">
-            <!-- ======================= -->
-            <div class="section profile">
-              <div class="row">
-                <div class="col-xl-4">
-        
-                  <div class="col-lg-9"> <!-- imagen de perfil -->
-                    <img src="assets/img/perfiles/<?php echo $txtImagen; ?>" class="img-fluid testimonial-img" alt="">
+                    <div class="col-lg-9"> <!-- imagen de perfil -->
+                      <img src="assets/img/perfiles/<?php echo $txtImagen; ?>" class="img-fluid testimonial-img" alt="">
+                    </div>
+          
                   </div>
-        
-                </div>
-        
-                <div class="col-xl-8">
-        
-                  <div class="card">
-                    <div class="card-body pt-3">
-                      <!-- Menu -->
-                      <ul class="nav nav-tabs nav-tabs-bordered">
-        
-                        <li class="nav-item">
-                          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Datos Generales</button>
-                        </li>
-        
-                        <li class="nav-item">
-                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Editar Perfil</button>
-                        </li>
-        
-                        <!-- <li class="nav-item">
-                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Configuración</button>
-                        </li> -->
-        
-                        <li class="nav-item">
-                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar Contraseña</button>
-                        </li>
+          
+                  <div class="col-xl-8">
+          
+                    <div class="card">
+                      <div class="card-body pt-3">
+                        <!-- Menu -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+          
+                          <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Datos Generales</button>
+                          </li>
+          
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Editar Perfil</button>
+                          </li>
+          
+                          <!-- <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Configuración</button>
+                          </li> -->
+          
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar Contraseña</button>
+                          </li>
 
-                        <li class="nav-item">
-                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-mascotas">Registrar Mascota</button>
-                        </li>
-        
-                      </ul>
-                      <div class="tab-content pt-2">
-        
-                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                          <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-mascotas">Registrar Mascota</button>
+                          </li>
+          
+                        </ul>
+                        <div class="tab-content pt-2">
+          
+                          <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            
+                            <!-- <h5 class="card-title">Datos Generales</h5> --><br>
+          
+                            <div class="row">
+                              <div class="col-lg-3 col-md-4 label ">Nombre completo:</div>
+                              <div class="col-lg-9 col-md-8"><?php echo $txtNombre." ".$txtApellido; ?> </div>
+                            </div>
+          
+                            <!-- <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Company</div>
+                              <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+                            </div> -->
+          
+                            <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Ciudad:</div>
+                              <div class="col-lg-9 col-md-8"><?php echo $txtCiudad; ?></div>
+                            </div>
+          
+                            <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Barrio:</div>
+                              <div class="col-lg-9 col-md-8"><?php echo $txtBarrio; ?></div>
+                            </div>
+          
+                            <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Dirección:</div>
+                              <div class="col-lg-9 col-md-8"><?php echo $txtDireccion; ?></div>
+                            </div>
+          
+                            <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Teléfono:</div>
+                              <div class="col-lg-9 col-md-8"><?php echo $txtTelefono; ?></div>
+                            </div>
+          
+                            <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Correo:</div>
+                              <div class="col-lg-9 col-md-8"><?php echo $txtCorreo; ?></div>
+                            </div>
+          
+                          </div>
+
+                          <!-- Profile Edit code -->
+
+                          <?php
                           
-                          <!-- <h5 class="card-title">Datos Generales</h5> --><br>
-        
-                          <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">Nombre completo:</div>
-                            <div class="col-lg-9 col-md-8"><?php echo $txtNombre." ".$txtApellido; ?> </div>
-                          </div>
-        
-                          <!-- <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Company</div>
-                            <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
-                          </div> -->
-        
-                          <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Ciudad:</div>
-                            <div class="col-lg-9 col-md-8"><?php echo $txtCiudad; ?></div>
-                          </div>
-        
-                          <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Barrio:</div>
-                            <div class="col-lg-9 col-md-8"><?php echo $txtBarrio; ?></div>
-                          </div>
-        
-                          <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Dirección:</div>
-                            <div class="col-lg-9 col-md-8"><?php echo $txtDireccion; ?></div>
-                          </div>
-        
-                          <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Teléfono:</div>
-                            <div class="col-lg-9 col-md-8"><?php echo $txtTelefono; ?></div>
-                          </div>
-        
-                          <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Correo:</div>
-                            <div class="col-lg-9 col-md-8"><?php echo $txtCorreo; ?></div>
-                          </div>
-        
-                        </div>
+                          if(($_POST) && ($_POST['bandera'] == 1)){
 
-                        <!-- Profile Edit code -->
+                            $txtImagenE=(isset($_FILES['archivo']['name']))?$_FILES['archivo']['name']:"";
+                            $txtNombreE=(isset($_POST['nombreE']))?$_POST['nombreE']:"";
+                            $txtApellidoE=(isset($_POST['apellidoE']))?$_POST['apellidoE']:"";
+                            $txtTelE=(isset($_POST['telE']))?$_POST['telE']:"";   
+                            $txtCiudadE=(isset($_POST['ciudadE']))?$_POST['ciudadE']:"";
+                            $txtDireccionE=(isset($_POST['direccionE']))?$_POST['direccionE']:"";
+                            $txtBarrioE=(isset($_POST['barrioE']))?$_POST['barrioE']:"";
+                            $accion=(isset($_POST['accion']))?$_POST['accion']:"";
 
+                            include("assets/config/bd.php");
+                            
+                                    $instruccionSQL= $conexion->prepare("UPDATE `sitio`.`usuario` SET `nombre` =:nombre, `apellido`=:apellido, `telefono`=:tel, `ciudad`=:ciudad, `direccion`=:direccion,`barrio`=:barrio, `imagen`=:imagen WHERE(`cedula` = $ID);");
+                                    $instruccionSQL->bindParam(':nombre',$txtNombreE);
+                                    $instruccionSQL->bindParam(':apellido',$txtApellidoE);
+                                    $instruccionSQL->bindParam(':tel',$txtTelE);  
+                                    $instruccionSQL->bindParam(':ciudad',$txtCiudadE);    
+                                    $instruccionSQL->bindParam(':direccion',$txtDireccionE);
+                                    $instruccionSQL->bindParam(':barrio',$txtBarrioE);
+
+                                    $fecha= new DateTime();
+                                    $nombreArchivo=($txtImagenE!=="")?$fecha->getTimestamp()."_".$_FILES["archivo"]["name"]:"imagen.jpg";
+
+                                    $tmpImagen=$_FILES["archivo"]["tmp_name"];
+
+                                    if($tmpImagen!=""){
+                                        move_uploaded_file($tmpImagen,"assets/img/perfiles/".$nombreArchivo);
+
+                                    }
+                                    $sentenciaSQL->bindParam(':imagen',$nombreArchivo);
+                                    $instruccionSQL->execute();
+                                                                              
+                                    echo '<script> alert("Cambios registrados con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
+                                  // header("Location:Perfil.php");
+
+                                  if ($accion=="Eliminar"){
+
+                                    $instrucSQL= $conexion->prepare("UPDATE `sitio`.`usuario` SET `imagen` = 'imagen.jpg' WHERE (`cedula` = $ID)");
+                                    $instrucSQL->execute();
+                                    echo '<script> alert("Foto eliminada con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
+                                  }
+                          }  
+                          ?>
+
+                          <!-- Editar perfil formulario-->
+                          
+                          <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                          
+                            <!-- Profile Edit Form -->
+                              
+                            <?php  foreach($datosUsuario as $usuario){   ?>
+
+                            <form method="POST" class="profile-form" enctype="multipart/form-data">
+
+                              <div class="row mb-3">
+                                <label for="txtImagenE" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <img src="assets/img/perfiles/<?php echo $usuario['imagen']; ?>" alt="Profile">
+                                  
+                                  <script>
+                                    function seleccionarArchivo() {
+                                        // Crear un elemento de entrada de archivo invisible
+                                        var input = document.createElement('input');
+                                        input.type = 'file';
+                                        input.style.display = 'none';
+                                        // Añadir el elemento al documento
+                                        document.body.appendChild(input);
+                                        // Activar el selector de archivo
+                                        input.click();
+                                        // Escuchar el evento de cambio del selector de archivo
+                                        input.onchange = function() {
+                                            // Obtener el archivo seleccionado
+                                            var archivo = input.files[0];
+                                            // Enviar el archivo al servidor
+                                            // Aquí deberías enviar el archivo al servidor usando AJAX o un formulario
+                                          };
+                                    }
+                                    </script>
+                                  <div class="pt-2">
+                                    <a type="file" name="accion" class="btn btn-primary btn-sm" title="Subir nueva imagen de perfil" onclick="seleccionarArchivo()"><i class="bi bi-upload"></i></a>
+                                    <a  name="accion" value="Eliminar" class="btn btn-danger btn-sm" title="Eliminar imagen de perfil"><i class="bi bi-trash"></i></a>
+                                  </div>
+                                </div>
+                              </div>   
+                            
+                              <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Documento:</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="idE" type="text" readonly class="form-control" id="fullName" value="<?php echo $usuario['cedula']; ?>">
+                                </div>
+                              </div>
+
+                              <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre:</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="nombreE" type="text" class="form-control" id="fullName" value="<?php echo $usuario['nombre']; ?>">
+                                </div>
+                              </div>
+
+                              <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Apellidos:</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="apellidoE" type="text" class="form-control" id="fullName" value="<?php echo $usuario['apellido']; ?>">
+                                </div>
+                              </div>
+          
+                              <!-- <div class="row mb-3">
+                                <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                                </div>
+                              </div> -->
+          
+
+                              <div class="form-group row mb-3">						
+                              <label for="input-ciudad" class="col-md-4 col-lg-3 col-form-label">Ciudad:</label>
+                              <div class="col-md-8 col-lg-9">
+                              <select name="ciudad" class="form-control" required>
+                                  <option value="<?php echo $usuario['ciudad']; ?>"><?php echo $usuario['ciudad']; ?></option>
+                                    <option value="Medellín">Medellín</option>
+                                    <option value="Envigado">Envigado</option>
+                                    <option value="Itaguí">Itaguí</option>
+                                    <option value="Itaguí">Sabaneta</option>
+                                    <option value="Bello">Bello</option>
+                                    </select>
+                                    </div>
+                                </div>
+          
+                              <div class="row mb-3">
+                                <label for="Country" class="col-md-4 col-lg-3 col-form-label">Barrio:</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="barrioE" type="text" class="form-control" id="Country" value="<?php echo $usuario['barrio']; ?>">
+                                </div>
+                              </div>
+                                      
+                              <div class="row mb-3">
+                                <label for="Address" class="col-md-4 col-lg-3 col-form-label">Dirección:</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="direccionE" type="text" class="form-control" id="Address" value="<?php echo $usuario['direccion']; ?>">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Teléfono:</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="telE" type="number" class="form-control" id="Phone" value="<?php echo $usuario['telefono']; ?>">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="Email" class="col-md-4 col-lg-3 col-form-label">Correo:</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="correoE" type="email" readonly class="form-control" id="Email" value="<?php echo $usuario['correo']; ?>">
+                                </div>
+                              </div>      
+                              <input type="hidden" name="bandera" value="1">     
+                              <div class="text-center">
+                                <button type="submit" >Guardar Cambios</button>
+                              </div>
+                            </form><!-- End Profile Edit Form -->
+                            <?php } ?>
+                          </div>
+          
+                        <!--  Configuracion  -->
+                          <div class="tab-pane fade pt-3" id="profile-settings">
+          
+                            <!-- Settings Form -->
+                            <!-- <form class="profile-form">
+          
+                              <div class="row mb-3">
+                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                                    <label class="form-check-label" for="changesMade">
+                                      Changes made to your account
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                                    <label class="form-check-label" for="newProducts">
+                                      Information on new products and services
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="proOffers">
+                                    <label class="form-check-label" for="proOffers">
+                                      Marketing and promo offers
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                                    <label class="form-check-label" for="securityNotify">
+                                      Security alerts
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+          
+                              <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                              </div>
+                            </form>End settings Form -->
+          
+                          </div>
+
+                          <!-- Cambiar contraseña código php -->
+                          <?php
+  
+                            if(($_POST) && ($_POST['bandera'] == 2)){
+
+                                $txtContrasena1=(isset($_POST['claveC']))?md5($_POST['claveC']):"";
+                                $txtContrasena=(isset($_POST['contrasenaC']))?md5($_POST['contrasenaC']):"";
+                                  
+                                include("assets/config/bd.php");
+                                    
+
+                                    $consultaSQL=$conexion->prepare("SELECT * FROM sitio.usuario where cedula=$ID;");
+                                    $consultaSQL->execute();
+                                    $usuarioC=$consultaSQL->fetch(PDO::FETCH_LAZY);
+                                    $contrasenaC=$usuarioC['contrasena'];
+                    
+                                    if ($txtContrasena1==$contrasenaC)
+                                    {      
+                                      $consultaSQL=$conexion->prepare("UPDATE sitio.usuario SET contrasena=:contrasenia where cedula=$ID;");
+                                      $consultaSQL->bindParam(':contrasenia',$txtContrasena);
+                                      $consultaSQL->execute();
+                                      $usuario=$consultaSQL->fetch(PDO::FETCH_LAZY);
+
+                                        echo '<script> alert("Cambio de contraseña exitoso");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
+                                    }
+                                    else{
+                                      echo '<script> alert("Contraseña incorrecta, intentelo de nuevo");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
+                                    }
+                            }
+                          ?>
+          
+                          <!-- Cambiar contraseña -->
+                          <div class="tab-pane fade pt-3" id="profile-change-password">
+                            <!-- Change Password Form -->
+                            <form method="post" onsubmit="return validarContrasena()" class="profile-form">
+          
+                              <div class="row mb-3">
+                                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Contraseña Actual</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="claveC" type="password" class="form-control" id="">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nueva Contraseña</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input type="password" class="form-control" id="contrasenaC" name="contrasenaC" minlength="8" required>                               
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Confirmar Contraseña</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input type="password" class="form-control" id="confirmarContrasenaC" name="confirmarContrasenaC" minlength="8" required>
+                                </div>
+                              </div>
+                              <input type="hidden" name="bandera" value="2">
+                              <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Cambiar</button>
+                              </div>
+                            </form><!-- End Change Password Form -->
+                            </div>
+                            <script>
+                            function validarContrasena() {
+                              var contrasena = document.getElementById("contrasenaC").value;
+                              var confirmarContrasena = document.getElementById("confirmarContrasenaC").value;
+                              if (contrasena != confirmarContrasena) {
+                                alert("Las contraseñas no coinciden.");
+                                return false;
+                              }
+                              if (contrasena.length < 8) {
+                                alert("La contraseña debe tener al menos 8 caracteres.");
+                                return false;
+                              }
+                              return true;
+                            }
+                            </script>
+
+                              <!-- insert mascosta -->
                         <?php
-                        
-                        if(($_POST) && ($_POST['bandera'] == 1)){
+                          if(($_POST) && ($_POST['bandera'] == 3)){
 
-                          $txtImagenE=(isset($_FILES['archivo']['name']))?$_FILES['archivo']['name']:"";
-                          $txtNombreE=(isset($_POST['nombreE']))?$_POST['nombreE']:"";
-                          $txtApellidoE=(isset($_POST['apellidoE']))?$_POST['apellidoE']:"";
-                          $txtTelE=(isset($_POST['telE']))?$_POST['telE']:"";   
-                          $txtCiudadE=(isset($_POST['ciudadE']))?$_POST['ciudadE']:"";
-                          $txtDireccionE=(isset($_POST['direccionE']))?$_POST['direccionE']:"";
-                          $txtBarrioE=(isset($_POST['barrioE']))?$_POST['barrioE']:"";
-                          $accion=(isset($_POST['accion']))?$_POST['accion']:"";
-
+                          $txtFoto=(isset($_FILES['foto']['name']))?$_FILES['foto']['name']:"";
+                          $txtIDM=(isset($_POST['idM']))?$_POST['idM']:"null";
+                          $txtNombreM=(isset($_POST['nombreM']))?$_POST['nombreM']:"";
+                          $txtRaza=(isset($_POST['raza']))?$_POST['raza']:"";
+                          $txtColor=(isset($_POST['colorM']))?$_POST['colorM']:"";
+                          $txtSexo=(isset($_POST['sexoM']))?$_POST['sexoM']:"";
+                          $txtDescripcion=(isset($_POST['descripcion']))?$_POST['descripcion']:"";
+                          $txtEspecie=(isset($_POST['especie']))?$_POST['especie']:"";
+                  
                           include("assets/config/bd.php");
-                          
-                                  $instruccionSQL= $conexion->prepare("UPDATE `sitio`.`usuario` SET `nombre` =:nombre, `apellido`=:apellido, `telefono`=:tel, `ciudad`=:ciudad, `direccion`=:direccion,`barrio`=:barrio, `imagen`=:imagen WHERE(`cedula` = $ID);");
-                                  $instruccionSQL->bindParam(':nombre',$txtNombreE);
-                                  $instruccionSQL->bindParam(':apellido',$txtApellidoE);
-                                  $instruccionSQL->bindParam(':tel',$txtTelE);  
-                                  $instruccionSQL->bindParam(':ciudad',$txtCiudadE);    
-                                  $instruccionSQL->bindParam(':direccion',$txtDireccionE);
-                                  $instruccionSQL->bindParam(':barrio',$txtBarrioE);
 
+                              //validación si existe en base de datos
+
+                              $sentenciaSQL=$conexion->prepare("SELECT * FROM sitio.mascota where id='$txtIDM' and id_usuario=$ID;");
+                              $sentenciaSQL->execute();
+                              $mascotaR=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
+
+                              //si ya esta registrado se ejecuta una alerta
+                              if ($mascotaR!="")
+                              {                
+                                  echo '<script> alert("Macota ya registrada ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php#"</script>';
+                              }
+
+                              else{
+
+                                  $sentenciaSQL= $conexion->prepare("INSERT INTO `sitio`.`mascota` (`nombre`, `raza`, `sexo`, `color`, `descripcion`,`foto`, `id_usuario`,`especie`) VALUES (:nombre, :raza, :sexo, :color, :descripcion, :foto, $ID, :especie);");
+                                  $sentenciaSQL->bindParam(':nombre',$txtNombreM);
+                                  $sentenciaSQL->bindParam(':raza',$txtRaza);  
+                                  $sentenciaSQL->bindParam(':sexo',$txtSexo);    
+                                  $sentenciaSQL->bindParam(':color',$txtColor);
+                                  $sentenciaSQL->bindParam(':descripcion',$txtDescripcion);
+                                  $sentenciaSQL->bindParam(':especie',$txtEspecie);
+              
                                   $fecha= new DateTime();
-                                  $nombreArchivo=($txtImagenE!=="")?$fecha->getTimestamp()."_".$_FILES["archivo"]["name"]:"imagen.jpg";
-
-                                  $tmpImagen=$_FILES["archivo"]["tmp_name"];
+                                  $nombreFoto=($txtFoto!=="")?$fecha->getTimestamp()."_".$_FILES["foto"]["name"]:"imagen.jpg";
+                                  $tmpImagen=$_FILES["foto"]["tmp_name"];
 
                                   if($tmpImagen!=""){
-                                      move_uploaded_file($tmpImagen,"assets/img/perfiles/".$nombreArchivo);
-
+                                      move_uploaded_file($tmpImagen,"assets/img/mascotas/".$nombreFoto);
                                   }
-                                  $sentenciaSQL->bindParam(':imagen',$nombreArchivo);
-                                  $instruccionSQL->execute();
-                                                                             
-                                  echo '<script> alert("Cambios registrados con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
-                                // header("Location:Perfil.php");
 
-                                if ($accion=="Eliminar"){
-
-                                  $instrucSQL= $conexion->prepare("UPDATE `sitio`.`usuario` SET `imagen` = 'imagen.jpg' WHERE (`cedula` = $ID)");
-                                  $instrucSQL->execute();
-                                  echo '<script> alert("Foto eliminada con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
-                                }
-                        }  
+                                  $sentenciaSQL->bindParam(':foto',$nombreFoto);
+                                  $sentenciaSQL->execute();
+                                
+                                  //header("Location:Perfil.php");
+                                  echo '<script> alert("Mascota registrada con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
+                              }
+                          }                    
                         ?>
 
-                        <!-- Editar perfil formulario-->
-                        
-                        <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-                        
-                          <!-- Profile Edit Form -->
+                          <!-- Registro de mascotas -->
+                          <div class="tab-pane fade pt-3" id="profile-mascotas">
                             
-                          <?php  foreach($datosUsuario as $usuario){   ?>
-
-                          <form method="POST" class="profile-form" enctype="multipart/form-data">
-
-                            <div class="row mb-3">
-                              <label for="txtImagenE" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
-                              <div class="col-md-8 col-lg-9">
-                                <img src="assets/img/perfiles/<?php echo $usuario['imagen']; ?>" alt="Profile">
-                                
-                                <script>
-                                  function seleccionarArchivo() {
-                                      // Crear un elemento de entrada de archivo invisible
-                                      var input = document.createElement('input');
-                                      input.type = 'file';
-                                      input.style.display = 'none';
-                                      // Añadir el elemento al documento
-                                      document.body.appendChild(input);
-                                      // Activar el selector de archivo
-                                      input.click();
-                                      // Escuchar el evento de cambio del selector de archivo
-                                      input.onchange = function() {
-                                          // Obtener el archivo seleccionado
-                                          var archivo = input.files[0];
-                                          // Enviar el archivo al servidor
-                                          // Aquí deberías enviar el archivo al servidor usando AJAX o un formulario
-                                        };
-                                  }
-                                  </script>
-                                <div class="pt-2">
-                                  <a type="file" name="accion" class="btn btn-primary btn-sm" title="Subir nueva imagen de perfil" onclick="seleccionarArchivo()"><i class="bi bi-upload"></i></a>
-                                  <a  name="accion" value="Eliminar" class="btn btn-danger btn-sm" title="Eliminar imagen de perfil"><i class="bi bi-trash"></i></a>
+                            <form class="profile-form" method="POST" enctype="multipart/form-data">
+          
+                              <div class="row mb-3">
+                                <label for="nombreM" class="col-md-4 col-lg-3 col-form-label">Nombre</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="nombreM" type="text" class="form-control" id="nombreM" required>
                                 </div>
                               </div>
-                            </div>   
-                           
-                            <div class="row mb-3">
-                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Documento:</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="idE" type="text" readonly class="form-control" id="fullName" value="<?php echo $usuario['cedula']; ?>">
-                              </div>
-                            </div>
 
-                            <div class="row mb-3">
-                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre:</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="nombreE" type="text" class="form-control" id="fullName" value="<?php echo $usuario['nombre']; ?>">
+                                <div class="form-group row mb-3">              
+                                  <label for="" class="col-md-4 col-lg-3 col-form-label">Especie</label>
+                                    <div class="col-md-8 col-lg-9">
+                                    <select name="especie" class="form-control" required>
+                                      <option value="" ></option>
+                                      <option value="Canino">Canino</option>
+                                      <option value="Felino">Felino</option>
+                                      <option value="Otro">Otro</option>
+                                    </select>
+                                    </div>
                               </div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Apellidos:</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="apellidoE" type="text" class="form-control" id="fullName" value="<?php echo $usuario['apellido']; ?>">
-                              </div>
-                            </div>
-        
-                            <!-- <div class="row mb-3">
-                              <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
-                              <div class="col-md-8 col-lg-9">
-                                <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
-                              </div>
-                            </div> -->
-        
-
-                            <div class="form-group row mb-3">						
-                            <label for="input-ciudad" class="col-md-4 col-lg-3 col-form-label">Ciudad:</label>
-                            <div class="col-md-8 col-lg-9">
-                            <select name="ciudad" class="form-control" required>
-                                <option value="<?php echo $usuario['ciudad']; ?>"><?php echo $usuario['ciudad']; ?></option>
-                                  <option value="Medellín">Medellín</option>
-                                  <option value="Envigado">Envigado</option>
-                                  <option value="Itaguí">Itaguí</option>
-                                  <option value="Itaguí">Sabaneta</option>
-                                  <option value="Bello">Bello</option>
-                                  </select>
-                                  </div>
-							                </div>
-        
-                            <div class="row mb-3">
-                              <label for="Country" class="col-md-4 col-lg-3 col-form-label">Barrio:</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="barrioE" type="text" class="form-control" id="Country" value="<?php echo $usuario['barrio']; ?>">
-                              </div>
-                            </div>
-                                    
-                            <div class="row mb-3">
-                              <label for="Address" class="col-md-4 col-lg-3 col-form-label">Dirección:</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="direccionE" type="text" class="form-control" id="Address" value="<?php echo $usuario['direccion']; ?>">
-                              </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Teléfono:</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="telE" type="number" class="form-control" id="Phone" value="<?php echo $usuario['telefono']; ?>">
-                              </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="Email" class="col-md-4 col-lg-3 col-form-label">Correo:</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="correoE" type="email" readonly class="form-control" id="Email" value="<?php echo $usuario['correo']; ?>">
-                              </div>
-                            </div>      
-                            <input type="hidden" name="bandera" value="1">     
-                            <div class="text-center">
-                              <button type="submit" >Guardar Cambios</button>
-                            </div>
-                          </form><!-- End Profile Edit Form -->
-                          <?php } ?>
-                        </div>
-        
-                       <!--  Configuracion  -->
-                        <div class="tab-pane fade pt-3" id="profile-settings">
-        
-                          <!-- Settings Form -->
-                          <!-- <form class="profile-form">
-        
-                            <div class="row mb-3">
-                              <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                              <div class="col-md-8 col-lg-9">
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                                  <label class="form-check-label" for="changesMade">
-                                    Changes made to your account
-                                  </label>
-                                </div>
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                                  <label class="form-check-label" for="newProducts">
-                                    Information on new products and services
-                                  </label>
-                                </div>
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" id="proOffers">
-                                  <label class="form-check-label" for="proOffers">
-                                    Marketing and promo offers
-                                  </label>
-                                </div>
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                                  <label class="form-check-label" for="securityNotify">
-                                    Security alerts
-                                  </label>
+          
+                              <div class="row mb-3">
+                                <label for="raza" class="col-md-4 col-lg-3 col-form-label">Raza</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="raza" type="text" class="form-control" id="raza">
                                 </div>
                               </div>
-                            </div>
-        
-                            <div class="text-center">
-                              <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </div>
-                          </form>End settings Form -->
-        
-                        </div>
-
-                        <!-- Cambiar contraseña código php -->
-                        <?php
- 
-                          if(($_POST) && ($_POST['bandera'] == 2)){
-
-                              $txtContrasena1=(isset($_POST['claveC']))?md5($_POST['claveC']):"";
-                              $txtContrasena=(isset($_POST['contrasenaC']))?md5($_POST['contrasenaC']):"";
-                                
-                              include("assets/config/bd.php");
-                                  
-
-                                  $consultaSQL=$conexion->prepare("SELECT * FROM sitio.usuario where cedula=$ID;");
-                                  $consultaSQL->execute();
-                                  $usuarioC=$consultaSQL->fetch(PDO::FETCH_LAZY);
-                                  $contrasenaC=$usuarioC['contrasena'];
-                  
-                                  if ($txtContrasena1==$contrasenaC)
-                                  {      
-                                    $consultaSQL=$conexion->prepare("UPDATE sitio.usuario SET contrasena=:contrasenia where cedula=$ID;");
-                                    $consultaSQL->bindParam(':contrasenia',$txtContrasena);
-                                    $consultaSQL->execute();
-                                    $usuario=$consultaSQL->fetch(PDO::FETCH_LAZY);
-
-                                      echo '<script> alert("Cambio de contraseña exitoso");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
-                                  }
-                                  else{
-                                    echo '<script> alert("Contraseña incorrecta, intentelo de nuevo");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
-                                  }
-                          }
-                        ?>
-        
-                        <!-- Cambiar contraseña -->
-                        <div class="tab-pane fade pt-3" id="profile-change-password">
-                          <!-- Change Password Form -->
-                          <form method="post" onsubmit="return validarContrasena()" class="profile-form">
-        
-                            <div class="row mb-3">
-                              <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Contraseña Actual</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="claveC" type="password" class="form-control" id="">
+          
+                              <div class="row mb-3">
+                                <label for="colorM" class="col-md-4 col-lg-3 col-form-label">Color</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="colorM" type="text" class="form-control" id="colorM">
+                                </div>
                               </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nueva Contraseña</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input type="password" class="form-control" id="contrasenaC" name="contrasenaC" minlength="8" required>                               
-                              </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Confirmar Contraseña</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input type="password" class="form-control" id="confirmarContrasenaC" name="confirmarContrasenaC" minlength="8" required>
-                              </div>
-                            </div>
-                            <input type="hidden" name="bandera" value="2">
-                            <div class="text-center">
-                              <button type="submit" class="btn btn-primary">Cambiar</button>
-                            </div>
-                          </form><!-- End Change Password Form -->
-                          </div>
-                          <script>
-                          function validarContrasena() {
-                            var contrasena = document.getElementById("contrasenaC").value;
-                            var confirmarContrasena = document.getElementById("confirmarContrasenaC").value;
-                            if (contrasena != confirmarContrasena) {
-                              alert("Las contraseñas no coinciden.");
-                              return false;
-                            }
-                            if (contrasena.length < 8) {
-                              alert("La contraseña debe tener al menos 8 caracteres.");
-                              return false;
-                            }
-                            return true;
-                          }
-                          </script>
-
-                            <!-- insert mascosta -->
-                      <?php
-                        if(($_POST) && ($_POST['bandera'] == 3)){
-
-                        $txtFoto=(isset($_FILES['foto']['name']))?$_FILES['foto']['name']:"";
-                        $txtIDM=(isset($_POST['idM']))?$_POST['idM']:"null";
-                        $txtNombreM=(isset($_POST['nombreM']))?$_POST['nombreM']:"";
-                        $txtRaza=(isset($_POST['raza']))?$_POST['raza']:"";
-                        $txtColor=(isset($_POST['colorM']))?$_POST['colorM']:"";
-                        $txtSexo=(isset($_POST['sexoM']))?$_POST['sexoM']:"";
-                        $txtDescripcion=(isset($_POST['descripcion']))?$_POST['descripcion']:"";
-                        $txtEspecie=(isset($_POST['especie']))?$_POST['especie']:"";
-                
-                        include("assets/config/bd.php");
-
-                            //validación si existe en base de datos
-
-                            $sentenciaSQL=$conexion->prepare("SELECT * FROM sitio.mascota where id='$txtIDM' and id_usuario=$ID;");
-                            $sentenciaSQL->execute();
-                            $mascotaR=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
-
-                            //si ya esta registrado se ejecuta una alerta
-                            if ($mascotaR!="")
-                            {                
-                                echo '<script> alert("Macota ya registrada ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php#"</script>';
-                            }
-
-                            else{
-
-                                $sentenciaSQL= $conexion->prepare("INSERT INTO `sitio`.`mascota` (`nombre`, `raza`, `sexo`, `color`, `descripcion`,`foto`, `id_usuario`,`especie`) VALUES (:nombre, :raza, :sexo, :color, :descripcion, :foto, $ID, :especie);");
-                                $sentenciaSQL->bindParam(':nombre',$txtNombreM);
-                                $sentenciaSQL->bindParam(':raza',$txtRaza);  
-                                $sentenciaSQL->bindParam(':sexo',$txtSexo);    
-                                $sentenciaSQL->bindParam(':color',$txtColor);
-                                $sentenciaSQL->bindParam(':descripcion',$txtDescripcion);
-                                $sentenciaSQL->bindParam(':especie',$txtEspecie);
-             
-                                $fecha= new DateTime();
-                                $nombreFoto=($txtFoto!=="")?$fecha->getTimestamp()."_".$_FILES["foto"]["name"]:"imagen.jpg";
-                                $tmpImagen=$_FILES["foto"]["tmp_name"];
-
-                                if($tmpImagen!=""){
-                                    move_uploaded_file($tmpImagen,"assets/img/mascotas/".$nombreFoto);
-                                }
-
-                                $sentenciaSQL->bindParam(':foto',$nombreFoto);
-                                $sentenciaSQL->execute();
-                               
-                                //header("Location:Perfil.php");
-                                echo '<script> alert("Mascota registrada con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
-                            }
-                        }                    
-                      ?>
-
-                        <!-- Registro de mascotas -->
-                        <div class="tab-pane fade pt-3" id="profile-mascotas">
-                          
-                          <form class="profile-form" method="POST" enctype="multipart/form-data">
-        
-                            <div class="row mb-3">
-                              <label for="nombreM" class="col-md-4 col-lg-3 col-form-label">Nombre</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="nombreM" type="text" class="form-control" id="nombreM" required>
-                              </div>
-                            </div>
 
                               <div class="form-group row mb-3">              
-                                <label for="" class="col-md-4 col-lg-3 col-form-label">Especie</label>
-                                  <div class="col-md-8 col-lg-9">
-                                  <select name="especie" class="form-control" required>
-                                    <option value="" ></option>
-                                    <option value="Canino">Canino</option>
-                                    <option value="Felino">Felino</option>
-                                    <option value="Otro">Otro</option>
-                                  </select>
-                                  </div>
-                             </div>
-        
-                            <div class="row mb-3">
-                              <label for="raza" class="col-md-4 col-lg-3 col-form-label">Raza</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="raza" type="text" class="form-control" id="raza">
+                                  <label for="" class="col-md-4 col-lg-3 col-form-label">Sexo</label>
+                                    <div class="col-md-8 col-lg-9">
+                                    <select name="sexoM" class="form-control">
+                                      <option value="" ></option>
+                                      <option value="Hembra">Hembra</option>
+                                      <option value="Macho">Macho</option>
+                                    </select>
+                                    </div>
                               </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="colorM" class="col-md-4 col-lg-3 col-form-label">Color</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="colorM" type="text" class="form-control" id="colorM">
-                              </div>
-                            </div>
 
-                            <div class="form-group row mb-3">              
-                                <label for="" class="col-md-4 col-lg-3 col-form-label">Sexo</label>
-                                  <div class="col-md-8 col-lg-9">
-                                  <select name="sexoM" class="form-control">
-                                    <option value="" ></option>
-                                    <option value="Hembra">Hembra</option>
-                                    <option value="Macho">Macho</option>
-                                  </select>
-                                  </div>
-                             </div>
+                              <div class="row mb-3">
+                                <label for="descripcion" class="col-md-4 col-lg-3 col-form-label">Descripción</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="descripcion" type="textarea" class="form-control" id="descripcion">
+                                </div>
+                              </div>
+          
+                              <div class="row mb-3">
+                                <label for="foto" class="col-md-4 col-lg-3 col-form-label">Foto</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="foto" type="file" class="form-control" id="foto">
+                                </div>
+                              </div>
+                              
+                              <div class="row mb-3">
+                                <label for="idM" class="col-md-4 col-lg-3 col-form-label"></label>
+                                <div class="col-md-8 col-lg-9">
+                                  <input name="idM" type="hidden" class="form-control" id="idM">
+                                </div>
+                              </div>
 
-                            <div class="row mb-3">
-                              <label for="descripcion" class="col-md-4 col-lg-3 col-form-label">Descripción</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="descripcion" type="textarea" class="form-control" id="descripcion">
+                              <input type="hidden" name="bandera" value="3">
+                              <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Registrar</button>
                               </div>
-                            </div>
-        
-                            <div class="row mb-3">
-                              <label for="foto" class="col-md-4 col-lg-3 col-form-label">Foto</label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="foto" type="file" class="form-control" id="foto">
-                              </div>
-                            </div>
-                            
-                            <div class="row mb-3">
-                              <label for="idM" class="col-md-4 col-lg-3 col-form-label"></label>
-                              <div class="col-md-8 col-lg-9">
-                                <input name="idM" type="hidden" class="form-control" id="idM">
-                              </div>
-                            </div>
-
-                            <input type="hidden" name="bandera" value="3">
-                            <div class="text-center">
-                              <button type="submit" class="btn btn-primary">Registrar</button>
-                            </div>
-                          </form><!-- End Mascotas -->
-                        </div>  
-                      </div><!-- End Bordered Tabs -->
+                            </form><!-- End Mascotas -->
+                          </div>  
+                        </div><!-- End Bordered Tabs -->
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <!-- ======================= -->
             </div>
-            <!-- ======================= -->
           </div>
         </div>
+      </div><!-- End testimonial item -->
+        </div>
+        <div class="swiper-pagination"></div>
       </div>
-    </div><!-- End testimonial item -->
-      </div>
-      <div class="swiper-pagination"></div>
     </div>
-  </div>
-</section><!-- End Perfil Usuario -->
+  </section><!-- End Perfil Usuario -->
 
   <main id="main">
 
-<!-- Codigo php para eliminar y editar mascota -->
+    <!-- Codigo php para eliminar y editar mascota -->
+    <?php
+      if(($_POST) && ($_POST['bandera'] == 4)){
 
-        <?php
-        if(($_POST) && ($_POST['bandera'] == 4)){
+        $txtidM=(isset($_POST['idM']))?($_POST['idM']):"";
+        $accion=(isset($_POST['accion']))?($_POST['accion']):"";
 
-          $txtidM=(isset($_POST['idM']))?($_POST['idM']):"";
-          $accion=(isset($_POST['accion']))?($_POST['accion']):"";
+        switch($accion){
 
-          switch($accion){
+          case "editar":
 
-            case "editar":
+            echo '<script> alert("se selecciono editar mascota, aun se encuentra en desarrollo coming soon!!")</script>';
+            break;
 
-              echo '<script> alert("se selecciono editar mascota, aun se encuentra en desarrollo coming soon!!")</script>';
-              break;
-
-            case "eliminar":
-              
-              $sentenciaSQL=$conexion->prepare("SELECT foto FROM mascota WHERE id=:id");
-              $sentenciaSQL->bindParam(':id',$txtidM);
-              $sentenciaSQL->execute();
-              $mascota=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
-      
-              if(isset($mascota["foto"]) && ($mascota["foto"]!="imagen.jpg" )) {
-                  if(file_exists("assets/img/mascotas/".$mascota["foto"])){
-                      unlink("assets/img/mascotas/".$mascota["foto"]);
-      
-                  }
-              }
-              
-              $sentenciaSQL=$conexion->prepare("DELETE FROM mascota WHERE id=:id");
-              $sentenciaSQL->bindParam(':id',$txtidM);
-              $sentenciaSQL->execute();
-              //header('Location:Perfil.php');
-              echo '<script> alert("Macota eliminada con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
-                
+          case "eliminar":
+            
+            $sentenciaSQL=$conexion->prepare("SELECT foto FROM mascota WHERE id=:id");
+            $sentenciaSQL->bindParam(':id',$txtidM);
+            $sentenciaSQL->execute();
+            $mascota=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
+    
+            if(isset($mascota["foto"]) && ($mascota["foto"]!="imagen.jpg" )) {
+                if(file_exists("assets/img/mascotas/".$mascota["foto"])){
+                    unlink("assets/img/mascotas/".$mascota["foto"]);
+    
+                }
             }
-          
-        }
+            
+            $sentenciaSQL=$conexion->prepare("DELETE FROM mascota WHERE id=:id");
+            $sentenciaSQL->bindParam(':id',$txtidM);
+            $sentenciaSQL->execute();
+            //header('Location:Perfil.php');
+            echo '<script> alert("Macota eliminada con exito ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
+              
+          }
+        
+      }
 
-        ?>
+    ?>
+    <!-- End editar o eliminar mascota -->
+
     <!-- ======= Mascotas Registradas ======= -->
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
@@ -710,25 +712,26 @@ $txtImagen=$datosUsuario[0]['imagen'];
             <div class="chef-member">
               <div class="member-img">
                 <img src="assets/img/mascotas/<?php echo $pets['foto']; ?>" class="img-fluid" alt="">
-        <form method="post">
-                <div class="social btn-group-vertical"> 
-                <button type="submit" name="accion" value="editar" title="Editar mascota" class="btn btn-outline-light text-dark"><span><i class="bi bi-pencil-square"></i></span></button> 
-                <button type="submit" name="accion" value="eliminar" title="Eliminar mascota" class="btn btn-outline-light text-dark"><span><i class="bi-trash"></i></span></button> 
-                <input type="hidden" name="bandera" value="4">              
-                  <!-- <a href="#"><i class="bi bi-pencil-square"></i></a>
-                  <a href="#"><i class="bi-trash-fill"></i></a> -->
+                <form method="get" action="mascotasPerdidas.php">
+                  <div class="social btn-group-vertical"> 
+                    <button type="submit" name="accion" value="editar" title="Editar mascota" class="btn btn-outline-light text-dark"><span><i class="bi bi-pencil-square"></i></span></button> 
+                    <button type="submit" name="accion" value="eliminar" title="Eliminar mascota" class="btn btn-outline-light text-dark"><span><i class="bi-trash"></i></span></button> 
+                    <button type="submit" name="alerta" value="<?php echo $pets['id']; ?>" title="Crear alerta" class="btn btn-outline-light text-dark"><span><i class="bi-geo-alt-fill"></i></span></button> 
+                    <input type="hidden" name="bandera" value="4">              
+                    <!-- <a href="#"><i class="bi bi-pencil-square"></i></a>
+                    <a href="#"><i class="bi-trash-fill"></i></a> -->
+                  </div>
+                </div> <!-- Probablemente esta etiqueta sobre -->
+                <div class="member-info">
+                  <input type="hidden" name="idM" value="<?php echo $pets['id'];?>">
+                  <h4><?php echo $pets['nombre'];?></h4>
+                  <span><?php echo $pets['especie'];?></span>
+                  <span>Raza: <?php echo $pets['raza'];?></span>
+                  <span><?php echo $pets['sexo'];?></span>
+                  <p>Color: <?php echo $pets['color'];?></p>                
+                  <p><?php echo $pets['descripcion'];?></p>
                 </div>
-              </div>
-              <div class="member-info">
-              <input type="hidden" name="idM" value="<?php echo $pets['id'];?>">
-                <h4><?php echo $pets['nombre'];?></h4>
-                <span><?php echo $pets['especie'];?></span>
-                <span>Raza: <?php echo $pets['raza'];?></span>
-                <span><?php echo $pets['sexo'];?></span>
-                <p>Color: <?php echo $pets['color'];?></p>                
-                <p><?php echo $pets['descripcion'];?></p>
-              </div>
-        </form>
+              </form>
             </div>            
           </div><!-- End Chefs Member -->
           <?php }  ?>

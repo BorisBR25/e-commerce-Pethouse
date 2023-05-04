@@ -1,6 +1,19 @@
 <?php
 
   include("assets/config/bd.php");
+
+  $idMascota = $_GET['alerta'];
+
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota WHERE id=$idMascota");
+  $sentenciaSQL->execute();
+  $datosUsuario=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+
+  $txtNombre=$datosUsuario[0]['nombre'];
+  $txtFoto=$datosUsuario[0]['foto'];
+
+
+ 
   
   
   if ($_POST) {
@@ -248,8 +261,8 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>Crear alerta</h2>
-          <p>Ultima ubicacion de <span>tu mascota</span></p>
+          <h2>Ubicación</h2>
+          <p>Selecciona el ultimo lugar <span>donde viste tu mascota</span></p>
         </div>
 
         <div class="row gy-4">
@@ -265,8 +278,8 @@
                 <div class="row g-0">
                   <div class="modal-body">
                     <div class="section-header">
-                      <h2>Formulario</h2>
-                      <p>Info sobre tu mascota<span>.</span></p>
+                      <h2>Algunos datos necesarios</h2>
+                      <p><?php echo $txtNombre ?><span>.</span></p>
                     </div>
                     <!-- formulario Agregar -->
                     <div class="row justify-content-center">
@@ -277,13 +290,8 @@
                           <form class="forms-sample"  method="POST" enctype="multipart/form-data" >
                           
                             <div class="form-group">
-                              <label for="txtIDMascota">ID:</label>
-                              <input type="text" class="form-control" required class="form-control" value="" name="txtIDMascota" id="txtIDMascota" placeholder="ID">
-                            </div>  
-                            <div class="form-group">
-                              <label for="txtNombre">Nombre Mascota:</label>
-                              <input type="text" class="form-control" required value="" name="txtNombre" id="txtNombre" placeholder="Nombre">
-                            </div>
+                              <img src="assets/img/mascotas/<?php echo $txtFoto ?>" class="img-fluid" alt="" style="width: 200px; height: 200px;">
+                            </div> 
                             </div>
                             <div class="form-group">
                               <div class="form-group">
@@ -302,22 +310,29 @@
                               </div> -->
                             </div>
 
-                            <div class="form-group">
-                              <label for="txtLatitud">latitud:</label>
-                              <input type="text" class="form-control" required value="" name="txtLatitud" id="txtLatitud" placeholder="Nombre">
-                            </div>
-                            <div class="form-group">
-                              <label for="txtLongitud">longitud:</label>
-                              <input type="text" class="form-control" required value="" name="txtLongitud" id="txtLongitud" placeholder="Nombre">
-                            </div>
+                            
 
                             <div class="form-group">
                               <label for="txtDescripcionPerdida">Descripcion:</label>
                               <textarea class="form-control" value="" name="txtDescripcionPerdida" id="txtDescripcionPerdida" placeholder="Descripción" rows="4"></textarea>
                             </div>
-    
+
+                            <input type="text" class="form-control" required value="" name="txtLatitud" id="txtLatitud" placeholder="Nombre" hidden>
+                            <input type="text" class="form-control" required value="" name="txtLongitud" id="txtLongitud" placeholder="Nombre" hidden>
+                              
+                            <!--
+                              <div class="form-group">
+                                <label for="txtLatitud"></label>
+                                <input type="text" class="form-control" required value="" name="txtLatitud" id="txtLatitud" placeholder="Nombre" hidden>
+                              </div>
+                              <div class="form-group">
+                                <label for="txtLongitud"></label>
+                                <input type="text" class="form-control" required value="" name="txtLongitud" id="txtLongitud" placeholder="Nombre" hidden>
+                              </div>
+                            -->
+
                             <div class="text-center mt-3 col align-self-center">
-                              <button type="submit" value="Agregar" name="accion" style="">Agregar</button>
+                              <button type="submit" value="Agregar" name="accion">Agregar</button>
                             </div>
     
                             

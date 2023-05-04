@@ -79,6 +79,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#hero">Inicio</a></li>
+          <li><a href="mapa.php">Mascotas Perdidas</a></li>
           <li><a href="#about">¿Quienes somos?</a></li>
           <li><a href="#menu">Productos</a></li>
           <!-- <li><a href="#events">Events</a></li> -->

@@ -26,7 +26,7 @@ if($_POST){
         $_SESSION["id"]=$usuario['cedula'];
         
         if ($usuario==null){
-            echo '<script> alert("Usuario y/o contraseña errado, intente de nuevo");window.location.href="index.php"</script>'; 
+            echo '<script> alert("Usuario y/o contraseña errado, intente de nuevo");window.location.href="http://localhost/PetHouse-main/PetHouse-main/index.php"</script>'; 
         }
         
         else{
