@@ -31,7 +31,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Toastr.js Después -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  
+
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
@@ -48,27 +48,27 @@
 
 <body>
 <?php
-  include("assets/config/bd.php");
+include("assets/config/bd.php");
 
-  // Collares
-  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'collares' ");
-  $sentenciaSQL->execute();
-  $listaCollares=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+// Collares
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto = 'collares' ");
+$sentenciaSQL->execute();
+$listaCollares=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-  // Juguetes
-  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'juguetes' ");
-  $sentenciaSQL->execute();
-  $listaJuguetes=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+// Juguetes
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto = 'juguetes' ");
+$sentenciaSQL->execute();
+$listaJuguetes=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-  // Comida
-  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'comida' ");
-  $sentenciaSQL->execute();
-  $listaComida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+// Comida
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto = 'comida' ");
+$sentenciaSQL->execute();
+$listaComida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-  // Accesorios
-  $sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'accesorios' ");
-  $sentenciaSQL->execute();
-  $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+// Accesorios
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto = 'accesorios' ");
+$sentenciaSQL->execute();
+$listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -163,36 +163,36 @@
 
   <main id="main">
 
-    <!-- ======= MODAL CARRITO ======= -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu Carrito</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div   class="modal-body">
-            <!-----CART CONTENT-->
-            <div class="cart-content">
-              <!--CART PRODUCTS GO HERE-->
-              
+      <!-- ======= MODAL CARRITO ======= -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu Carrito</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div   class="modal-body">
+              <!-----CART CONTENT-->
+              <div class="cart-content">
+                <!--CART PRODUCTS GO HERE-->
+                
 
-            </div>
-            
-            
-            <div class="total">
-              <div class="total-title">Total<span class="total-price">$0</span></div>
+              </div>
               
+              
+              <div class="total">
+                <div class="total-title">Total<span class="total-price">$0</span></div>
+                
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-second" data-bs-dismiss="modal">Seguir comprando</button>
-            <button type="button" class="btn btn-primary buybutton">Pagar</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-second" data-bs-dismiss="modal">Seguir comprando</button>
+              <button type="button" class="btn btn-primary buybutton">Pagar</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- ======= FIN MODAL CARRITO ======= -->
+      <!-- ======= FIN MODAL CARRITO ======= -->
 
     <!-- ======= Modal login ======= -->
     <div id="buy-ticket-modal" class="modal fade">
@@ -353,60 +353,76 @@
         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
 
         
-          <div class="tab-pane fade active show" id="collares">
-            <div class="tab-header text-center">
-              <p>Productos</p>
-              <h3>Collares</h3>
-            </div>
-            
+<div class="tab-pane fade active show" id="collares">
+  <div class="tab-header text-center">
+    <p>Productos</p>
+    <h3>Collares</h3>
+  </div>
+  
 
-            <div class="row gy-5">
-              <?php foreach($listaCollares as $producto){  ?>
-                <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
-                  <p class="ingredients">
-                  <?php echo $producto['descripcion'] ?>
-                  </p>
-                  <p class="price product-price">
-                    $ <?php echo $producto['precio'] ?>
-                  </p>
-                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
-                </div><!-- Menu Item -->
+<div class="row gy-5">
+    
+    <?php foreach($listaCollares as $producto){
+       if ($producto['existencia'] >= 1) { ?>
+      <div class="col-lg-4 menu-item">
+        <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+        <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+        <p class="ingredients">
+        <?php echo $producto['descripcion'] ?>
+        </p>
+        <p class="price product-price">
+          $ <?php echo $producto['precioProducto'] ?>
+        </p>
+        <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+      </div><!-- Menu Item -->
 
-              
+      <?php } else { ?>
 
-              <?php } ?>
-            </div>
-          </div><!-- End collares Menu Content -->
+      <div class="col-lg-4 menu-item">
+        <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+        <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+        <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+        <p class="price product-price">Agotado</p>  
+      </div>      
+        <?php } ?>
+      <?php } ?>
+      
+  </div>
+</div><!-- End collares Menu Content -->
         
-
         
-          <div class="tab-pane fade" id="juguetes">
-            <div class="tab-header text-center">
-              <p>Productos</p>
-              <h3>Juguetes</h3>
+<div class="tab-pane fade" id="juguetes">
+    <div class="tab-header text-center">
+      <p>Productos</p>
+      <h3>Juguetes</h3>
+    </div>
+
+    <div class="row gy-5">
+      <?php foreach($listaJuguetes as $producto){
+      if ($producto['existencia'] >= 1) { ?>
+        <div class="col-lg-4 menu-item">
+          <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+          <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+          <p class="ingredients">
+          <?php echo $producto['descripcion'] ?>
+          </p>
+          <p class="price product-price">
+            $ <?php echo $producto['precioProducto'] ?>
+          </p>
+          <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+        </div><!-- Menu Item -->
+        <?php } else { ?>
+          <div class="col-lg-4 menu-item">
+            <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+            <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+            <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+            <p class="price product-price">Agotado</p>        
             </div>
-
-            <div class="row gy-5">
-              <?php foreach($listaJuguetes as $producto){  ?>
-                <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
-                  <p class="ingredients">
-                  <?php echo $producto['descripcion'] ?>
-                  </p>
-                  <p class="price product-price">
-                    $ <?php echo $producto['precio'] ?>
-                  </p>
-                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
-                </div><!-- Menu Item -->
-
-              
-
-              <?php } ?>
-            </div>
-          </div><!-- End Juguetes Menu Content -->
+            <?php } ?>
+            <?php } ?>
+          
+        </div>
+    </div><!-- End Juguetes Menu Content -->
 
         
           <div class="tab-pane fade" id="comida">
@@ -416,20 +432,29 @@
             </div>
 
             <div class="row gy-5">
-              <?php foreach($listaComida as $producto){  ?>
+              <?php foreach($listaComida as $producto){
+              if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
                   <p class="price product-price">
-                    $ <?php echo $producto['precio'] ?>
+                    $ <?php echo $producto['precioProducto'] ?>
                   </p>
                   <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
-
-              <?php } ?>
+                <?php } else { ?>
+                  <div class="col-lg-4 menu-item">
+                    <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                    <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+                    <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+                    <p class="price product-price">Agotado</p>        
+                    </div>
+                    <?php } ?>
+                    <?php } ?>
+                  
             </div>
           </div><!-- End collares Menu Content -->
 
@@ -441,27 +466,34 @@
             </div>
 
             <div class="row gy-5">
-              <?php foreach($listaAccesorios as $producto){  ?>
+              <?php foreach($listaAccesorios as $producto){
+              if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
                   <p class="price product-price">
-                    $ <?php echo $producto['precio'] ?>
+                    $ <?php echo $producto['precioProducto'] ?>
                   </p>
                   <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
-              
-
-              <?php } ?>
+                <?php } else { ?>
+                  <div class="col-lg-4 menu-item">
+                    <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                    <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+                    <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+                    <p class="price product-price">Agotado</p>        
+                    </div>
+                    <?php } ?>
+                    <?php } ?>                  
             </div>
           </div><!-- End collares Menu Content -->
 
         </div>
-
+        
       </div>
     </section><!-- End Menu -->
 
@@ -517,23 +549,21 @@
           <div class="col-lg-7 position-relative about-img" style="background-image: url(assets/img/ejemplo.jpg) ;" data-aos="fade-up" data-aos-delay="150">
             <div class="call-us position-absolute">
               <h4>Escribenos!</h4>
-              <p>+1 5589 55488 55</p>
+              <p>+57 314 554 88 55</p>
             </div>
           </div>
           <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
             <div class="content ps-0 ps-lg-5">
               <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+              PetHouse no sólo es una tienda virtual para mascotas, contamos con una funcionalidad adicional muy importante: la geolocalización de mascotas perdidas. En nuestra tienda, los dueños de mascotas pueden encontrar una gran variedad de productos y accesorios para sus amigos peludos, desde comida y juguetes hasta ropa y artículos de cuidado personal.
               </p>
               <ul>
-                <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+                <li><i class="bi bi-check2-all"></i> Pero lo que nos hace únicos es la posibilidad de geolocalizar a su mascota en caso de que se pierda. Con la ayuda de tecnología de geolocalización avanzada, nuestros clientes pueden rastrear la ubicación de su mascota en tiempo real y ayudar a encontrarla de manera rápida y eficiente.</li>
+                <li><i class="bi bi-check2-all"></i> En PetHouse nos preocupamos por la seguridad y el bienestar de las mascotas, y estamos comprometidos en ofrecer productos de alta calidad y servicios innovadores para garantizar que nuestros clientes tengan la mejor experiencia posible.</li>
+                <li><i class="bi bi-check2-all"></i> Para utilizar nuestra función de geolocalización, simplemente genera un código QR único para tu mascota en nuestra plataforma y pégalo en su collar. Si alguna vez tu mascota se pierde, cualquier persona que encuentre a tu mascota puede escanear el código QR y ver su ubicación en tiempo real.</li>
               </ul>
               <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
+              En PetHouse nos apasiona cuidar de tus mascotas y estamos emocionados de tener la oportunidad de servirte. ¡Únete a nuestra comunidad hoy y experimenta la diferencia en el cuidado de mascotas!
               </p>
 
               <div class="position-relative mt-4">
@@ -605,7 +635,7 @@
           </div><!-- End Info Item -->
 
         </div>
-
+<!--
         <form action="forms/contact.php" method="post" role="form" class="php-email-form p-3 p-md-4">
           <div class="row">
             <div class="col-xl-6 form-group">
@@ -627,7 +657,7 @@
             <div class="sent-message">Your message has been sent. Thank you!</div>
           </div>
           <div class="text-center"><button type="submit">Enviar</button></div>
-        </form>
+        </form> -->
         <!--End Contact Form -->
 
       </div>
@@ -636,79 +666,14 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div>
-            <h4>Dirección</h4>
-            <p>
-              Calle 104 #69-120<br>
-              Medellín - Colombia<br>
-            </p>
-          </div>
-
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Teléfono</h4>
-            <p>
-              <strong>Teléfono:</strong> +57 314 554 88 55<br>
-              <strong>Correo:</strong> contacto@pethouse.com<br>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Horarios de Atención</h4>
-            <p>
-              <strong>Lunes-Sabado: 11AM </strong> - 6PM<br>
-              Domingos y festivos: Cerrado
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Siguenos</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Pethouse</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-      </div>
-    </div>
-
-  </footer><!-- End Footer -->
+<?php include("footer.php");?>
   <!-- End Footer -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
 
-
-  <!-- TOASTR -->
+  <!-- ============= TOASTR ============= -->
   <script>
     toastr.options = {
         "closeButton": false,
@@ -735,11 +700,17 @@
         3000,
       );
     }
-      
-    
 
-    
-  </script>'
+    function toast() {
+      toastr.success("Articulo agregado al carrito");
+      setTimeout(
+        //() => {location.href = "https://www.example.com";}, 
+        3000,
+      );
+    }
+      
+  </script>
+  <!-- ============= END TOASTR ============= -->
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -752,8 +723,8 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- Scripts Carrito -->
-  <script src="assets/js/productos.js"></script>
+   <!-- Scripts Carrito -->
+   <script src="assets/js/productos.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   
 

@@ -18,7 +18,7 @@ if($_POST){
 	$direccion2=(isset($_POST['direccion2']))?$_POST['direccion2']:"";
 	$direccion3=(isset($_POST['direccion3']))?$_POST['direccion3']:"";
 	$direccion4=(isset($_POST['direccion4']))?$_POST['direccion4']:"";
-	$txtDireccion=$direccion1." ".$direccion2." "."#"." ".$direccion3." ".$direccion4;
+	$direccionCompleta=$direccion1." ".$direccion2." "."#"." ".$direccion3." ".$direccion4;
     $txtBarrio=(isset($_POST['barrio']))?$_POST['barrio']:"";
     $txtContrasena=(isset($_POST['contrasena']))?md5($_POST['contrasena']):""; 
 
@@ -27,7 +27,7 @@ if($_POST){
 
         //validación si existe en base de datos
 
-        $sentenciaSQL=$conexion->prepare("SELECT * FROM sitio.usuario where cedula=:id;");
+        $sentenciaSQL=$conexion->prepare("SELECT * FROM pethouse.usuario where idUsuario=:id;");
         $sentenciaSQL->bindParam(':id',$txtID);
         $sentenciaSQL->execute();
         $usuario=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
@@ -35,19 +35,23 @@ if($_POST){
         //si ya esta registrado se ejecuta una alerta
         if ($usuario!="")
         {                
-            echo '<script> alert("Usuario ya registrado, intente de nuevo ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/index.php"</script>';
+            echo '<script> alert("Usuario ya registrado, intente de nuevo ");window.location.href="index.php"</script>';
         }
 
         else{
 
-            $sentenciaSQL= $conexion->prepare("INSERT INTO `sitio`.`usuario` (`cedula`, `nombre`, `apellido`, `correo`, `telefono`, `contrasena`,`ciudad`, `direccion`, `barrio`,`imagen` , `rol`) VALUES (:id, :nombre, :apellido, :correo, :tel, :contrasena, :ciudad, :direccion, :barrio, :imagen,'2');");
+            $sentenciaSQL= $conexion->prepare("INSERT INTO usuario (`idUsuario`, `nombreUsuario`, `apellidoUsuario`, `correoUsuario`, `claveUsuario`, `tipoCalle`,`numeroTipoCalle`, `calleCruce`, `distanciaNumero`,`direccionCompleta`,`barrioUsuario`,`ciudadUsuario`,`fotoUsuario` , `telefonoUsuario`) VALUES (:id, :nombre, :apellido, :correo, :contrasena, :direccion1, :direccion2, :direccion3, :direccion4,:direccionCompleta, :barrio, :ciudad, :imagen, :tel);");
             $sentenciaSQL->bindParam(':correo',$txtCorreo);
             $sentenciaSQL->bindParam(':id',$txtID);
             $sentenciaSQL->bindParam(':nombre',$txtNombre);
             $sentenciaSQL->bindParam(':apellido',$txtApellido);
             $sentenciaSQL->bindParam(':tel',$txtTel);  
             $sentenciaSQL->bindParam(':ciudad',$txtCiudad);    
-            $sentenciaSQL->bindParam(':direccion',$txtDireccion);
+            $sentenciaSQL->bindParam(':direccion1',$direccion1);
+			$sentenciaSQL->bindParam(':direccion2',$direccion2);
+			$sentenciaSQL->bindParam(':direccion3',$direccion3);
+			$sentenciaSQL->bindParam(':direccion4',$direccion4);
+			$sentenciaSQL->bindParam(':direccionCompleta',$direccionCompleta);
             $sentenciaSQL->bindParam(':barrio',$txtBarrio);
             $sentenciaSQL->bindParam(':contrasena',$txtContrasena);   
 
@@ -63,7 +67,7 @@ if($_POST){
             $sentenciaSQL->execute();
 
             $_SESSION["id"]= $txtID;
-           // echo '<script> alert("Usuario ya registrado, intente de nuevo ");window.location.href="http://localhost/PetHouse-main/PetHouse-main/Perfil.php"</script>';
+           // echo '<script> alert("Registro exitoso, Bienvenido a Pethouse ");window.location.href="Perfil.php"</script>';
             header("Location:Perfil.php");
         }
 }

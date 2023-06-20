@@ -9,10 +9,9 @@ include("header.php")
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambiar Contraseña</title>
+    <title>Cambiar Contraseña<span>.</span></title>
 </head>
 <body>
-
 
 
   <div class="container">
@@ -31,11 +30,12 @@ include("header.php")
                 
                 <div class="col-md-6">
                   <label for="input-apellido">Nueva contraseña:</label>
-                  <input type="text" name="clave" class="form-control" id="" placeholder="">
+                  <input type="password" name="clave" class="form-control" id="" placeholder="********" minlength="8" required>
                 </div>
                 </div></br>
             <button type="submit" id="botonL" class="">Cambiar contraseña</button>
-            </br></br></br>
+            </br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+            
             </div>
           </div>
           
@@ -45,9 +45,6 @@ include("header.php")
 </body>
 </html>
 
-
-
-
 <?php
 // Conectar a la base de datos
 
@@ -55,24 +52,22 @@ include("assets/config/bd.php");
 
 // Comprobar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
     // Obtener la nueva contraseña y el correo electrónico del usuario
-    $contrasena = mysqli_real_escape_string($conexionn, $_POST["contrasena"]);
-    $email = mysqli_real_escape_string($conexionn, $_POST["email"]);
-  
+    $contrasena = mysqli_real_escape_string($conexionn, $_POST["clave"]);
+    $codigo = mysqli_real_escape_string($conexionn, $_POST["codigo"]);
+
     // Actualizar la contraseña del usuario en la base de datos
-    $consulta = "UPDATE usuarios SET contrasena = '$contrasena', codigo_recuperacion = NULL WHERE email = '$email'";
+    $consulta = "UPDATE usuario SET claveUsuario = md5('$contrasena'), codigo_recuperacion = NULL WHERE codigo_recuperacion = '$codigo'";
     mysqli_query($conexionn, $consulta);
   
     // Mostrar un mensaje de éxito al usuario
-    echo "Su contraseña ha sido cambiada correctamente.";
+    echo '<script> alert("Su contraseña ha sido cambiada correctamente, inicie sesión.");window.location.href="index.php"</script>';
   }
   
   // Cerrar la conexión a la base de datos
   mysqli_close($conexionn);
   ?>
-
-
-
 
 <?php
 include("footer.php")

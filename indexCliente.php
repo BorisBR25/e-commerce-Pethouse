@@ -43,22 +43,22 @@
 include("assets/config/bd.php");
 
 // Collares
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'collares' ");
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto  = 'collares' ");
 $sentenciaSQL->execute();
 $listaCollares=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
 // Juguetes
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'juguetes' ");
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto = 'juguetes' ");
 $sentenciaSQL->execute();
 $listaJuguetes=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
 // Comida
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'comida' ");
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto  = 'comida' ");
 $sentenciaSQL->execute();
 $listaComida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
 // Accesorios
-$sentenciaSQL=$conexion->prepare("SELECT * FROM productos WHERE categoria = 'accesorios' ");
+$sentenciaSQL=$conexion->prepare("SELECT * FROM producto WHERE categoriaProducto  = 'accesorios' ");
 $sentenciaSQL->execute();
 $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
@@ -129,7 +129,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
       <nav id="navbar" class="navbar">
         <ul>
           
-          <li class="dropdown"><a><span>Perfil</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li class="dropdown"><a><span><i style="font-size:40px;" class="bi bi-person-fill"></i></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="Perfil.php">Ver Perfil</a></li>
               <li><a href="cerrar.php">Cerrar Sesión</a></li>
@@ -300,78 +300,108 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
 
         
-          <div class="tab-pane fade active show" id="collares">
+        <div class="tab-pane fade active show" id="collares">
   <div class="tab-header text-center">
     <p>Productos</p>
     <h3>Collares</h3>
   </div>
   
+
   <div class="row gy-5">
-    <?php foreach($listaCollares as $producto){  ?>
+    
+    <?php foreach($listaCollares as $producto){
+       if ($producto['existencia'] >= 1) { ?>
       <div class="col-lg-4 menu-item">
-        <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-        <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
+        <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+        <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
         <p class="ingredients">
         <?php echo $producto['descripcion'] ?>
         </p>
         <p class="price product-price">
-          $ <?php echo $producto['precio'] ?>
+          $ <?php echo $producto['precioProducto'] ?>
         </p>
         <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
       </div><!-- Menu Item -->
 
-    
+      <?php } else { ?>
 
-    <?php } ?>
+      <div class="col-lg-4 menu-item">
+        <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+        <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+        <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+        <p class="price product-price">Agotado</p>  
+      </div>      
+        <?php } ?>
+      <?php } ?>
+      
   </div>
 </div><!-- End collares Menu Content -->
-
+        
+        
 <div class="tab-pane fade" id="juguetes">
-            <div class="tab-header text-center">
-              <p>Productos</p>
-              <h3>Juguetes</h3>
-            </div>
-            
+    <div class="tab-header text-center">
+      <p>Productos</p>
+      <h3>Juguetes</h3>
+    </div>
+
             <div class="row gy-5">
-              <?php foreach($listaJuguetes as $producto){  ?>
+              <?php foreach($listaJuguetes as $producto){
+              if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-                  <h4 class="product-title"><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
                   <p class="price product-price">
-                    $ <?php echo $producto['precio'] ?>
+                    $ <?php echo $producto['precioProducto'] ?>
                   </p>
                   <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
-              
-
-              <?php } ?>
+                <?php } else { ?>
+                  <div class="col-lg-4 menu-item">
+                    <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                    <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+                    <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+                    <p class="price product-price">Agotado</p>        
+                    </div>
+                    <?php } ?>
+                    <?php } ?>
+                  
             </div>
-          </div><!-- End Juguetes Menu Content -->
+</div><!-- End Juguetes Menu Content -->
 
-<div class="tab-pane fade" id="comida">
+        
+          <div class="tab-pane fade" id="comida">
             <div class="tab-header text-center">
               <p>Productos</p>
               <h3>Comida</h3>
             </div>
 
             <div class="row gy-5">
-              <?php foreach($listaComida as $producto){  ?>
+              <?php foreach($listaComida as $producto){
+              if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
-                  <p class="price">
-                    $ <?php echo $producto['precio'] ?>
+                  <p class="price product-price">
+                    $ <?php echo $producto['precioProducto'] ?>
                   </p>
                   <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
-
-              <?php } ?>
+                <?php } else { ?>
+                  <div class="col-lg-4 menu-item">
+                    <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                    <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+                    <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+                    <p class="price product-price">Agotado</p>        
+                    </div>
+                    <?php } ?>
+                    <?php } ?>
+                  
             </div>
           </div><!-- End collares Menu Content -->
 
@@ -383,27 +413,34 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="row gy-5">
-              <?php foreach($listaAccesorios as $producto){  ?>
+              <?php foreach($listaAccesorios as $producto){
+              if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
-                  <a href="assets/img/productos/<?php echo $producto['imagen'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagen'] ?>" class="menu-img img-fluid" alt=""></a>
-                  <h4><?php echo $producto['nombre'] ?></h4>
+                  <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
                   <?php echo $producto['descripcion'] ?>
                   </p>
-                  <p class="price">
-                    $ <?php echo $producto['precio'] ?>
+                  <p class="price product-price">
+                    $ <?php echo $producto['precioProducto'] ?>
                   </p>
                   <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
-              
-
-              <?php } ?>
+                <?php } else { ?>
+                  <div class="col-lg-4 menu-item">
+                    <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                    <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+                    <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+                    <p class="price product-price">Agotado</p>        
+                    </div>
+                    <?php } ?>
+                    <?php } ?>                  
             </div>
           </div><!-- End collares Menu Content -->
 
         </div>
-
+        
       </div>
     </section><!-- End Menu -->
 
@@ -459,25 +496,23 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
           <div class="col-lg-7 position-relative about-img" style="background-image: url(assets/img/ejemplo.jpg) ;" data-aos="fade-up" data-aos-delay="150">
             <div class="call-us position-absolute">
               <h4>Escribenos!</h4>
-              <p>+1 5589 55488 55</p>
+              <p>+57 314 554 88 55</p>
             </div>
           </div>
           <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
             <div class="content ps-0 ps-lg-5">
               <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
+              PetHouse no sólo es una tienda virtual para mascotas, contamos con una funcionalidad adicional muy importante: la geolocalización de mascotas perdidas. En nuestra tienda, los dueños de mascotas pueden encontrar una gran variedad de productos y accesorios para sus amigos peludos, desde comida y juguetes hasta ropa y artículos de cuidado personal.
               </p>
               <ul>
-                <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                <li><i class="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i class="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+                <li><i class="bi bi-check2-all"></i> Pero lo que nos hace únicos es la posibilidad de geolocalizar a su mascota en caso de que se pierda. Con la ayuda de tecnología de geolocalización avanzada, nuestros clientes pueden rastrear la ubicación de su mascota en tiempo real y ayudar a encontrarla de manera rápida y eficiente.</li>
+                <li><i class="bi bi-check2-all"></i> En PetHouse nos preocupamos por la seguridad y el bienestar de las mascotas, y estamos comprometidos en ofrecer productos de alta calidad y servicios innovadores para garantizar que nuestros clientes tengan la mejor experiencia posible.</li>
+                <li><i class="bi bi-check2-all"></i> Para utilizar nuestra función de geolocalización, simplemente genera un código QR único para tu mascota en nuestra plataforma y pégalo en su collar. Si alguna vez tu mascota se pierde, cualquier persona que encuentre a tu mascota puede escanear el código QR y ver su ubicación en tiempo real.</li>
               </ul>
               <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
+              En PetHouse nos apasiona cuidar de tus mascotas y estamos emocionados de tener la oportunidad de servirte. ¡Únete a nuestra comunidad hoy y experimenta la diferencia en el cuidado de mascotas!
               </p>
-
+              
               <div class="position-relative mt-4">
                 <img src="assets/img/pet-collar-QR.jpg" class="img-fluid" alt="">
                 <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>

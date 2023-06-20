@@ -10,30 +10,30 @@ if($_POST){
      
     if ($txtCorreo=="" || $txtContrasena==""){   
          
-        echo '<script> alert("Debe ingresar datos solicitados, intente de nuevo");window.location.href="http://localhost/PetHouse-main/PetHouse-main/index.php"</script>';                            
+        echo '<script> alert("Debe ingresar datos solicitados, intente de nuevo");window.location.href="index.php"</script>';                            
     }
      
     else{
   
         include("assets/config/bd.php");
         
-        $sentenciaSQL=$conexion->prepare("SELECT * FROM sitio.usuario where correo=:correo and contrasena=:contrasena;");
+        $sentenciaSQL=$conexion->prepare("SELECT * FROM pethouse.usuario where correoUsuario=:correo and claveUsuario=:contrasena;");
 
         $sentenciaSQL->bindParam(':correo',$txtCorreo);
         $sentenciaSQL->bindParam(':contrasena',$txtContrasena);
         $sentenciaSQL->execute();
-        $usuario=$sentenciaSQL->fetch(PDO::FETCH_LAZY);
-        $_SESSION["id"]=$usuario['cedula'];
+        $usuario=$sentenciaSQL->fetch(PDO::FETCH_LAZY);        
         
         if ($usuario==null){
-            echo '<script> alert("Usuario y/o contraseña errado, intente de nuevo");window.location.href="http://localhost/PetHouse-main/PetHouse-main/index.php"</script>'; 
+            
+            echo '<script> alert("Usuario y/o contraseña errado, intente de nuevo");window.location.href="index.php"</script>'; 
         }
         
         else{
-            $txtCorreo=$usuario['correo'];
-            $txtContrasena=$usuario['contrasena'];
-            $txtRol=$usuario['rol']; 
-
+            $txtCorreo=$usuario['correoUsuario'];
+            $txtContrasena=$usuario['claveUsuario'];
+            $txtRol=$usuario['rolUsuario']; 
+            $_SESSION["id"]=$usuario['idUsuario'];
         
                 if($txtRol == 1){           
                     header("location:admin.php");
@@ -42,7 +42,7 @@ if($_POST){
 
                     elseif($txtRol != 1){
                         
-                        header("location:indexCliente.php");
+                        header("location:Perfil.php");
                     }
         }
     }

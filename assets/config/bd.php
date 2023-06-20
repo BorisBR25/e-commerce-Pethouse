@@ -1,7 +1,7 @@
 <?php
 
 $host="localhost";
-$bd="sitio";
+$bd="pethouse";
 $usuario="root";
 $contrasenia="admin123";
 
@@ -21,5 +21,9 @@ try {
 
 }
 
+// function conexion(){
+//     $pdo = new PDO('mysql:host=localhost;dbname=pdo', 'root', 'Yubi1989*');
+//     return $pdo;
+// }
 
 ?>

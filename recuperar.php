@@ -10,9 +10,10 @@ include("assets/config/bd.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener el correo electrónico ingresado
     $email = mysqli_real_escape_string($conexionn, $_POST["email"]);
-  
+    $id = mysqli_real_escape_string($conexionn, $_POST["id"]);
+    
     // Comprobar si el correo electrónico está registrado en la base de datos
-    $consulta = "SELECT * FROM usuarios WHERE email = '$email'";
+    $consulta = "SELECT * FROM usuario WHERE correoUsuario = '$email' and idUsuario = '$id'";
     $resultado = mysqli_query($conexionn, $consulta);
   
     if (mysqli_num_rows($resultado) == 1) {
@@ -20,27 +21,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $codigo = rand(100000, 999999);
   
       // Guardar el código en la base de datos junto con la dirección de correo electrónico
-      $consulta = "UPDATE usuarios SET codigo_recuperacion = '$codigo' WHERE email = '$email'";
+      $consulta = "UPDATE usuario SET codigo_recuperacion = '$codigo' WHERE correoUsuario = '$email'";
       mysqli_query($conexionn, $consulta);
   
       // Enviar el correo electrónico con el código de recuperación
+
+      $headers = 'from: pethouseprueba@gmail.com' . "\r\n" . 
+                 'MIME-Version: 1.0' . "\r\n" .
+                 'Content-Type: text/html; charset=utf-8';
+
       $mensaje = "Su código de recuperación de contraseña es: $codigo";
-      mail($email, "Recuperación de contraseña", $mensaje);
+      
+      mail($email, "Recuperación de contraseña", $mensaje,$headers);
   
       // Mostrar un mensaje de éxito al usuario
-      echo "Se ha enviado un correo electrónico con el código de recuperación.";
+      echo '<script> alert("Se ha enviado un correo electrónico con el código de recuperación");window.location.href="cambiar.php"</script>';
     } else {
       // Mostrar un mensaje de error al usuario
-      echo "El correo electrónico ingresado no está registrado en nuestra base de datos.";
+      echo '<script> alert("El correo electrónico y/o ID ingresado no está registrado en nuestra base de datos.");</script>';
     }
   }
-  
-  // Cerrar la conexión a la base de datos
-  mysqli_close($conexionn);
-
-  ?>
-
-
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,8 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="row justify-content-center mt-5">
 			<div class="col-md-6">
 			</br></br></br>
-				<h3 class="text-center mb-4"><b>Recuperar contraseña.</b></h3>
+				<h3 class="text-center mb-4"><b>Recuperar contraseña<span>.</span></b></h3>
         </br></br></br></br>
+
   <form method="post" >
 
 					<div class="form-group row">
@@ -72,8 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
           </br>
           <button type="submit" id="botonL" class="">Enviar</button>
-		</form></br></br></br></br></br></br></br></br></br>
-        </div></div></div>
+		</form>
+          </br></br></br></br></br></br></br></br></br>
+        </div>
+      </div>
+    </div>
         
 </body>
 </html>

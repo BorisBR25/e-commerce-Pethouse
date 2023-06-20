@@ -1,3 +1,43 @@
+<?php
+  include("assets/config/bd.php");
+    
+
+  $idMascota = $_GET['idMascota'];
+
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota WHERE idMascota=$idMascota");
+  $sentenciaSQL->execute();
+  $datosMascota=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+
+  $txtNombre=$datosMascota[0]['nombreMascota'];
+  $txtFoto=$datosMascota[0]['fotoMascota'];
+  $txtDescripcion=$datosMascota[0]['descripcion'];
+  $txtRaza=$datosMascota[0]['razaMascota'];
+  $txtSexo=$datosMascota[0]['sexoMascota'];
+  $txtColor=$datosMascota[0]['colorMascota'];
+
+  ##========================================================================================================
+
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM mascotaPerdida WHERE idMascota=$idMascota");
+  $sentenciaSQL->execute();
+  $datosAlerta=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+  $Estado=$datosAlerta[0]['estado'];
+  $txtCreacion=$datosAlerta[0]['fechaCreacion'];
+
+    
+
+  if ($Estado == 1) {
+    $colorEstado = "circleGreen";
+    $txtEstado = "Activo";
+  }
+  if ($Estado == 0) {
+    $colorEstado = "circleRed";
+    $txtEstado = "Inactivo";
+  }
+
+  ##========================================================================================================
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +45,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Mascotas Perdidas</title>
+  <title>Perfil Mascota</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -19,6 +59,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -29,21 +70,25 @@
   <link href="assets/css/main.css" rel="stylesheet">
   <!-- CSS Extra - Boris -->
   <link rel="stylesheet" href="assets/css/carritoCSS.css">
+  <!-- CSS Extra - perfil -->
+  <link rel="stylesheet" href="assets/css/perfil.css">
 
   <!-- MAPA -->
   <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-  
+
+  <!-- FONT-AWESOME -->
+  <script src="https://kit.fontawesome.com/ea8f7f2b96.js" crossorigin="anonymous"></script>
+
+  <!-- QRCODEJS -->
+  <script src="assets/js/qrcodejs/qrcode.min.js"></script>
+
   <!-- =======================================================
   * Template Name: Yummy - v1.1.0
   * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-
-  <!-- Test Links -->
-    <link rel="stylesheet" href="assets/css/modalMapa.css">
-  <!-- End test links -->
  
 </head>
 
@@ -53,7 +98,7 @@
     include("assets/config/bd.php");
 
     // Traer coordenadas
-    $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota INNER JOIN mascotaPerdida ON mascota.idMascota=mascotaPerdida.idMascota;");
+    $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota INNER JOIN mascotaPerdida ON mascota.idMascota=mascotaPerdida.idMascota WHERE mascota.idMascota=$idMascota;");
     $sentenciaSQL->execute();
     $mascotaPerdida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
     
@@ -129,137 +174,124 @@
   </header><!-- End Header -->
 
   <main id="main">
-    
 
-    
-
-    <!-- ----------------------------------- CONTENIDO ----------------------------------->
-      
-    <!-- ======= MODAL CARRITO ======= -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- ======= MODAL QR ======= -->
+    <div class="modal fade" id="modalQR" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu Carrito</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu QR</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div   class="modal-body">
-            <!-----CART CONTENT-->
-            <div class="cart-content">
-              <!--CART PRODUCTS GO HERE-->
-              
+          <div class="modal-body">
 
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-6 col-md-2"></div>
+                <div class="col-6 col-md-8">
+                  <div id="qrcode" class="text-center"></div>
+                </div>
+                <div class="col-6 col-md-2"></div>
+              </div>
             </div>
             
             
-            <div class="total">
-              <div class="total-title">Total<span class="total-price">$0</span></div>
-              
-            </div>
+            
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-second" data-bs-dismiss="modal">Seguir comprando</button>
-            <button type="button" class="btn btn-primary buybutton">Pagar</button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- ======= FIN MODAL CARRITO ======= -->
+    <!-- ======= FIN MODAL QR ======= -->
 
-    <!-- ======= Modal login ======= -->
-    <div id="buy-ticket-modal" class="modal fade">
-      <div class="modal-dialog" role="document"><!--modal-lg-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          
-              <section id="book-a-table" class="book-a-table">
-                <div class="row g-0">
-                  <div class="modal-body">
-                    <div class="section-header">
-                      <h2>PetHouse</h2>
-                      <p>Inicio de Sesión<span>.</span></p>
-                    </div>
-                    
-                    <!-- formulario login -->
-                    <div class="row justify-content-center">        
-                      <div class="col-md-8">
-                        <form method="POST" action="login.php" class="">
-                          <div class="form-group">
-                            <input type="email" class="form-control" name="correo" placeholder="Correo">
-                          </div>
-                          <div class="form-group mt-3">
-                            <input type="password" class="form-control" name="contrasena" placeholder="Contraseña">
-                          </div>
-            
-                          <!-- Lista desplegable -->
-                          <!-- <div class="form-group mt-3">
-                            <select id="ticket-type" name="ticket-type" class="form-select">
-                              <option value="">-- Select Your Ticket Type --</option>
-                              <option value="standard-access">Standard Access</option>
-                              <option value="pro-access">Pro Access</option>
-                              <option value="premium-access">Premium Access</option>
-                            </select>
-                          </div> -->                        
-
-
-                          <div class="text-center mt-3 col align-self-center">
-                              <button id="botonL" type="submit" style="color: aliceblue;">Iniciar Sesión</button>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="row"></br></div>
-                        <div class="row">
-                            <div class="col s4"></div>
-                            <div class="col s2"><p id="enlaceregistro"><a href="registro.php">Registrarse</a></p></div>
-                            <div class="col s2"><p id="enlaceolvidocontraseña"><a href="recuperar.php">¿Olvidó su contraseña?</a></p></div>
-                            <div class="col s4"></div>
-                             
-                        </div>                 
-                  </div>          
-                </div>
-              </section><!-- End Book A Table Section -->
-            </div>
-        
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    
-
-    
-
-
-    <!-------------------------------------------------------------------------------------------------->
-
-
-    <!-------------------------------------- MAPA ----------------------------------->
-    <!-- ======= MAPA ======= -->
-    <br>
-    <section id="mascotasPerdidas" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-header">
-          <h2>Mapa</h2>
-          <p>Mascotas <span>perdidas</span></p>
-        </div>
-
-        <div class="row gy-12">
-          <div class="col-lg-12 position-relative " data-aos="fade-up" data-aos-delay="150">
-            
-            <div id="map" style="width: 100%; height: 500px;"></div>
-
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Mapa -->
-    
-    
-  
+    <br><br><br><br>
 
     <!------------------------------------------------------------------------------->
+    <div class="container">
+      <div class="main-body">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <!-- perfil -->
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="assets/img/mascotas/<?php echo $txtFoto ?>" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4><?php echo $txtNombre ?></h4>
+                      <p class="text-secondary mb-1"><?php echo $txtDescripcion?></p><br>
+                      <button id="QR" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalQR">Generar QR</button>
+                      <button class="btn btn-outline-success">Contactar Dueño</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end perfil -->
+
+              <!-- datos -->
+              <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Raza</h6>
+                    <span class="text-secondary"><?php echo $txtRaza ?></span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Sexo</h6>
+                    <span class="text-secondary"><?php echo $txtSexo ?></span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Edad</h6>
+                    <span class="text-secondary">41 años</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Color</h6>
+                    <span class="text-secondary"><?php echo $txtColor ?></span>
+                  </li>
+                </ul>
+              </div>
+              <!--  end datos -->
+            </div>
+            <div class="col-md-8">
+              <!-- alertas -->
+              <div class="card mb-3">
+                <div class="card-body">
+
+                  <div class="row text-right">
+                    <div class="col-sm-3" style="padding-top: 3%;">
+                      <h6 class="mb-0">Estado alerta</h6>
+                    </div>
+                    <div class="col-sm-1 text-secondary" style="padding-top: 2.5%;">
+                      <div class="<?php echo $colorEstado?>"></div>
+                      <p><?php echo $txtEstado?></p>
+                    </div>
+                    <div class="col-sm-3 text-secondary">
+                      <p style="text-align: right; padding-top: 2%;">Desde: <?php echo $txtCreacion ?></p>
+                    </div>
+                    <div class="col-sm-3 text-secondary">
+                      <p style="text-align: right; padding-top: 2%;">Hasta: 03/06/2023 19:29:56</p>
+                    </div>
+                    <div class="col-sm-2 text-secondary" style="text-align: center; padding-top: 1%;">
+                      <button class="btn btn-success">Ampliar</button>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <!-- end alertas -->
+
+              <!-- mapa -->
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div id="map" style="width: 100%; height: 500px;"></div>
+                </div>
+              </div>
+              <!-- end mapa -->
+
+            </div>
+          </div>
+        </div>
+    </div>
 
   </main><!-- End #main -->
 
@@ -335,7 +367,18 @@
 
   <div id="preloader"></div>
 
-
+  <!-- ============= QR ============= -->
+  <script type="text/javascript">
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      text: window.location.href,
+      width: 290,
+      height: 290,
+      colorDark : "#000000",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+  </script>
+  <!-- ============= END QR ============= -->
 
 
   <!-- ============= MAPA ============= -->
@@ -344,18 +387,35 @@
 
     const marcadoresPHP = [
       <?php foreach($mascotaPerdida as $mascota){  ?>
-        [
-          '<?php echo $mascota['nombreMascota'] ?>',// -------------- 0
-          <?php echo $mascota['latitud'] ?>,// --------------- 1 
-          <?php echo $mascota['longitud'] ?>,// -------------- 2
-          '<?php echo $mascota['fotoMascota'] ?>',// ---------------- 3
-          '<?php echo $mascota['descripcion'] ?>',// --------- 4
-          '<?php echo $mascota['descripcionPerdida'] ?>'// --- 5
+        [ 
+          '<?php echo $mascota['nombreMascota'] ?>', //--------------- 0
+          <?php echo $mascota['latitud'] ?>, //---------------- 1
+          <?php echo $mascota['longitud'] ?>, //--------------- 2
+          '<?php echo $mascota['fotoMascota'] ?>',//------------------ 3
+          '<?php echo $mascota['descripcionPerdida'] ?>',//---- 4
+          '<?php echo $mascota['descripcion'] ?>',//----------- 5
         ],
       <?php } ?>
     ];
 
 
+
+    // Multiple Markers
+    const coordMarcadores = [
+      ['principe', 6.244338, -75.573553],
+      ['luzbel', 6.25029, -75.55384]
+    ];
+
+    const infoWindowContent = [
+      ['<div class="info_content">' +
+      '<h3>Principe</h3>' +
+      '<p>Lorem Ipsum  Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>' +'</div>'],
+      ['<div class="info_content">' +
+      '<h3>Luzbel</h3>' +
+      '<p>Lorem Ipsum  Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>' +'</div>']
+    ];
+
+    
   
     /*=== Objeto mapa ===*/
     const map = L.map('map').
@@ -389,65 +449,20 @@
     
       const marker = L.marker(latlng,{icon: myIcon}/*,{draggable:'true'}*/)
         .addTo(map)
-        // .bindPopup(`
-        //   <div class="card" style="width: 18rem;">
-        //     <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
-        //     <div class="card-body">
-        //       <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
-        //       <p class="card-text">${marcadoresPHP[i][4]}</p>
-        //       <p class="card-text">${marcadoresPHP[i][5]}</p>
-        //       <a href="#" class="btn btn-primary">¿Me has visto?</a>
-        //     </div>
-        //   </div>
-        // `);
         .bindPopup(`
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="profile-card-6"><img src="assets/img/mascotas/${marcadoresPHP[i][3]}" class="img img-responsive">
-                  <div class="profile-name">
-                    ${marcadoresPHP[i][0]}
-                  </div>
-                  <div class="profile-icon">
-                    <a href="#">asd</a>
-                  </div>
-                  <div class="profile-position">
-                    ¿Me has visto?
-                  </div>
-                  <div class="profile-overview">
-                    <div class="profile-overview">
-                      <div class="row text-center">
-                        <div class="col-xs-4">
-                          <h3>Descripción</h3>
-                          <p>${marcadoresPHP[i][4]}</p>
-                        </div>
-                        <div class="col-xs-4">
-                            <h3>Detalles perdida</h3>
-                            <p>${marcadoresPHP[i][5]}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
+              <p class="card-text">Descripcion: ${marcadoresPHP[i][5]}</p>
+              <p class="card-text">Detalles perdida: ${marcadoresPHP[i][4]}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
         `);
 
     } 
 
-  
-
-
-
-
-
-
-
-
-  
-
-  
   
 
     /*
@@ -549,84 +564,3 @@
 
 
 -->
-<!-- Tests -->
-    
-<!-- <div class="container" style="margin-top:50px;">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img
-                            src="https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-                    </div>
-
-                    <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
-                    <div class="card-heading">
-                        Audi Q8
-                    </div>
-                    <div class="card-text">
-                        Audi Q8 is a full-size luxury crossover SUV coupé made by Audi that was launched in 2018.
-                    </div>
-                    <div class="card-text">
-                        $67,400
-                    </div>
-                    <a href="#" class="card-button"> Purchase</a>
-                </div>
-            </div>
-        </div>  -->
-
-
-
-
-
-<div class="container">
-	<div class="row">
-    
-    <div class="col-md-12">
-      <div class="profile-card-6"><img src="assets\img\mascotas\1686082081_principe.jpg" class="img img-responsive">
-        <div class="profile-name">
-          JOHN
-          <br>DOE
-        </div>
-        <div class="profile-icon">
-          <a href="#">asd</a>
-        </div>
-        <div class="profile-position">
-          Lorem Ipsum Donor
-        </div>
-        <div class="profile-overview">
-          <div class="profile-overview">
-            <div class="row text-center">
-              <div class="col-xs-4">
-                <h3>Descripcion</h3>
-                <p>Mirada penetrante, pelon, negro, intimidante</p>
-              </div>
-              <div class="col-xs-4">
-                  <h3>50</h3>
-                  <p>Matches</p>
-              </div>
-              <div class="col-xs-4">
-                  <h3>35</h3>
-                  <p>Goals</p>
-              </div>
-
-              <div class="col-xs-4">
-                  <h3>69</h3>
-                  <p>Goals</p>
-              </div>
-              
-
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-		
-	</div>
-</div>
-
-
-        
-    <!-- End Tests -->

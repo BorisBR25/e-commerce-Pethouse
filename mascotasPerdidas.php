@@ -1,22 +1,24 @@
 <?php
 
   include("assets/config/bd.php");
+  
 
-  $idMascota = $_GET['alerta'];
+  $idMascota = $_GET['idMascota'];
 
-  $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota WHERE id=$idMascota");
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota WHERE idMascota=$idMascota");
   $sentenciaSQL->execute();
   $datosUsuario=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
 
-  $txtNombre=$datosUsuario[0]['nombre'];
-  $txtFoto=$datosUsuario[0]['foto'];
+  $txtNombre=$datosUsuario[0]['nombreMascota'];
+  $txtFoto=$datosUsuario[0]['fotoMascota'];
 
 
  
   
   
   if ($_POST) {
+    
     $txtIDMascota=(isset($_POST['txtIDMascota']))?$_POST['txtIDMascota']:"";
     $txtDescripcionPerdida=(isset($_POST['txtDescripcionPerdida']))?$_POST['txtDescripcionPerdida']:"";
 
@@ -27,15 +29,35 @@
     $txtLongitud=(isset($_POST['txtLongitud']))?$_POST['txtLongitud']:"";
 
     // Prepara la consulta
-    $sentenciaSQL = mysqli_prepare($conexionn, "INSERT INTO sitio.mascotaPerdida (idMascota, descripcionPerdida, fechaHoraPerdida, latitud, longitud, estadoAlerta) VALUES (?, ?, ?, ?, ?, 1);");
+    $sentenciaSQL = mysqli_prepare($conexionn, "INSERT INTO sitio.mascotaPerdida (idMascota, descripcionPerdida, fechaHoraPerdida, latitud, longitud, estado) VALUES (?, ?, ?, ?, ?, 1);");
 
     // Vincula las variables a la consulta
     mysqli_stmt_bind_param($sentenciaSQL, "issdd", $txtIDMascota, $txtDescripcionPerdida, $txtFechaHoraPerdidaMySQL, $txtLatitud, $txtLongitud);
 
-    // Ejecuta la consulta
-    mysqli_stmt_execute($sentenciaSQL);
+    
 
-    header("Location:mapa.php");
+    // Ejecuta la consulta
+    if (mysqli_stmt_execute($sentenciaSQL)) {
+      // La consulta se ejecutó correctamente
+      
+
+      // Verifica si se afectó alguna fila
+      if (mysqli_stmt_affected_rows($sentenciaSQL) > 0) {
+          echo "La consulta se ejecutó correctamente y se afectó al menos una fila.";
+          header("Location:mapa.php");
+          
+      } else {
+          echo "La consulta se ejecutó correctamente, pero no se afectó ninguna fila.";
+          
+      }
+    } else {
+      // La consulta no se ejecutó correctamente
+      
+      echo "Error al ejecutar la consulta: " . mysqli_stmt_error($sentenciaSQL);
+    }
+
+    // Cierra la sentencia preparada
+    mysqli_stmt_close($sentenciaSQL);
   }
 
   
@@ -271,8 +293,8 @@
             <div id="map" style="width: 100%; height: 500px;"></div>
 
           </div>
-          <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
-            <div class="content ps-0 ps-lg-5">
+          <div class="col-lg-5 align-items-end" data-aos="fade-up" data-aos-delay="300">
+            <div class="content ps-12 ps-lg-12">
               
               <section id="book-a-table" class="book-a-table" style="padding: 20px 0px 20px 0px">
                 <div class="row g-0">
@@ -287,27 +309,16 @@
                         <!-- ==========enctype="multipart/form-data"======= -->
                         <div class="card-body">
                           
-                          <form class="forms-sample"  method="POST" enctype="multipart/form-data" >
+                          <form class="forms-sample" method="POST" enctype="multipart/form-data">
                           
-                            <div class="form-group">
-                              <img src="assets/img/mascotas/<?php echo $txtFoto ?>" class="img-fluid" alt="" style="width: 200px; height: 200px;">
+                            <div class="form-group text-center">
+                              <img src="assets/img/mascotas/<?php echo $txtFoto ?>" class="img-fluid rounded" alt="" style="width: 200px; height: 200px;">
                             </div> 
-                            </div>
                             <div class="form-group">
                               <div class="form-group">
                                 <label for="txtFechaHoraPerdida">Fecha y hora de ultimo avistamiento:</label>
                                 <input type="datetime-local" class="form-control" value="" name="txtFechaHoraPerdida" id="txtFechaHoraPerdida" placeholder="$0.00">
                               </div>
-                            
-                              
-                              <!-- <label>File upload</label>
-                              <input type="file" name="img[]" class="file-upload-default">
-                              <div class="input-group col-xs-12">
-                                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                                <span class="input-group-append">
-                                  <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                </span>
-                              </div> -->
                             </div>
 
                             
@@ -317,29 +328,21 @@
                               <textarea class="form-control" value="" name="txtDescripcionPerdida" id="txtDescripcionPerdida" placeholder="Descripción" rows="4"></textarea>
                             </div>
 
-                            <input type="text" class="form-control" required value="" name="txtLatitud" id="txtLatitud" placeholder="Nombre" hidden>
-                            <input type="text" class="form-control" required value="" name="txtLongitud" id="txtLongitud" placeholder="Nombre" hidden>
-                              
-                            <!--
-                              <div class="form-group">
-                                <label for="txtLatitud"></label>
-                                <input type="text" class="form-control" required value="" name="txtLatitud" id="txtLatitud" placeholder="Nombre" hidden>
-                              </div>
-                              <div class="form-group">
-                                <label for="txtLongitud"></label>
-                                <input type="text" class="form-control" required value="" name="txtLongitud" id="txtLongitud" placeholder="Nombre" hidden>
-                              </div>
-                            -->
-
-                            <div class="text-center mt-3 col align-self-center">
+                            <input type="text" class="form-control" required value="<?php echo $idMascota ?>" name="txtIDMascota" id="txtIDMascota" placeholder="idMascota" hidden>
+                            <input type="text" class="form-control" required value="" name="txtLatitud" id="txtLatitud" placeholder="latitud" hidden>
+                            <input type="text" class="form-control" required value="" name="txtLongitud" id="txtLongitud" placeholder="longitud" hidden>
+                            
+                            <!-- <div class="my-3">
+                              <div class="loading">Cargando</div>
+                              <div class="error-message"></div>
+                              <div class="sent-message">Tu alerta ha sido creada. Gracias!</div>
+                            </div> -->
+                            <div class="text-center">
                               <button type="submit" value="Agregar" name="accion">Agregar</button>
                             </div>
-    
-                            
                           </form>
-                        </div>
+                          
                         <!-- ================= -->
-    
                       </div>
                   </div>
           
