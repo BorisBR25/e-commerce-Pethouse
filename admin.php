@@ -1,8 +1,20 @@
 <?php
 include("headerAdmin.php");
 
-?>
+session_start();
 
+  if(!isset($_SESSION['id'])){
+    header("Location:index.php");
+
+    }else{
+      if($_SESSION['rol']=="1"){
+        $_SESSION['nombre'];
+        $ID=$_SESSION['id'];
+      }else{
+        header("Location:index.php");
+      }
+    }
+?>
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center section-bg">

@@ -106,6 +106,16 @@ $listaProveedor=$sentenciaSQL->fetch();
     include("headerAdmin.php");
     ?>
 
+<script type="text/javascript">
+    function confirmacion(){
+        var respuesta = confirm("Seguro que desea eliminar el producto de la tienda?");
+        if (respuesta == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 
         <div class="container">
                 <br/>
@@ -218,7 +228,7 @@ $listaProveedor=$sentenciaSQL->fetch();
             <div class="btn-group" role="group" aria-label="">
             <input type="hidden" name="txtID" id="txtID" value="<?php echo $producto['idProducto']; ?>"/>
             <button type="submit" name="accion" title="Seleccionar Producto" value="Seleccionar" class="btn btn-outline-success"><i class="bi bi-check2-circle"></i></button>
-            <button type="submit" name="accion" title="Eliminar Producto" value="Borrar" class="btn btn-secondary"><i class="bi bi-trash3"></i></button>
+            <button type="submit" name="accion" title="Eliminar Producto" value="Borrar" class="btn btn-secondary" onclick="return confirmacion()"><i class="bi bi-trash3"></i></button>
             </div>
             </form>    
                  

@@ -108,6 +108,17 @@ $listaDistribuidor=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 include("headerAdmin.php");
 ?>
 
+<script type="text/javascript">
+    function confirmacion(){
+        var respuesta = confirm("Seguro que desea eliminar el proveedor?");
+        if (respuesta == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+
 <div class="container">
 <br/>
 <div class="row">
@@ -195,7 +206,7 @@ include("headerAdmin.php");
             <div class="btn-group" role="group" aria-label="">
             <input type="hidden" name="txtID" id="txtID" value="<?php echo $distribuidor['nitDistribuidor']; ?>"/>
             <button type="submit" name="accion" title="Seleccionar Proveedor" value="Seleccionar" class="btn btn-outline-success"><i class="bi bi-check2-circle"></i></button>
-            <button type="submit" name="accion" title="Eliminar Proveedor" value="Borrar" class="btn btn-secondary"><i class="bi bi-trash3"></i></button>
+            <button type="submit" name="accion" title="Eliminar Proveedor" value="Borrar" class="btn btn-secondary" onclick="return confirmacion()"><i class="bi bi-trash3"></i></button>
 
             </form>    
                  

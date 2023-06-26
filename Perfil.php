@@ -1,7 +1,16 @@
 <?php
 session_start();
 
-$ID=$_SESSION['id'];
+  if(!isset($_SESSION['id'])){
+    header("Location:index.php");
+
+  }else{
+    $ID=$_SESSION['id'];
+
+  }
+  
+
+//$ID=$_SESSION['id'];
 
 include("assets/config/bd.php");
 
@@ -54,6 +63,9 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- fontawesome -->
+  <script src="https://kit.fontawesome.com/ea8f7f2b96.js" crossorigin="anonymous"></script>
  
   <!-- =======================================================
   * Template Name: Yummy - v1.1.0
@@ -697,6 +709,17 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
 
         ?>
     <!-- ======= Mascotas Registradas ======= -->
+    <script type="text/javascript">
+    function confirmacion(){
+        var respuesta = confirm("Seguro que desea eliminar la mascota?");
+        if (respuesta == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    </script>
+
     <section id="chefs" class="chefs section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -709,7 +732,7 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
         <?php foreach($Mascota as $pets){?>
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="chef-member">
-              <a href="perfilMascota.php?idMascota=<?php echo $pets['id']; ?>">
+              <a href="perfilMascota.php?idMascota=<?php echo $pets['idMascota']; ?>"></a>
                 <div class="member-img">
                   
                   <img src="assets/img/mascotas/<?php echo $pets['fotoMascota']; ?>" class="img-fluid" alt="" width="300 px" height="auto">
@@ -717,6 +740,9 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
                   <div class="social btn-group-vertical"> 
 
                   <form method="POST">
+                    <div>
+                      <a href="perfilMascota.php?idMascota=<?php echo $pets['idMascota']; ?>" title="Perfil mascota" class="btn btn-outline-light text-dark"><span><i class="fa-solid fa-shield-dog"></i></i></span></a>
+                    </div> 
                     <div>
                       <a href="mascotasPerdidas.php?idMascota=<?php echo $pets['idMascota']; ?>" title="Reportar como perdida" class="btn btn-outline-light text-dark"><span><i class="bi-geo-alt-fill"></i></span></a>
                       <!-- <button type="submit" name="accion" value="geolocalizar" title="Reportar como perdida" class="btn btn-outline-light text-dark"><span><i class="bi-geo-alt-fill"></i></span></button>  -->
@@ -731,6 +757,7 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
                     <input type="hidden" name="bandera" value="4"/>
                     <input type="hidden" name="idMascota" value="<?php echo $pets['idMascota'];?>"/>
                   </form>
+                  </div>
 
                     <!-- <form action="editarMascota.php" method="GET">
                     <input type="hidden" name="idMascota" value="">  
@@ -746,7 +773,7 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
                       <!-- <a href="#"><i class="bi bi-pencil-square"></i></a>
                       <a href="#"><i class="bi-trash-fill"></i></a> -->
 
-                  </div>
+                  
                 </div>
               </a>
               <div class="member-info">                

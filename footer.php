@@ -40,10 +40,10 @@
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Siguenos</h4>
           <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
+            <a href="https://twitter.com/" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://chat.whatsapp.com/C0qN5amMTxfH2lOPtm8ivG" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
           </div>
         </div>
 

@@ -312,7 +312,7 @@
                           <form class="forms-sample" method="POST" enctype="multipart/form-data">
                           
                             <div class="form-group text-center">
-                              <img src="assets/img/mascotas/<?php echo $txtFoto ?>" class="img-fluid rounded" alt="" style="width: 200px; height: 200px;">
+                              <img src="assets/img/mascotas/<?php echo $txtFoto ?>" class="img-fluid rounded" alt="" style="width: 200px; height: auto;">
                             </div> 
                             <div class="form-group">
                               <div class="form-group">
@@ -339,6 +339,7 @@
                             </div> -->
                             <div class="text-center">
                               <button type="submit" value="Agregar" name="accion">Agregar</button>
+                              <a href="Perfil.php" id="botonL">Cancelar</a>	
                             </div>
                           </form>
                           
@@ -495,7 +496,7 @@
       test
         .setLatLng(e.latlng)
         .addTo(map)
-        .setPopupContent(`Viste a tu mascota en ${e.latlng.toString()} ?`)
+        .setPopupContent(`Ultimo lugar donde viste tu mascota`)
         .openPopup();
     }
 

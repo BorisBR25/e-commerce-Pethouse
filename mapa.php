@@ -350,7 +350,8 @@
           <?php echo $mascota['longitud'] ?>,// -------------- 2
           '<?php echo $mascota['fotoMascota'] ?>',// ---------------- 3
           '<?php echo $mascota['descripcion'] ?>',// --------- 4
-          '<?php echo $mascota['descripcionPerdida'] ?>'// --- 5
+          '<?php echo $mascota['descripcionPerdida'] ?>',// --- 5
+          <?php echo $mascota['idMascota'] ?>// --------------- 6
         ],
       <?php } ?>
     ];
@@ -389,50 +390,19 @@
     
       const marker = L.marker(latlng,{icon: myIcon}/*,{draggable:'true'}*/)
         .addTo(map)
-        // .bindPopup(`
-        //   <div class="card" style="width: 18rem;">
-        //     <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
-        //     <div class="card-body">
-        //       <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
-        //       <p class="card-text">${marcadoresPHP[i][4]}</p>
-        //       <p class="card-text">${marcadoresPHP[i][5]}</p>
-        //       <a href="#" class="btn btn-primary">¿Me has visto?</a>
-        //     </div>
-        //   </div>
-        // `);
         .bindPopup(`
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="profile-card-6"><img src="assets/img/mascotas/${marcadoresPHP[i][3]}" class="img img-responsive">
-                  <div class="profile-name">
-                    ${marcadoresPHP[i][0]}
-                  </div>
-                  <div class="profile-icon">
-                    <a href="#">asd</a>
-                  </div>
-                  <div class="profile-position">
-                    ¿Me has visto?
-                  </div>
-                  <div class="profile-overview">
-                    <div class="profile-overview">
-                      <div class="row text-center">
-                        <div class="col-xs-4">
-                          <h3>Descripción</h3>
-                          <p>${marcadoresPHP[i][4]}</p>
-                        </div>
-                        <div class="col-xs-4">
-                            <h3>Detalles perdida</h3>
-                            <p>${marcadoresPHP[i][5]}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="card text-center" style="width: 18rem;">
+            <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
+              <p class="card-text" style="margin-bottom: 0px;">${marcadoresPHP[i][4]}</p>
+              <p class="card-text" style="margin-top: 0px;">${marcadoresPHP[i][5]}</p>
+              <a href="perfilMascota.php?idMascota=${marcadoresPHP[i][6]}"><button class="btn btn-success">¿Me has visto?</button></a>
+              
             </div>
           </div>
         `);
+        
 
     } 
 
@@ -495,138 +465,3 @@
 </body>
 
 </html>
-
-
-
-
-
-<!-- 
-  Crear una tabla "mascotas perdidas" 
-  Atributos:
-    Coordenadas
-    descripcion
-    fechaHoraPerdida
-    IDMascota
-
-  crear formulario (CRUD) para la gestion de mascotas perdidas
-  capturando valores del mapa (e.latlng)
-
-  crear marcadores con informacion de la base de datos (foreach)
-
-  Diseñar popup para las mascotas perdidas.
-
-
-
-
-  CARD PARA MOSTRAR EN EL MAPA
-  
-  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Master Chef</span>
-                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-
-
-
-
--->
-<!-- Tests -->
-    
-<!-- <div class="container" style="margin-top:50px;">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card-sl">
-                    <div class="card-image">
-                        <img
-                            src="https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-                    </div>
-
-                    <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
-                    <div class="card-heading">
-                        Audi Q8
-                    </div>
-                    <div class="card-text">
-                        Audi Q8 is a full-size luxury crossover SUV coupé made by Audi that was launched in 2018.
-                    </div>
-                    <div class="card-text">
-                        $67,400
-                    </div>
-                    <a href="#" class="card-button"> Purchase</a>
-                </div>
-            </div>
-        </div>  -->
-
-
-
-
-
-<div class="container">
-	<div class="row">
-    
-    <div class="col-md-12">
-      <div class="profile-card-6"><img src="assets\img\mascotas\1686082081_principe.jpg" class="img img-responsive">
-        <div class="profile-name">
-          JOHN
-          <br>DOE
-        </div>
-        <div class="profile-icon">
-          <a href="#">asd</a>
-        </div>
-        <div class="profile-position">
-          Lorem Ipsum Donor
-        </div>
-        <div class="profile-overview">
-          <div class="profile-overview">
-            <div class="row text-center">
-              <div class="col-xs-4">
-                <h3>Descripcion</h3>
-                <p>Mirada penetrante, pelon, negro, intimidante</p>
-              </div>
-              <div class="col-xs-4">
-                  <h3>50</h3>
-                  <p>Matches</p>
-              </div>
-              <div class="col-xs-4">
-                  <h3>35</h3>
-                  <p>Goals</p>
-              </div>
-
-              <div class="col-xs-4">
-                  <h3>69</h3>
-                  <p>Goals</p>
-              </div>
-              
-
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-		
-	</div>
-</div>
-
-
-        
-    <!-- End Tests -->

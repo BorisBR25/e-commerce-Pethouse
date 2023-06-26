@@ -222,7 +222,7 @@
                       <h4><?php echo $txtNombre ?></h4>
                       <p class="text-secondary mb-1"><?php echo $txtDescripcion?></p><br>
                       <button id="QR" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalQR">Generar QR</button>
-                      <button class="btn btn-outline-success">Contactar Dueño</button>
+                      <button class="btn btn-outline-success" hidden>Contactar Dueño</button>
                     </div>
                   </div>
                 </div>
@@ -266,13 +266,13 @@
                       <p><?php echo $txtEstado?></p>
                     </div>
                     <div class="col-sm-3 text-secondary">
-                      <p style="text-align: right; padding-top: 2%;">Desde: <?php echo $txtCreacion ?></p>
+                      <p style="text-align: right; padding-top: 2%;">Desde: <?php echo !empty($txtCreacion) ? $txtCreacion : '-----'; ?></p>
                     </div>
                     <div class="col-sm-3 text-secondary">
-                      <p style="text-align: right; padding-top: 2%;">Hasta: 03/06/2023 19:29:56</p>
+                      <p style="text-align: right; padding-top: 2%;">Hasta: <?php echo !empty($txtCreacion) ? '03/06/2023 19:29:56' : '-----'; ?></p>
                     </div>
                     <div class="col-sm-2 text-secondary" style="text-align: center; padding-top: 1%;">
-                      <button class="btn btn-success">Ampliar</button>
+                      <button class="btn btn-success" hidden>Ampliar</button>
                     </div>
                   </div>
                   
@@ -337,10 +337,10 @@
         <div class="col-lg-3 col-md-6 footer-links">
           <h4>Siguenos</h4>
           <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
+            <a href="https://twitter.com/" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://chat.whatsapp.com/C0qN5amMTxfH2lOPtm8ivG" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
           </div>
         </div>
 
@@ -393,7 +393,8 @@
           <?php echo $mascota['longitud'] ?>, //--------------- 2
           '<?php echo $mascota['fotoMascota'] ?>',//------------------ 3
           '<?php echo $mascota['descripcionPerdida'] ?>',//---- 4
-          '<?php echo $mascota['descripcion'] ?>',//----------- 5
+          '<?php echo $mascota['descripcionPerdida'] ?>',// --- 5
+          <?php echo $mascota['idMascota'] ?>// --------------- 6
         ],
       <?php } ?>
     ];
@@ -450,13 +451,14 @@
       const marker = L.marker(latlng,{icon: myIcon}/*,{draggable:'true'}*/)
         .addTo(map)
         .bindPopup(`
-          <div class="card" style="width: 18rem;">
+          <div class="card text-center" style="width: 18rem;">
             <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
-              <p class="card-text">Descripcion: ${marcadoresPHP[i][5]}</p>
-              <p class="card-text">Detalles perdida: ${marcadoresPHP[i][4]}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text" style="margin-bottom: 0px;">${marcadoresPHP[i][4]}</p>
+              <p class="card-text" style="margin-top: 0px;">${marcadoresPHP[i][5]}</p>
+              <a href="perfilMascota.php?idMascota=${marcadoresPHP[i][6]}"><button class="btn btn-success">¿Me has visto?</button></a>
+              
             </div>
           </div>
         `);

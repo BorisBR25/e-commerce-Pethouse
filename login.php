@@ -34,14 +34,13 @@ if($_POST){
             $txtContrasena=$usuario['claveUsuario'];
             $txtRol=$usuario['rolUsuario']; 
             $_SESSION["id"]=$usuario['idUsuario'];
+            $_SESSION["rol"]=$usuario['rolUsuario'];
+            $_SESSION["nombre"]=$usuario['nombreUsuario'];
         
                 if($txtRol == 1){           
-                    header("location:admin.php");
-                    
+                    header("location:admin.php");                    
                 }
-
-                    elseif($txtRol != 1){
-                        
+                    elseif($txtRol != 1){                        
                         header("location:Perfil.php");
                     }
         }

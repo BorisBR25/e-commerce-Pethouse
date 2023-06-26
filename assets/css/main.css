@@ -1312,6 +1312,19 @@ section {
   padding: 12px 15px;
 }
 
+.form-button {
+  background: var(--color-primary);
+  border: 0;
+  padding: 14px 60px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.form-button:hover {
+  background: var(--color-hover);
+}
+
 .book-a-table .php-email-form  button[type=submit],.book-a-table .forms-sample  button[type=submit] {
   background: var(--color-primary);
   border: 0;
@@ -1507,6 +1520,19 @@ section {
 
 .contact .php-email-form textarea {
   padding: 10px 12px;
+}
+
+.contact .php-email-form button[type=button] {
+  background: var(--color-primary);
+  border: 0;
+  padding: 12px 40px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.contact .php-email-form button[type=button]:hover {
+  background: var(--color-hover);
 }
 
 .contact .php-email-form button[type=submit] {
@@ -1799,6 +1825,19 @@ section {
 .col-form-label{
   font-family: var(--font-secondary);
   color: var(--color-secondary)!important;
+}
+
+.testimonials .profile-form  button[type=button] {
+  background: var(--color-primary);
+  border: 0;
+  padding: 14px 60px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.testimonials .profile-form button[type=button]:hover {
+  background: var(--color-hover);
 }
 
 .testimonials .profile-form  button[type=submit] {

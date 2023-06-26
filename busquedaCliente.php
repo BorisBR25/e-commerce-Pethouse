@@ -13,6 +13,18 @@
 </head>
 <body>
 </br></br></br></br></br></br></br>
+
+<script type="text/javascript">
+    function confirmacion(){
+        var respuesta = confirm("Seguro que desea eliminar el cliente?");
+        if (respuesta == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+
 <div class="container is-fluid mb-6">
     <h1 class="title">Gestión clientes</h1>
     <h2 class="subtitle">Buscar usuario</h2>
@@ -106,7 +118,7 @@ if(($_POST) && ($txtBusqueda=$_POST['txt_buscador'])) {
                       <td>
                       <form method="POST">
                       <input type="hidden" name="idUsuario" value="'.$rows['idUsuario'].'">                        
-                      <button type="submit" name="accion" value="eliminar" title="Eliminar Cliente" class="btn btn-outline-light text-dark"><span><i class="bi-trash"></i></span></button>
+                      <button type="submit" name="accion" value="eliminar" title="Eliminar Cliente" class="btn btn-outline-light text-dark" onclick="return confirmacion()"><span><i class="bi-trash"></i></span></button>
                       </td>
                       </form>
                   </tr>
