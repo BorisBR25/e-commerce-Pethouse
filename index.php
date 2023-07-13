@@ -24,19 +24,17 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <!-- CSS Extra - Boris -->
+  <link rel="stylesheet" href="assets/css/carritoCSS.css">
+  
   <!-- Hoja de estilos Toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <!-- JQuery Primero -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Toastr.js Después -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-  <!-- CSS Extra - Boris -->
-  <link rel="stylesheet" href="assets/css/carritoCSS.css">
 
   <!-- =======================================================
   * Template Name: Yummy - v1.1.0
@@ -165,34 +163,34 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- ======= MODAL CARRITO ======= -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu Carrito</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div   class="modal-body">
-              <!-----CART CONTENT-->
-              <div class="cart-content">
-                <!--CART PRODUCTS GO HERE-->
-                
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tu Carrito</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div   class="modal-body">
+            <!-----CART CONTENT-->
+            <div class="cart-content">
+              <!--CART PRODUCTS GO HERE-->
+              
 
-              </div>
-              
-              
-              <div class="total">
-                <div class="total-title">Total<span class="total-price">$0</span></div>
-                
-              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-second" data-bs-dismiss="modal">Seguir comprando</button>
-              <button type="button" class="btn btn-primary buybutton">Pagar</button>
+            
+            
+            <div class="total">
+              <div class="total-title">Total<span class="total-price">$0</span></div>
+              
             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-second" data-bs-dismiss="modal">Seguir comprando</button>
+            <button type="button" class="btn btn-primary buybutton">Pagar</button>
           </div>
         </div>
       </div>
-      <!-- ======= FIN MODAL CARRITO ======= -->
+    </div>
+    <!-- ======= FIN MODAL CARRITO ======= -->
 
     <!-- ======= Modal login ======= -->
     <div id="buy-ticket-modal" class="modal fade">
@@ -363,8 +361,10 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 <div class="row gy-5">
     
     <?php foreach($listaCollares as $producto){
-       if ($producto['existencia'] >= 1) { ?>
+      if ($producto['existencia'] >= 1) { ?>
       <div class="col-lg-4 menu-item">
+        <span class="product-stock" hidden><?php echo $producto['existencia'] ?></span>
+        <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
         <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
         <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
         <p class="ingredients">
@@ -373,12 +373,13 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
         <p class="price product-price">
           $ <?php echo $producto['precioProducto'] ?>
         </p>
-        <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+        <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
       </div><!-- Menu Item -->
 
       <?php } else { ?>
 
       <div class="col-lg-4 menu-item">
+        <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
         <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
         <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
         <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
@@ -397,32 +398,35 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
       <h3>Juguetes</h3>
     </div>
 
-    <div class="row gy-5">
-      <?php foreach($listaJuguetes as $producto){
-      if ($producto['existencia'] >= 1) { ?>
-        <div class="col-lg-4 menu-item">
-          <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-          <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
-          <p class="ingredients">
-          <?php echo $producto['descripcion'] ?>
-          </p>
-          <p class="price product-price">
-            $ <?php echo $producto['precioProducto'] ?>
-          </p>
-          <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
-        </div><!-- Menu Item -->
-        <?php } else { ?>
-          <div class="col-lg-4 menu-item">
-            <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
-            <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
-            <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
-            <p class="price product-price">Agotado</p>        
+            <div class="row gy-5">
+              <?php foreach($listaJuguetes as $producto){
+              if ($producto['existencia'] >= 1) { ?>
+                <div class="col-lg-4 menu-item">
+                <span class="product-stock" hidden><?php echo $producto['existencia'] ?></span>
+                  <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
+                  <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                  <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+                  <p class="ingredients">
+                  <?php echo $producto['descripcion'] ?>
+                  </p>
+                  <p class="price product-price">
+                    $ <?php echo $producto['precioProducto'] ?>
+                  </p>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+                </div><!-- Menu Item -->
+                <?php } else { ?>
+                  <div class="col-lg-4 menu-item">
+                    <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
+                    <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
+                    <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
+                    <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
+                    <p class="price product-price">Agotado</p>        
+                    </div>
+                    <?php } ?>
+                    <?php } ?>
+                  
             </div>
-            <?php } ?>
-            <?php } ?>
-          
-        </div>
-    </div><!-- End Juguetes Menu Content -->
+</div><!-- End Juguetes Menu Content -->
 
         
           <div class="tab-pane fade" id="comida">
@@ -435,6 +439,8 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
               <?php foreach($listaComida as $producto){
               if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
+                  <span class="product-stock" hidden><?php echo $producto['existencia'] ?></span>
+                  <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                   <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                   <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
@@ -447,6 +453,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                 </div><!-- Menu Item -->
                 <?php } else { ?>
                   <div class="col-lg-4 menu-item">
+                    <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                     <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                     <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                     <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
@@ -469,6 +476,8 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
               <?php foreach($listaAccesorios as $producto){
               if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
+                  <span class="product-stock" hidden><?php echo $producto['existencia'] ?></span>
+                  <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                   <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                   <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
@@ -477,11 +486,12 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                   <p class="price product-price">
                     $ <?php echo $producto['precioProducto'] ?>
                   </p>
-                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
 
                 <?php } else { ?>
                   <div class="col-lg-4 menu-item">
+                    <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                     <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                     <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                     <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
@@ -673,8 +683,19 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
   <div id="preloader"></div>
 
-  <!-- ============= TOASTR ============= -->
-  <script>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+ <!-- ============= TOASTR ============= -->
+ <script>
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -712,22 +733,11 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
   </script>
   <!-- ============= END TOASTR ============= -->
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
-   <!-- Scripts Carrito -->
-   <script src="assets/js/productos.js"></script>
+  <!-- Scripts Carrito -->
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   
-
+  <script src="../PetHouse/assets/js/productos.js"></script>
 </body>
 
 </html>

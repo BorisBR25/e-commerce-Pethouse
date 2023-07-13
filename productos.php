@@ -14,6 +14,7 @@ $txtID=(isset($_POST['txtID']))?$_POST['txtID']:"";
 $txtNombre=(isset($_POST['txtNombre']))?$_POST['txtNombre']:"";
 $txtPrecio=(isset($_POST['txtPrecio']))?$_POST['txtPrecio']:"";
 $txtDescripcion=(isset($_POST['txtDescripcion']))?$_POST['txtDescripcion']:"";
+$txtCantidad=(isset($_POST['txtCantidad']))?$_POST['txtCantidad']:"";
 $txtCategoria=(isset($_POST['txtCategoria']))?$_POST['txtCategoria']:"";
 $txtProveedor=(isset($_POST['txtProveedor']))?$_POST['txtProveedor']:"";
 $txtImagen=(isset($_FILES['txtImagen']['name']))?$_FILES['txtImagen']['name']:"";
@@ -27,12 +28,13 @@ include("assets/config/bd.php");
 switch($accion){
 
     case "Agregar":
-        $sentenciaSQL= $conexion->prepare("INSERT INTO `pethouse`.`producto` (`idProducto`,`nombreProducto`, `marcaProducto` , `categoriaProducto`,`imagenProducto` ,`descripcion` ) VALUES (:id, :nombre, :proveedor, :categoria, :imagen, :descripcion );");
+        $sentenciaSQL= $conexion->prepare("INSERT INTO `pethouse`.`producto` (`idProducto`,`nombreProducto`,`precioProducto`, `marcaProducto` , `categoriaProducto`,`imagenProducto` ,`descripcion`,`existencia` ) VALUES (:id, :nombre, :precio, :proveedor, :categoria, :imagen, :descripcion, :existencia );");
         $sentenciaSQL->bindParam(':id',$txtID);
         $sentenciaSQL->bindParam(':nombre',$txtNombre);
         $sentenciaSQL->bindParam(':categoria',$txtCategoria);
-       // $sentenciaSQL->bindParam(':precio',$txtPrecio);
+        $sentenciaSQL->bindParam(':precio',$txtPrecio);
         $sentenciaSQL->bindParam(':descripcion',$txtDescripcion);   
+        $sentenciaSQL->bindParam(':existencia',$txtCantidad);
         $sentenciaSQL->bindParam(':proveedor',$txtProveedor);        
 
         $fecha= new DateTime();
@@ -176,16 +178,6 @@ $listaProveedor=$sentenciaSQL->fetch();
     include("headerAdmin.php");
     ?>
 
-<script type="text/javascript">
-    function confirmacion(){
-        var respuesta = confirm("Seguro que desea eliminar el producto?");
-        if (respuesta == true){
-            return true;
-        }else{
-            return false;
-        }
-    }
-</script>
 
     <div class="container">
     <br/>
@@ -203,7 +195,7 @@ $listaProveedor=$sentenciaSQL->fetch();
 
             <div class = "form-group">
             <label for="txtID">Referencia:</label>
-            <input type="text" required class="form-control" value="<?php echo $txtID; ?>" name="txtID" id="txtID" placeholder="Id">
+            <input type="text" required class="form-control" value="<?php echo $txtID; ?>" name="txtID" id="txtID" placeholder="Id" <?php echo ($accion == "Seleccionar")?"readonly":""; ?> >
             </div>
 
             <div class = "form-group">
@@ -229,13 +221,13 @@ $listaProveedor=$sentenciaSQL->fetch();
     
              <div class = "form-group">
             <label for="txtPrecio">Cantidad:</label>
-            <input type="number" readonly class="form-control" value="<?php echo $txtPrecio; ?>" name="txtCantidad" id="txtCantidad" placeholder="0">
+            <input type="number" required class="form-control" value="<?php echo $txtCantidad; ?>" name="txtCantidad" id="txtCantidad" placeholder="0">
             </div>
 
 
             <div class = "form-group">
             <label for="txtPrecio">Precio:</label>
-            <input type="number" readonly class="form-control" value="<?php echo $txtPrecio; ?>" name="txtPrecio" id="txtPrecio" placeholder="$0.00">
+            <input type="number" required class="form-control" value="<?php echo $txtPrecio; ?>" name="txtPrecio" id="txtPrecio" placeholder="$0.00">
             </div>
 
 
@@ -324,7 +316,7 @@ $listaProveedor=$sentenciaSQL->fetch();
             <div class="btn-group" role="group" aria-label="">
             <input type="hidden" name="txtID" id="txtID" value="<?php echo $producto['idProducto']; ?>"/>
             <button type="submit" name="accion" title="Seleccionar Producto" value="Seleccionar" class="btn btn-outline-success"><i class="bi bi-check2-circle"></i></button>
-            <button type="submit" name="accion" title="Eliminar Producto" value="Borrar" class="btn btn-secondary" onclick="return confirmacion()"><i class="bi bi-trash3"></i></button>
+            <button type="submit" name="accion" title="Eliminar Producto" value="Borrar" class="btn btn-secondary"><i class="bi bi-trash3"></i></button>
             </div>
             </form>    
                  

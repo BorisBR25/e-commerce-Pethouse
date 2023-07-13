@@ -136,7 +136,7 @@ include("headerAdmin.php");
 
             <div class = "form-group">
             <label for="txtID">ID:</label>
-            <input type="text" required  class="form-control" value="<?php echo $txtID; ?>" name="txtID" id="txtID" placeholder="NIT">
+            <input type="text" required  class="form-control" value="<?php echo $txtID; ?>"  name="txtID" id="txtID" placeholder="NIT" <?php echo ($accion == "Seleccionar")?"readonly":""; ?> >
             </div>
 
             <div class = "form-group">

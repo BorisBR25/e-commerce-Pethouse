@@ -61,20 +61,24 @@ let itemsAdded = JSON.parse(localStorage.getItem("productCart")) || [];
 
 function handle_addCartItem(){
     let product = this.parentElement;
+    let id = product.querySelector('.product-id').innerHTML;
     let title = product.querySelector('.product-title').innerHTML;
     let price = product.querySelector('.product-price').innerHTML;
+    let stock = product.querySelector('.product-stock').innerHTML;
     let imgSrc = product.querySelector('.product-img').src;
 
 
     let newToAdd = {
+        id,
         title,
         price,
+        stock,
         imgSrc,
         
     }
 
     // handle item already exist
-    if (itemsAdded.find((el) => el.title == newToAdd.title)) {
+    if (itemsAdded.find((el) => el.id == newToAdd.id)) {
         alert("Este producto ya esta en tu carrito!");
         return;
     }else{
@@ -82,7 +86,7 @@ function handle_addCartItem(){
     }
 
     // ADD PRODUCT TO CART
-    let cartBoxElement = cartBoxComponent(title,price, imgSrc);
+    let cartBoxElement = cartBoxComponent(id,title,price,stock,imgSrc);
     let newNode = document.createElement('div');
     newNode.innerHTML = cartBoxElement;
     const cartContent = modalBody.querySelector('.cart-content');
@@ -98,7 +102,7 @@ function handle_addCartItem(){
 //---REMOVE CART ITEM-----
 function handle_removeCartItem(){
     this.parentElement.remove();
-    itemsAdded = itemsAdded.filter((el) => el.title != this.parentElement.querySelector('.cart-product-title').innerHTML);
+    itemsAdded = itemsAdded.filter((el) => el.id != this.parentElement.querySelector('.cart-product-id').innerHTML);
     CartCounter();
     update();
     saveLocal();
@@ -106,8 +110,16 @@ function handle_removeCartItem(){
 
 //---CHANGE QUANTITY ITEM-----
 function handle_changeItemQuantity(){
+    // Obtener el valor máximo permitido
+    let maxStock = parseInt(this.parentElement.querySelector('.cart-product-stock').innerHTML);
+
     if (isNaN(this.value) || this.value < 1) {
         this.value = 1;
+        console.log(maxStock);
+    } 
+    // Verificar si el valor del input supera el stock
+    if (parseInt(this.value) > maxStock) {
+        this.value = maxStock;
     }
     this.value = Math.floor(this.value);
 
@@ -121,8 +133,9 @@ function handle_buyOrder(){
         return;
     } else{
         const cartContent = modalBody.querySelector('.cart-content');
-        cartContent.innerHTML = '';
-        window.location.href="pasarela.html";
+        //cartContent.innerHTML = '';
+        payInfo();
+        window.location.href="pasarela.php";
     }
 }
 
@@ -132,7 +145,7 @@ function loadCartFromLocalStorage() {
   
     cartContent.innerHTML = '';
     cartItems.forEach(item => {
-      const cartBoxElement = cartBoxComponent(item.title, item.price, item.imgSrc);
+      const cartBoxElement = cartBoxComponent(item.id,item.title, item.price, item.imgSrc);
       const newNode = document.createElement('div');
       newNode.innerHTML = cartBoxElement;
       cartContent.appendChild(newNode);
@@ -176,10 +189,43 @@ function saveLocal(){
 }
 
 
+//--PAY INFORMATION--
+
+let payContenido = JSON.parse(localStorage.getItem("payInfo")) || [];
+function payInfo() {
+    
+    let product = document.querySelectorAll('.cart-box');
+    let total = document.querySelector('.total-price').innerHTML;
+    
+    for (let i = 0; i < product.length; i++) {
+        let id = product[i].querySelector('.cart-product-id').innerHTML;
+        let title = product[i].querySelector('.cart-product-title').innerHTML;
+        let price = product[i].querySelector('.cart-price').innerHTML;
+        let imgSrc = product[i].querySelector('.cart-img').src;
+        let quantity = product[i].querySelector('.cart-quantity').value;
+  
+        
+        let payInformation = {
+            id,
+            title,
+            price,
+            imgSrc,
+            quantity,
+            total
+        }
+        payContenido.push(payInformation);
+    }
+    
+    localStorage.setItem("payInfo", JSON.stringify(payContenido))
+    
+}
+
 //----------------HTML COMPONENTS-----
-function cartBoxComponent(title,price,imgSrc){
+function cartBoxComponent(id,title,price,stock,imgSrc){
     return `
     <div class="cart-box">
+    <span class="cart-product-stock" hidden>${stock}</span>
+    <span class="cart-product-id" hidden>${id}</span>
     <img src="${imgSrc}" alt="" class="cart-img" style="width: 5rem;height: 5rem;">
     <div class="cart-product-title">${title}</div>
     <div class="cart-price">${price}</div>
@@ -189,5 +235,6 @@ function cartBoxComponent(title,price,imgSrc){
     </div>
     `
 }
+
 
 

@@ -300,18 +300,19 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
 
         
-        <div class="tab-pane fade active show" id="collares">
+<div class="tab-pane fade active show" id="collares">
   <div class="tab-header text-center">
     <p>Productos</p>
     <h3>Collares</h3>
   </div>
   
 
-  <div class="row gy-5">
+<div class="row gy-5">
     
     <?php foreach($listaCollares as $producto){
-       if ($producto['existencia'] >= 1) { ?>
+      if ($producto['existencia'] >= 1) { ?>
       <div class="col-lg-4 menu-item">
+        <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
         <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
         <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
         <p class="ingredients">
@@ -326,6 +327,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
       <?php } else { ?>
 
       <div class="col-lg-4 menu-item">
+        <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
         <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
         <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
         <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
@@ -348,6 +350,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
               <?php foreach($listaJuguetes as $producto){
               if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
+                  <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                   <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                   <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
@@ -360,6 +363,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                 </div><!-- Menu Item -->
                 <?php } else { ?>
                   <div class="col-lg-4 menu-item">
+                    <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                     <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                     <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                     <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
@@ -382,6 +386,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
               <?php foreach($listaComida as $producto){
               if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
+                 <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                   <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                   <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
@@ -390,10 +395,11 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                   <p class="price product-price">
                     $ <?php echo $producto['precioProducto'] ?>
                   </p>
-                  <button type="submit" class="btn btn-success add-cart" value="Agregar" >Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
+                  <button type="submit" class="btn btn-success add-cart" value="Agregar" onclick="toast()">Agregar &nbsp<i class="bi bi-cart-plus"></i></button>
                 </div><!-- Menu Item -->
                 <?php } else { ?>
                   <div class="col-lg-4 menu-item">
+                    <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                     <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                     <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                     <p class="ingredients"><?php echo $producto['descripcion'] ?></p>
@@ -416,6 +422,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
               <?php foreach($listaAccesorios as $producto){
               if ($producto['existencia'] >= 1) { ?>
                 <div class="col-lg-4 menu-item">
+                  <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                   <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                   <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                   <p class="ingredients">
@@ -429,6 +436,7 @@ $listaAccesorios=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
                 <?php } else { ?>
                   <div class="col-lg-4 menu-item">
+                    <span class="product-id" hidden ><?php echo $producto['idProducto']?></span>
                     <a href="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="glightbox"><img src="assets/img/productos/<?php echo $producto['imagenProducto'] ?>" class="menu-img img-fluid product-img" alt=""></a>
                     <h4 class="product-title"><?php echo $producto['nombreProducto'] ?></h4>
                     <p class="ingredients"><?php echo $producto['descripcion'] ?></p>

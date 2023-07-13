@@ -49,12 +49,12 @@
         <li class="dropdown"><a href="#"><span>Gestión tienda<i class="bi bi-chevron-down dropdown-indicator"></span></i></a>
             <ul>
               <li><a href="CompraProductos.php"><span> Comprar Productos</span></a></li>
-              <li><a href="proveedores.php"><span> Regitrar Proveedor Nuevo</span></a></li>
+              <li><a href="proveedores.php"><span> Registrar Proveedor Nuevo</span></a></li>
               <li><a href="productos.php"><span> Registrar Producto Nuevo</span></a></li>              
             </ul>
           </li>          
           <li><a href="busquedaCliente.php">Ver clientes</a></li>
-          <li><a href="#">Ver compras</a></li>
+          <li><a href="ventas.php">Ver compras</a></li>
           <li><a href="Perfil.php">Mi perfil</a></li>         
         
 

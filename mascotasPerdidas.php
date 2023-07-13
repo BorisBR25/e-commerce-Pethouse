@@ -29,7 +29,7 @@
     $txtLongitud=(isset($_POST['txtLongitud']))?$_POST['txtLongitud']:"";
 
     // Prepara la consulta
-    $sentenciaSQL = mysqli_prepare($conexionn, "INSERT INTO sitio.mascotaPerdida (idMascota, descripcionPerdida, fechaHoraPerdida, latitud, longitud, estado) VALUES (?, ?, ?, ?, ?, 1);");
+    $sentenciaSQL = mysqli_prepare($conexionn, "INSERT INTO pethouse.mascotaPerdida (idMascota, descripcionPerdida, fechaHoraPerdida, latitud, longitud, estado) VALUES (?, ?, ?, ?, ?, 1);");
 
     // Vincula las variables a la consulta
     mysqli_stmt_bind_param($sentenciaSQL, "issdd", $txtIDMascota, $txtDescripcionPerdida, $txtFechaHoraPerdidaMySQL, $txtLatitud, $txtLongitud);

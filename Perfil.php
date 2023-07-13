@@ -351,7 +351,7 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
                             <div class="row mb-3">
                               <label for="Address" class="col-md-4 col-lg-3 col-form-label">Dirección:</label>
                               <div class="col-md-8 col-lg-9">
-                                <input name="direccionE" type="text" class="form-control" id="Address" value="<?php echo $usuario['tipoCalle']." ".$usuario['numeroTipoCalle']." # ".$usuario['calleCruce']." - ".$usuario['distanciaNumero']; ?>">
+                                <input name="direccionE" type="text" class="form-control" id="Address" value="<?php echo $usuario['tipoCalle']." ".$usuario['numeroTipoCalle']." # ".$usuario['CalleCruce']." - ".$usuario['distanciaNumero']; ?>">
                               </div>
                             </div>
 
@@ -673,7 +673,7 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
         <?php
         if(($_POST) && ($_POST['bandera'] == 4)){
 
-          $txtidM=(isset($_POST['idM']))?($_POST['idM']):"";
+          $txtidM=(isset($_POST['idMascota']))?($_POST['idMascota']):"";
           $accion=(isset($_POST['accion']))?($_POST['accion']):"";
 
           switch($accion){
@@ -751,7 +751,7 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
                       <a href="editarMascota.php?idMascota=<?php echo $pets['idMascota']; ?>" title="Editar mascota" class="btn btn-outline-light text-dark"><span><i class="bi bi-pencil-square"></i></span></a>
                     </div>
                     <div>
-                      <button type="submit" name="accion" value="eliminar" title="Eliminar mascota" class="btn btn-outline-light text-dark"><span><i class="bi-trash"></i></span></button> 
+                      <button type="submit" name="accion" value="eliminar" title="Eliminar mascota" class="btn btn-outline-light text-dark" onclick="return confirmacion()"><span><i class="bi-trash"></i></span></button> 
                     </div>
 
                     <input type="hidden" name="bandera" value="4"/>
@@ -777,7 +777,7 @@ $txtImagen=$datosUsuario[0]['fotoUsuario'];
                 </div>
               </a>
               <div class="member-info">                
-                <input type="hidden" name="idM" value="<?php echo $pets['idMascota'];?>">
+                <input type="hidden" name="idMascota" value="<?php echo $pets['idMascota'];?>">
                 <h4><?php echo $pets['nombreMascota'];?></h4>
                 <span><?php echo $pets['especieMascota'];?></span>
                 <span>Raza: <?php echo $pets['razaMascota'];?></span>

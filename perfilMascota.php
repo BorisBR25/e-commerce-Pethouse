@@ -1,6 +1,7 @@
 <?php
   include("assets/config/bd.php");
-    
+  $fechaActual = date('Y-m-d H:i:s');
+  ##========================================================================================================
 
   $idMascota = $_GET['idMascota'];
 
@@ -15,16 +16,70 @@
   $txtRaza=$datosMascota[0]['razaMascota'];
   $txtSexo=$datosMascota[0]['sexoMascota'];
   $txtColor=$datosMascota[0]['colorMascota'];
+  $idDueño=$datosMascota[0]['idUsuario'];
+
+  
+  
+  ##========================================================================================================
+
+  if ($_POST){
+
+    if ($_POST['validacion'] == 0) {
+    
+      $idAlert=(isset($_POST['idAlerta']))?$_POST['idAlerta']:"";
+      $fechaActual = date('Y-m-d H:i:s');
+
+      $sentenciaSQL = $conexion->prepare("UPDATE mascotaPerdida SET fechaCreacion = :fecha, estado = 1 WHERE idPerdida = :id");
+      $sentenciaSQL->bindValue(':fecha', $fechaActual);
+      $sentenciaSQL->bindValue(':id', $idAlert);
+      $sentenciaSQL->execute();
+    }
+      
+    ##========================================================================================================
+
+    if ($_POST['validacion'] == 1) {
+
+      $idAlert=(isset($_POST['idAlerta']))?$_POST['idAlerta']:"";
+
+      $sentenciaSQL=$conexion->prepare("DELETE FROM mascotaPerdida WHERE idPerdida = :id");
+      $sentenciaSQL->bindValue(':id', $idAlert);
+      $sentenciaSQL->execute();
+
+    }
+  }
+  ##========================================================================================================
+
+  // Desactivar alertas de mas de una semana 
+  $fechaLimite = date('Y-m-d H:i:s', strtotime('-1 week')); // Resta una semana a la fecha actual
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM mascotaPerdida WHERE fechaCreacion <= '$fechaLimite' AND estado = 1");
+  $sentenciaSQL->execute();
+  $resultado=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach($resultado as $alertaCaducada){  
+    $idPerdida = $alertaCaducada['idPerdida'];
+    //Actualizar el estado en la base de datos
+    $updateSQL=$conexion->prepare("UPDATE mascotaPerdida SET estado = 2 WHERE idPerdida = $idPerdida");
+    $updateSQL->execute();
+  } 
 
   ##========================================================================================================
 
+  // Traer el estado y la fecha  
   $sentenciaSQL=$conexion->prepare("SELECT * FROM mascotaPerdida WHERE idMascota=$idMascota");
   $sentenciaSQL->execute();
   $datosAlerta=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 
-  $Estado=$datosAlerta[0]['estado'];
-  $txtCreacion=$datosAlerta[0]['fechaCreacion'];
+  if (!empty($datosAlerta)) {
+    $idAlerta=$datosAlerta[0]['idPerdida'] ;
+    $Estado=$datosAlerta[0]['estado'];
+    $txtCreacion=$datosAlerta[0]['fechaCreacion'];
 
+    $txtCreacion = date('Y-m-d', strtotime($txtCreacion));
+    $txtCreacionCaduca = date('Y-m-d', strtotime($txtCreacion . '+1 week'));
+  }else {
+    $Estado=0;
+  }
+  
     
 
   if ($Estado == 1) {
@@ -35,7 +90,22 @@
     $colorEstado = "circleRed";
     $txtEstado = "Inactivo";
   }
+  if ($Estado == 2) {
+    $colorEstado = "circleRed";
+    $txtEstado = "Caducó";
+  }
 
+  ##========================================================================================================
+
+  $sentenciaSQL=$conexion->prepare("SELECT * FROM usuario WHERE idUsuario=$idDueño");
+  $sentenciaSQL->execute();
+  $datosContacto=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+
+  $correo=$datosContacto[0]['correoUsuario'];
+  $telefono=$datosContacto[0]['telefonoUsuario'];
+
+  
   ##========================================================================================================
 ?>
 <!DOCTYPE html>
@@ -176,7 +246,7 @@
   <main id="main">
 
     <!-- ======= MODAL QR ======= -->
-    <div class="modal fade" id="modalQR" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="modalQR" data-bs-backdrop="true" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -206,6 +276,32 @@
     </div>
     <!-- ======= FIN MODAL QR ======= -->
 
+    <!-- ======= MODAL CONTACTO ======= -->
+    
+    <div class="modal fade" id="modalContacto" data-bs-backdrop="true" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Datos de contacto</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Correo: <?php echo $correo ?></li>
+              <li class="list-group-item">Telefono: <?php echo $telefono ?></li>
+              
+            </ul>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ======= FIN MODAL CONTACTO ======= -->
+
     <br><br><br><br>
 
     <!------------------------------------------------------------------------------->
@@ -222,7 +318,7 @@
                       <h4><?php echo $txtNombre ?></h4>
                       <p class="text-secondary mb-1"><?php echo $txtDescripcion?></p><br>
                       <button id="QR" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalQR">Generar QR</button>
-                      <button class="btn btn-outline-success" hidden>Contactar Dueño</button>
+                      <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalContacto">Contactar Dueño</button>
                     </div>
                   </div>
                 </div>
@@ -261,18 +357,33 @@
                     <div class="col-sm-3" style="padding-top: 3%;">
                       <h6 class="mb-0">Estado alerta</h6>
                     </div>
-                    <div class="col-sm-1 text-secondary" style="padding-top: 2.5%;">
-                      <div class="<?php echo $colorEstado?>"></div>
+                    <div class="col-sm-1 text-secondary" style="padding: 2.5% 0% 0% 0%;">
+                      <div class="<?php echo $colorEstado?>" style="margin-top: 0.3%;"></div>
                       <p><?php echo $txtEstado?></p>
                     </div>
-                    <div class="col-sm-3 text-secondary">
-                      <p style="text-align: right; padding-top: 2%;">Desde: <?php echo !empty($txtCreacion) ? $txtCreacion : '-----'; ?></p>
+                    <div class="col-sm-3 text-secondary" style="padding-top: 2.5%;">
+                      <p style="text-align: right;">Desde: <?php echo !empty($txtCreacion) ? ($Estado==1 || $Estado==2 ? $txtCreacion : '-----') : '-----'; ?></p> 
                     </div>
-                    <div class="col-sm-3 text-secondary">
-                      <p style="text-align: right; padding-top: 2%;">Hasta: <?php echo !empty($txtCreacion) ? '03/06/2023 19:29:56' : '-----'; ?></p>
+                    <div class="col-sm-3 text-secondary" style="padding-top: 2.5%;">
+                      <p style="text-align: right;">Hasta: <?php echo !empty($txtCreacion) ? ($Estado==1 || $Estado==2 ? $txtCreacionCaduca : '-----') : '-----'; ?></p>
                     </div>
-                    <div class="col-sm-2 text-secondary" style="text-align: center; padding-top: 1%;">
-                      <button class="btn btn-success" hidden>Ampliar</button>
+                    <div class="col-sm-2 text-secondary" style="text-align: center; padding-top: 1.5%;">
+
+                      <form method="POST" id="formAlerta">
+
+                        <input type="hidden" name="idAlerta" value="<?php echo $idAlerta ?>">
+                        <input type="hidden" name="validacion" value="" id=validacionAlerta>
+
+                        <button value ="1" type="submit" name="addTimeAlert" class="btn-hidden" id="addButton" style="font-size: 1.5rem" title="Ampliar tiempo de alerta" <?php $Estado==0 ? 'hidden' : '' ?> >
+                          <i class="fa-regular fa-calendar-plus icon-add" ></i>
+                        </button>
+
+                        <button value ="2" type="submit" name="deleteAlert" class="btn-hidden" id="deleteButton" style="font-size: 1.5rem" title="Eliminar alerta" <?php $Estado==0 ? 'hidden' : '' ?> >
+                          <i class="fa-regular fa-trash-can icon-delete" ></i>
+                        </button>
+
+                      </form>
+
                     </div>
                   </div>
                   
@@ -367,6 +478,31 @@
 
   <div id="preloader"></div>
 
+  <!-- ============= Confirmar Eliminar y Añadir ============= -->
+  <script>
+    document.getElementById('addButton').addEventListener('click', function(event) {
+      // Prevenir el envío del formulario
+      event.preventDefault();
+
+      document.getElementById('validacionAlerta').value = 0;
+
+      document.getElementById('formAlerta').submit();
+
+    });
+
+    document.getElementById('deleteButton').addEventListener('click', function(event) {
+      // Prevenir el envío del formulario
+      event.preventDefault();
+
+      document.getElementById('validacionAlerta').value = 1;
+
+      if (confirm('¿Estás seguro de eliminar la alerta?')) {
+        document.getElementById('formAlerta').submit();
+      }
+    });
+  </script>
+  <!-- ============= END Confirmar Eliminar y Añadir ============= -->
+
   <!-- ============= QR ============= -->
   <script type="text/javascript">
     var qrcode = new QRCode(document.getElementById("qrcode"), {
@@ -388,13 +524,14 @@
     const marcadoresPHP = [
       <?php foreach($mascotaPerdida as $mascota){  ?>
         [ 
-          '<?php echo $mascota['nombreMascota'] ?>', //--------------- 0
-          <?php echo $mascota['latitud'] ?>, //---------------- 1
-          <?php echo $mascota['longitud'] ?>, //--------------- 2
-          '<?php echo $mascota['fotoMascota'] ?>',//------------------ 3
-          '<?php echo $mascota['descripcionPerdida'] ?>',//---- 4
-          '<?php echo $mascota['descripcionPerdida'] ?>',// --- 5
-          <?php echo $mascota['idMascota'] ?>// --------------- 6
+          '<?php echo $mascota['nombreMascota'] ?>', //--------- 0
+          <?php echo $mascota['latitud'] ?>, //----------------- 1
+          <?php echo $mascota['longitud'] ?>, //---------------- 2
+          '<?php echo $mascota['fotoMascota'] ?>',//------------ 3
+          '<?php echo $mascota['descripcionPerdida'] ?>',//----- 4
+          '<?php echo $mascota['descripcionPerdida'] ?>',// ---- 5
+          <?php echo $mascota['idMascota'] ?>,// --------------- 6
+          <?php echo $mascota['estado'] ?>// ------------------- 7
         ],
       <?php } ?>
     ];
@@ -443,28 +580,30 @@
     });
 
 
-
+    
     for ( let i = 0, longitudMarcadores = marcadoresPHP.length; i < longitudMarcadores; i++) {
 
-      let latlng = L.latLng([marcadoresPHP[i][1], marcadoresPHP[i][2]]);
-    
-      const marker = L.marker(latlng,{icon: myIcon}/*,{draggable:'true'}*/)
-        .addTo(map)
-        .bindPopup(`
-          <div class="card text-center" style="width: 18rem;">
-            <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
-              <p class="card-text" style="margin-bottom: 0px;">${marcadoresPHP[i][4]}</p>
-              <p class="card-text" style="margin-top: 0px;">${marcadoresPHP[i][5]}</p>
-              <a href="perfilMascota.php?idMascota=${marcadoresPHP[i][6]}"><button class="btn btn-success">¿Me has visto?</button></a>
-              
+      if (marcadoresPHP[i][7] == 1 || marcadoresPHP[i][7] == 2) {
+
+        let latlng = L.latLng([marcadoresPHP[i][1], marcadoresPHP[i][2]]);
+      
+        const marker = L.marker(latlng,{icon: myIcon}/*,{draggable:'true'}*/)
+          .addTo(map)
+          .bindPopup(`
+            <div class="card text-center" style="width: 18rem;">
+              <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
+                <p class="card-text" style="margin-bottom: 0px;">${marcadoresPHP[i][4]}</p>
+                <p class="card-text" style="margin-top: 0px;">${marcadoresPHP[i][5]}</p>
+                <a href="perfilMascota.php?idMascota=${marcadoresPHP[i][6]}"><button class="btn btn-success">¿Me has visto?</button></a>
+                
+              </div>
             </div>
-          </div>
-        `);
-
+          `);
+      }
     } 
-
+    
   
 
     /*
@@ -508,61 +647,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
   
-
+  
 </body>
 
 </html>
-
-
-
-
-
-<!-- 
-  Crear una tabla "mascotas perdidas" 
-  Atributos:
-    Coordenadas
-    descripcion
-    fechaHoraPerdida
-    IDMascota
-
-  crear formulario (CRUD) para la gestion de mascotas perdidas
-  capturando valores del mapa (e.latlng)
-
-  crear marcadores con informacion de la base de datos (foreach)
-
-  Diseñar popup para las mascotas perdidas.
-
-
-
-
-  CARD PARA MOSTRAR EN EL MAPA
-  
-  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Master Chef</span>
-                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-
-
-
-
--->

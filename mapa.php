@@ -52,12 +52,31 @@
   <?php
     include("assets/config/bd.php");
 
+    ##========================================================================================================
+
+    // Desactivar alertas de mas de una semana 
+   /*  $fechaLimite = date('Y-m-d H:i:s', strtotime('-1 week')); // Resta una semana a la fecha actual
+    $sentenciaSQL=$conexion->prepare("SELECT * FROM mascotaPerdida WHERE fechaHoraPerdida <= '$fechaLimite' AND estado = 1");
+    $sentenciaSQL->execute();
+    $resultado=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach($resultado as $alertaCaducada){  
+      $idPerdida = $alertaCaducada['idPerdida'];
+      //Actualizar el estado en la base de datos
+      $updateSQL=$conexion->prepare("UPDATE mascotaPerdida SET estado = 0 WHERE idPerdida = $idPerdida");
+      $updateSQL->execute();
+    }  */
+
+    ##========================================================================================================
+
     // Traer coordenadas
     $sentenciaSQL=$conexion->prepare("SELECT * FROM mascota INNER JOIN mascotaPerdida ON mascota.idMascota=mascotaPerdida.idMascota;");
     $sentenciaSQL->execute();
     $mascotaPerdida=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
     
   ?>
+
+  
   
 
   <!-- ======= Header ======= -->
@@ -344,14 +363,15 @@
 
     const marcadoresPHP = [
       <?php foreach($mascotaPerdida as $mascota){  ?>
-        [
-          '<?php echo $mascota['nombreMascota'] ?>',// -------------- 0
-          <?php echo $mascota['latitud'] ?>,// --------------- 1 
-          <?php echo $mascota['longitud'] ?>,// -------------- 2
-          '<?php echo $mascota['fotoMascota'] ?>',// ---------------- 3
-          '<?php echo $mascota['descripcion'] ?>',// --------- 4
-          '<?php echo $mascota['descripcionPerdida'] ?>',// --- 5
-          <?php echo $mascota['idMascota'] ?>// --------------- 6
+        [ 
+          '<?php echo $mascota['nombreMascota'] ?>', //--------- 0
+          <?php echo $mascota['latitud'] ?>, //----------------- 1
+          <?php echo $mascota['longitud'] ?>, //---------------- 2
+          '<?php echo $mascota['fotoMascota'] ?>',//------------ 3
+          '<?php echo $mascota['descripcionPerdida'] ?>',//----- 4
+          '<?php echo $mascota['descripcionPerdida'] ?>',// ---- 5
+          <?php echo $mascota['idMascota'] ?>,// --------------- 6
+          <?php echo $mascota['estado'] ?>// ------------------- 7
         ],
       <?php } ?>
     ];
@@ -383,28 +403,29 @@
     });
 
 
-
+    
     for ( let i = 0, longitudMarcadores = marcadoresPHP.length; i < longitudMarcadores; i++) {
 
-      let latlng = L.latLng([marcadoresPHP[i][1], marcadoresPHP[i][2]]);
-    
-      const marker = L.marker(latlng,{icon: myIcon}/*,{draggable:'true'}*/)
-        .addTo(map)
-        .bindPopup(`
-          <div class="card text-center" style="width: 18rem;">
-            <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
-              <p class="card-text" style="margin-bottom: 0px;">${marcadoresPHP[i][4]}</p>
-              <p class="card-text" style="margin-top: 0px;">${marcadoresPHP[i][5]}</p>
-              <a href="perfilMascota.php?idMascota=${marcadoresPHP[i][6]}"><button class="btn btn-success">¿Me has visto?</button></a>
-              
-            </div>
-          </div>
-        `);
+      //if (marcadoresPHP[i][7] == 1) {
         
+        let latlng = L.latLng([marcadoresPHP[i][1], marcadoresPHP[i][2]]);
 
-    } 
+        const marker = L.marker(latlng,{icon: myIcon}/*,{draggable:'true'}*/)
+          .addTo(map)
+          .bindPopup(`
+            <div class="card text-center" style="width: 18rem;">
+              <img class="card-img-top" src="assets/img/mascotas/${marcadoresPHP[i][3]}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">${marcadoresPHP[i][0]}</h5>
+                <p class="card-text" style="margin-bottom: 0px;">${marcadoresPHP[i][4]}</p>
+                <p class="card-text" style="margin-top: 0px;">${marcadoresPHP[i][5]}</p>
+                <a href="perfilMascota.php?idMascota=${marcadoresPHP[i][6]}"><button class="btn btn-success">¿Me has visto?</button></a>
+                
+              </div>
+            </div>
+          `);
+      }
+   // } 
 
   
 
